@@ -1,0 +1,103 @@
+/* Che, on danse ! – Carte des danses
+   Palette reprise de TradMap (creactiviste.fr) : violet #674172, rose #F26579,
+   écorce #4E3B24, sable #FCFAF7, bordures #E6DDD0. Toutes les classes sont préfixées cod-. */
+.cod-wrap {
+  --cod-violet: #674172;
+  --cod-rose: #F26579;
+  --cod-rose-dark: #C9475B;
+  --cod-ink: #4E3B24;
+  --cod-brown: #8C6239;
+  --cod-sand: #FCFAF7;
+  --cod-sand-2: #FAF6F0;
+  --cod-line: #E6DDD0;
+  --cod-teal: #1E555C;
+  box-sizing: border-box;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: var(--cod-sand);
+  border: 1px solid var(--cod-line);
+  border-radius: 16px;
+  overflow: hidden;
+  color: var(--cod-ink);
+  box-shadow: 0 4px 15px rgba(78, 59, 36, 0.05);
+}
+.cod-wrap *, .cod-wrap *::before, .cod-wrap *::after { box-sizing: border-box; }
+
+.cod-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  flex-wrap: wrap;
+  background: var(--cod-violet); color: #FAF8F5; padding: 14px 20px;
+}
+.cod-head-label { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #DECDB6; margin: 0; }
+.cod-head-title { font-size: 18px; font-weight: 800; margin: 2px 0 0; color: #fff; }
+.cod-search {
+  flex: 0 1 280px; min-width: 200px;
+  font: inherit; font-size: 15px;
+  padding: 9px 14px; border-radius: 999px; border: 0;
+  background: rgba(255,255,255,.95); color: var(--cod-ink);
+}
+.cod-search:focus-visible { outline: 3px solid var(--cod-rose); outline-offset: 2px; }
+
+.cod-body { display: grid; grid-template-columns: minmax(0, 1fr) 340px; }
+.cod-map { width: 100%; height: 520px; background: #F4EFEA; z-index: 1; }
+.cod-panel {
+  height: 520px; overflow-y: auto; padding: 20px;
+  background: var(--cod-sand); border-left: 1px solid var(--cod-line);
+}
+@media (max-width: 760px) {
+  .cod-body { grid-template-columns: 1fr; }
+  .cod-map { height: 360px; }
+  .cod-panel { height: auto; max-height: none; border-left: 0; border-top: 1px solid var(--cod-line); }
+}
+
+.cod-kicker { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--cod-brown); margin: 0 0 4px; }
+.cod-panel-title { font-size: 22px; line-height: 1.2; font-weight: 800; margin: 0 0 12px; color: var(--cod-ink); }
+.cod-label { font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--cod-brown); margin: 16px 0 8px; }
+.cod-muted { font-size: 15px; color: #6E5C46; margin: 0 0 14px; line-height: 1.5; }
+.cod-error { color: var(--cod-rose-dark); font-weight: 700; }
+
+.cod-dances { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.cod-dances li {
+  background: var(--cod-rose); color: #fff; font-weight: 800; font-size: 15px;
+  padding: 7px 14px; border-radius: 999px;
+}
+.cod-story { background: var(--cod-sand-2); border: 1px solid var(--cod-line); border-radius: 10px; padding: 4px 14px 10px; margin-top: 16px; }
+.cod-story p { font-size: 15px; line-height: 1.6; margin: 0 0 8px; }
+.cod-story .cod-label { margin-top: 10px; }
+.cod-source { font-size: 13px; color: #6E5C46; margin: 12px 0 0; }
+
+.cod-back {
+  font: inherit; font-size: 14px; font-weight: 700; color: var(--cod-violet);
+  background: none; border: 0; padding: 4px 0; margin: 0 0 12px; cursor: pointer;
+}
+.cod-back:hover { text-decoration: underline; }
+
+.cod-index { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--cod-line); }
+.cod-index li { border-bottom: 1px solid var(--cod-line); }
+.cod-index button {
+  width: 100%; text-align: left; font: inherit; font-size: 15px; font-weight: 700;
+  color: var(--cod-ink); background: none; border: 0; padding: 10px 4px; cursor: pointer;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.cod-index button span { font-size: 13px; font-weight: 400; color: #6E5C46; }
+.cod-index button:hover, .cod-index button:focus-visible { background: #F3ECE2; outline: none; }
+
+/* Marqueurs (inspirés de .wp-target-marker de TradMap) */
+.cod-marker {
+  position: relative; width: 30px; height: 30px; line-height: 26px; text-align: center;
+  font-size: 16px; background: #fff; border: 2px solid var(--cod-teal); border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,.2); cursor: pointer; transition: transform .15s ease;
+}
+.cod-marker:hover { transform: scale(1.12); }
+.cod-marker.is-active { border-color: var(--cod-rose); background: #FFF0F2; transform: scale(1.2); box-shadow: 0 0 0 4px rgba(242,101,121,.3); }
+.cod-marker-count {
+  position: absolute; top: -6px; right: -8px; min-width: 18px; height: 18px; padding: 0 4px;
+  border-radius: 9px; background: var(--cod-violet); color: #fff; font-size: 12px; font-weight: 800; line-height: 18px;
+}
+
+/* Groupes de lieux (Leaflet.markercluster) */
+.cod-cluster {
+  width: 36px; height: 36px; border-radius: 50%; line-height: 30px; text-align: center;
+  background: var(--cod-violet, #674172); color: #fff; font-weight: 800; font-size: 14px;
+  border: 3px solid #fff; box-shadow: 0 0 0 3px rgba(103,65,114,.35), 0 2px 6px rgba(0,0,0,.25); cursor: pointer;
+}

@@ -11,7 +11,9 @@
 <link rel="preload" href="fonts/bodoni-moda-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/work-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+<link rel="stylesheet" href="carte-danses.css">
 </head>
 <body>
 
@@ -119,16 +121,23 @@
     </div>
   </section>
 
-  <!-- MAPA DE FRANCIA -->
+  <!-- MAPA DE LAS DANZAS (módulo carte-danses, estilo TradMap) -->
   <section class="atlas" id="mapa">
     <div class="wrap">
-      <h2 class="h2">Francia, danza por danza</h2>
-      <p class="lede">Cada punto es una danza, en el lugar de donde viene. Tocá un punto para ver de dónde es y mirar el video.</p>
-      <div class="atlas__legend" id="mapLegend"></div>
-      <div class="atlas__grid">
-        <div class="atlas__map"><div id="danceMap" aria-label="Mapa de las danzas de Francia"></div></div>
-        <div class="atlas__panel" id="regionPanel" aria-live="polite"></div>
-      </div>
+      <section class="cod-wrap" aria-label="Mapa de las danzas">
+        <div class="cod-head">
+          <div>
+            <p class="cod-head-label">Mapa de las danzas</p>
+            <p class="cod-head-title">¿De dónde viene esta danza?</p>
+          </div>
+          <input id="cod-search" class="cod-search" type="search" placeholder="Buscar una danza o un lugar" aria-label="Buscar una danza o un lugar">
+        </div>
+        <div class="cod-body">
+          <div id="cod-map" class="cod-map" role="application" aria-label="Mapa interactivo"></div>
+          <aside id="cod-panel" class="cod-panel" aria-live="polite"></aside>
+        </div>
+      </section>
+      <p style="font-size:.85rem;color:var(--muted);margin-top:12px;text-align:center">Datos de lugares y textos: <a href="https://www.creactiviste.fr/jeux/tradmap/" target="_blank" rel="noopener">TradMap – Creactiviste</a>.</p>
     </div>
   </section>
 
@@ -340,9 +349,11 @@
 </dialog>
 
 <script src="js/data.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="js/mapdata.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<script src="js/carte-danses.js"></script>
 <script src="js/app.js"></script>
+<script>CheOnDanseCarte.init({ map: "cod-map", panel: "cod-panel", search: "cod-search", geojsonUrl: "data/danses.geojson" });</script>
 <script async src="https://tally.so/widgets/embed.js"></script>
 </body>
 </html>

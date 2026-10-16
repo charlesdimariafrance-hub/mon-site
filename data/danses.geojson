@@ -1,0 +1,1369 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.4478313,
+          51.1638175
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 51477,
+        "osm_key": "place",
+        "osm_value": "country",
+        "type": "country",
+        "name": "Allemagne",
+        "country": "Allemagne",
+        "countrycode": "DE",
+        "extent": [
+          5.8663153,
+          55.099161,
+          15.0419309,
+          47.2701114
+        ],
+        "description": "Danse populaire non traditionnelle et d'origine incertaine, elle serait allemande ou hongroise. Comme la polka, elle arrive dans les bals parisiens vers 1849. Elle est introduite ensuite en Angleterre sous le nom de German polka.\nSource : Acrofolk\ndanse:Scottish"
+      },
+      "id": "j78lO"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.7507127,
+          48.584614
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 71033,
+        "osm_key": "place",
+        "osm_value": "city",
+        "type": "city",
+        "name": "Alsace, France",
+        "county": "Bas-Rhin",
+        "state": "Grand Est",
+        "country": "France",
+        "postcode": "67000;67100;67200",
+        "countrycode": "FR",
+        "extent": [
+          7.6881371,
+          48.6461896,
+          7.8360646,
+          48.4919357
+        ],
+        "description": "Les Zwiefachen constituent une famille de danses de couple traditionnelles du sud de l'Allemagne, caractérisées par une alternance irrégulière de pas de valse et de pas de dreher. Le Porcher est la seule danse Alsacienne de la famille des zwiefache.\n\ndanse:Porcher"
+      },
+      "id": "qtA80"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.8320589,
+          46.7422328
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 1664976,
+        "osm_key": "place",
+        "osm_value": "village",
+        "type": "city",
+        "name": "Ardentes",
+        "county": "Indre",
+        "state": "Centre-Val de Loire",
+        "country": "France",
+        "postcode": "36120",
+        "countrycode": "FR",
+        "extent": [
+          1.7474905,
+          46.7837841,
+          1.8825632,
+          46.6907303
+        ],
+        "description": "Bourrée de la Brande d'Ardentes a été recueillie à La Preugne en 1937 par Pierre Panis auprès de M. Peru.\n\ndanse:Brande d'Ardentes (bourrée en cercle)"
+      },
+      "id": "6DS4E"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.5190466,
+          46.5885956
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 1030765,
+        "osm_key": "place",
+        "osm_value": "village",
+        "type": "city",
+        "name": "Argenton-sur-Creuse, Indre, France",
+        "county": "Indre",
+        "state": "Centre-Val de Loire",
+        "country": "France",
+        "postcode": "36200",
+        "countrycode": "FR",
+        "extent": [
+          1.4438398,
+          46.6050831,
+          1.5433055,
+          46.5455623
+        ],
+        "description": "Le rond d'Argenton est une danse en cercle où les danseurs s'accompagnent eux-mêmes en chantant. Il tire son nom de la ville d'Argenton-sur-Creuse, dans le sud du Berry. Il y était pratiqué et de nombreux chants y ont été collectés au début du XXᵉ siècle.\nSource : Wikipedia\ndanse:Rond d'Argenton"
+      },
+      "id": "9jK66"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.1140583,
+          45.893012
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 110293,
+        "osm_key": "place",
+        "osm_value": "town",
+        "type": "city",
+        "name": "Auvergne (France)",
+        "county": "Puy-de-Dôme",
+        "state": "Auvergne-Rhône-Alpes",
+        "country": "France",
+        "postcode": "63200",
+        "countrycode": "FR",
+        "extent": [
+          3.0712281,
+          45.9227866,
+          3.1841558,
+          45.8646726
+        ],
+        "description": "La bourrée auvergnate est une danse traditionnelle,  répandue dans tout le Centre de la France. Elle se danse à deux, ou bien à quatre (en « quadrette »). La forme la plus populaire des bals folks est celle de l'association Les Brayauds (CDMDT63) au Gamounet, à Saint-Bonnet-près-Riom.\n\ndanse:Bourrées d'Auvergne / des Brayauds"
+      },
+      "id": "Hoi16"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.1794444,
+          46.9447222
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 154343,
+        "osm_key": "place",
+        "osm_value": "village",
+        "type": "city",
+        "name": "Barbâtre, Île de Noirmoutier, France",
+        "county": "Vendée",
+        "state": "Pays de la Loire",
+        "country": "France",
+        "postcode": "85630",
+        "countrycode": "FR",
+        "extent": [
+          -2.1984703,
+          46.9612993,
+          -2.1466657,
+          46.8933189
+        ],
+        "description": "Barbâtre est l'une des quatre communes de l'Île de Noirmoutier, où de nombreuses danses ont été collectées.\n\ndanse:Rond de Barbâtre\ndanse:Branle de Noirmoutier"
+      },
+      "id": "hC1tA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.5669176,
+          48.4443732
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 973224,
+        "osm_key": "boundary",
+        "osm_value": "administrative",
+        "type": "city",
+        "name": "Bazouges-la-Pérouse, Bretagne, France",
+        "county": "Ille-et-Vilaine",
+        "state": "Bretagne",
+        "country": "France",
+        "postcode": "35560",
+        "countrycode": "FR",
+        "extent": [
+          -1.6224712,
+          48.4914577,
+          -1.5052902,
+          48.3973332
+        ],
+        "description": "L'avant-deux est une famille de danses traditionnelles de l'Ouest de la France, de la famille des contredanses, apparue au cours du XIXᵉ siècle. \nSource : Wikipedia\n\ndanse:Avant-deux de Bazouges"
+      },
+      "id": "jipgf"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1785598,
+          48.2223728
+        ]
+      },
+      "properties": {
+        "osm_type": "N",
+        "osm_id": 5098900131,
+        "osm_key": "place",
+        "osm_value": "locality",
+        "type": "locality",
+        "name": "Bro Kost ar C’hoad",
+        "district": "Le Bout du Pont",
+        "city": "Plélauff",
+        "county": "Côtes-d'Armor",
+        "state": "Bretagne",
+        "country": "France",
+        "postcode": "22570",
+        "countrycode": "FR",
+        "description": "Le kost ar c'hoad (ou kost er c'hoed) est une danse issue de Bretagne centrale, avec une succession caractéristique d'appuis croisés-emboîtés.\nSource : Wikipedia\n\nDanse: Kost ar c'hoad"
+      },
+      "id": "mqEPW"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2614831,
+          44.2920456
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 74516,
+        "osm_key": "place",
+        "osm_value": "village",
+        "type": "city",
+        "name": "Captieux, Gironde, France",
+        "county": "Gironde",
+        "state": "Nouvelle-Aquitaine",
+        "country": "France",
+        "postcode": "33840",
+        "countrycode": "FR",
+        "extent": [
+          -0.3726565,
+          44.3303788,
+          -0.2234046,
+          44.1938903
+        ],
+        "description": "Le congò est une danse traditionnelle de Gascogne. C'est une danse à figures inspirée de la contredanse anglaise. Il se danse généralement sur un pas de rondeau et en quadrettes, où les couples se font face. Il existe plusieurs chorégraphies de congos : Captieux, Luxey et Roquefort.\nSource : Wikipedia\n\ndanse:Congo de Captieux"
+      },
+      "id": "mpvZi"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -35.9722852,
+          -8.2829702
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 303670,
+        "osm_key": "place",
+        "osm_value": "municipality",
+        "type": "city",
+        "name": "Caruaru",
+        "state": "Pernambouc",
+        "country": "Brésil",
+        "countrycode": "BR",
+        "extent": [
+          -36.1806799,
+          -7.9752472,
+          -35.8541722,
+          -8.398782
+        ],
+        "description": "Le forrò est une danse de couple festive du Nordeste brésilien, née au XIXe siècle. Le rythme est dicté par le trio traditionnel : accordéon, triangle et zabumba (gros tambour plat).\nSource : Wikipedia\ndanse:Forrò"
+      },
+      "id": "fGzt8"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.5745043,
+          41.8523094
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 349053,
+        "osm_key": "place",
+        "osm_value": "state",
+        "type": "state",
+        "name": "Catalogne, Espagne",
+        "country": "Espagne",
+        "countrycode": "ES",
+        "extent": [
+          0.1594133,
+          42.8615226,
+          3.3222508,
+          40.5229822
+        ],
+        "description": "La sardane (en catalan Sardana) est une danse traditionnelle catalane où les danseurs en cercle se tiennent par la main, accompagnés par la musique d'un ensemble instrumental appelé cobla. \nSource : Wikipedia\n\ndanse:Sardane"
+      },
+      "id": "669Jd"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2119138,
+          48.3901982
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 387048,
+        "osm_key": "place",
+        "osm_value": "village",
+        "type": "city",
+        "name": "Centre Bretagne",
+        "county": "Côtes-d'Armor",
+        "state": "Bretagne",
+        "country": "France",
+        "postcode": "22480",
+        "countrycode": "FR",
+        "extent": [
+          -3.271277,
+          48.4337849,
+          -3.1832589,
+          48.3857022
+        ],
+        "description": "La danse plinn (en breton dañs tro plin, en rond) est une danse traditionnelle du Centre Bretagne. Son aire de pratique ancienne était située dans la partie bretonnante du département des Côtes-d'Armor, entre Rostrenen et Guingamp du sud au nord et entre Callac et Quintin d'ouest en est.\nSource : Wikipedia\n\ndanse:Plinn"
+      },
+      "id": "DCYIm"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4068973,
+          46.7157648
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 147247,
+        "osm_key": "place",
+        "osm_value": "village",
+        "type": "city",
+        "name": "Clessé, Deux-Sèvres, France",
+        "county": "Deux-Sèvres",
+        "state": "Nouvelle-Aquitaine",
+        "country": "France",
+        "postcode": "79350",
+        "countrycode": "FR",
+        "extent": [
+          -0.4379795,
+          46.7611542,
+          -0.3660093,
+          46.686469
+        ],
+        "description": "Avant-deux en quadrette qui tire son nom d'Albert Coutant, un violoneux traditionnel des Deux-Sèvres.\n\ndanse:Avant deux à Coutant"
+      },
+      "id": "HGpt2"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3772525,
+          51.0347708
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 139610,
+        "osm_key": "place",
+        "osm_value": "city",
+        "type": "city",
+        "name": "Flandre (Belgique et Nord de la France)",
+        "county": "Nord",
+        "state": "Hauts-de-France",
+        "country": "France",
+        "postcode": "59140;59240;59279;59430;59640",
+        "countrycode": "FR",
+        "extent": [
+          2.2397196,
+          51.0581006,
+          2.4465017,
+          50.9759801
+        ],
+        "description": "La Flandre française comprend des danses collectives et danses de couple aux noms exotiques telles que la Polka Surplas, le Flikker, la Valse Adieu ou encore la Zomermorgen.\nSource : Shillelagh.fr\n\ndanse:Pieternelle\ndanse:Gavre"
+      },
+      "id": "apfoa"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -8.9475863,
+          52.6324937
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 6142526,
+        "osm_key": "place",
+        "osm_value": "locality",
+        "type": "locality",
+        "name": "Galway",
+        "district": "Iveruss",
+        "city": "The Municipal District of Adare — Rathkeale",
+        "county": "Comté de Limerick",
+        "country": "Irlande",
+        "countrycode": "IE",
+        "extent": [
+          -8.9536414,
+          52.6351376,
+          -8.9418983,
+          52.6299841
+        ],
+        "description": "Le Reel est la danse (step dancing) et la forme musicale la plus populaire d'Irlande.\nSource : Wikipedia\ndanse:Reel"
+      },
+      "id": "COWoE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.0046747,
+          45.7364762
+        ]
+      },
+      "properties": {
+        "osm_type": "N",
+        "osm_id": 1927328381,
+        "osm_key": "place",
+        "osm_value": "hamlet",
+        "type": "district",
+        "name": "Giat",
+        "city": "Peyrelevade",
+        "county": "Corrèze",
+        "state": "Nouvelle-Aquitaine",
+        "country": "France",
+        "postcode": "19290",
+        "countrycode": "FR",
+        "description": "La bourrée giatte est une forme régionale caractéristique de bourrée à trois temps originaire de la région de Giat, dans le Puy-de-Dôme (Combrailles), au cœur du Massif central. Elle se danse parfois autour de bouteilles.\n\ndanse:La Giatte"
+      },
+      "id": "6ZKKb"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.0487183,
+          60.6478847
+        ]
+      },
+      "properties": {
+        "osm_type": "W",
+        "osm_id": 458467511,
+        "osm_key": "natural",
+        "osm_value": "valley",
+        "type": "other",
+        "name": "Hallingdal, Norvège",
+        "country": "Norvège",
+        "countrycode": "NO",
+        "extent": [
+          8.4103644,
+          60.7018451,
+          9.6264136,
+          60.3661225
+        ],
+        "description": "Le Halling (hallingdansen) est une danse folklorique (bygdedans) traditionnellement dansée en Norvège rurale, bien que des versions du halling peuvent également être trouvés dans certaines parties de la Suède. C’est, à l’origine, la danse des gens de Hallingdal. La danse est traditionnellement réalisée par les jeunes hommes lors de mariages et des fêtes.\nSource : cmtn-scandinavie\ndanse:Halling"
+      },
+      "id": "mMIpj"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -28.3642562,
+          38.4717536
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 4822056,
+        "osm_key": "place",
+        "osm_value": "island",
+        "type": "other",
+        "name": "Île de Pico, Açores, Portugal",
+        "state": "Açores",
+        "country": "Portugal",
+        "countrycode": "PT",
+        "extent": [
+          -28.5418993,
+          38.5614291,
+          -28.0281952,
+          38.3820698
+        ],
+        "description": "La chamarrita est une danse traditionnelle emblématique des Açores, archipel portugais situé au cœur de l’Atlantique. Profondément liée à l’identité et au patrimoine culturel açoriens, elle se décline en plusieurs variantes selon les îles. Il s’agit d’un bailho mandado : une danse circulaire de couples guidés par un·e mandador·a qui improvise les consignes.\nSource : Paris Bal Folk\ndanse:Chamarrita do Pico"
+      },
+      "id": "3yS0N"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          17.2432278,
+          40.4712427
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 40452,
+        "osm_key": "place",
+        "osm_value": "city",
+        "type": "city",
+        "name": "Italie du Sud (Campanie/Pouilles)",
+        "county": "Taranto",
+        "state": "Pouilles",
+        "country": "Italie",
+        "countrycode": "IT",
+        "extent": [
+          17.1165464,
+          40.5915167,
+          17.4727156,
+          40.3301566
+        ],
+        "description": "La pizzica fait partie de la famille des « tarentelles » qui, vers 1400, s'est répandue dans tout le sud de l'Italie. Il est connu sous différents noms dans les dialectes locaux des provinces de Lecce, Brindisi et Tarente, zones où ce rite s'est répandu.\nSource : Turisti in Puglia\n\ndanse:Tarentelle\ndanse:Pizzica"
+      },
+      "id": "b2NnJ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.110707,
+          37.0372714
+        ]
+      },
+      "properties": {
+        "osm_type": "N",
+        "osm_id": 193699922,
+        "osm_key": "place",
+        "osm_value": "city",
+        "type": "city",
+        "name": "Kalamata (Grèce)",
+        "county": "Messénie",
+        "state": "Péloponnèse, Grèce occidentale et Îles Ioniennes",
+        "country": "Grèce",
+        "postcode": "241 00",
+        "countrycode": "GR",
+        "description": "Le kalamatianos est une danse traditionnelle grecque de la région du Péloponnèse.\nSource : Wikipedia\n\ndanse:Kalamatianos"
+      },
+      "id": "Xn1ku"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.500972,
+          43.8911318
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 150319,
+        "osm_key": "place",
+        "osm_value": "town",
+        "type": "city",
+        "name": "Landes (Gascogne, France)",
+        "county": "Landes",
+        "state": "Nouvelle-Aquitaine",
+        "country": "France",
+        "postcode": "40000",
+        "countrycode": "FR",
+        "extent": [
+          -0.5559748,
+          43.9313151,
+          -0.4461954,
+          43.8544441
+        ],
+        "description": "Les rondeaux descendent des branles de la renaissance et peuvent se regrouper en deux grands ensembles : le rondeau en chaîne et le rondeau en couple. Anciennement, le rondeau se dansait au nord des Hautes-Pyrénées, à l'ouest de la Haute-Garonne, dans le Gers, dans une partie du Tarn-et-Garonne, dans les départements des Landes et du Lot-et-Garonne et dans une partie de la Gironde. Schématiquement, on pourrait représenter cette aire par un triangle dont les trois sommets seraient Auch, Mont-de-Marsan et Bordeaux.\nSource : COMDT\n\ndanse:Rondeau en chaîne"
+      },
+      "id": "rsUqC"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.5800364,
+          44.841225
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 105270,
+        "osm_key": "place",
+        "osm_value": "city",
+        "type": "city",
+        "name": "Landes (Gascogne, France)",
+        "county": "Gironde",
+        "state": "Nouvelle-Aquitaine",
+        "country": "France",
+        "postcode": "33000;33100;33200;33300;33800",
+        "countrycode": "FR",
+        "extent": [
+          -0.6386987,
+          44.9161806,
+          -0.5336838,
+          44.8107802
+        ],
+        "description": "Les rondeaux descendent des branles de la renaissance et peuvent se regrouper en deux grands ensembles : le rondeau en chaîne et le rondeau en couple. Anciennement, le rondeau se dansait au nord des Hautes-Pyrénées, à l'ouest de la Haute-Garonne, dans le Gers, dans une partie du Tarn-et-Garonne, dans les départements des Landes et du Lot-et-Garonne et dans une partie de la Gironde. Schématiquement, on pourrait représenter cette aire par un triangle dont les trois sommets seraient Auch, Mont-de-Marsan et Bordeaux.\nSource : COMDT\n\ndanse:Rondeau en couple"
+      },
+      "id": "bFRv4"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.1516551,
+          48.536217
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 62484,
+        "osm_key": "place",
+        "osm_value": "town",
+        "type": "city",
+        "name": "Landshut (Bavière, Allemagne)",
+        "state": "Bavière",
+        "country": "Allemagne",
+        "countrycode": "DE",
+        "extent": [
+          12.0182158,
+          48.5955945,
+          12.2844885,
+          48.5070022
+        ],
+        "description": "Genre musical et danse de couple emblématique de l'espace bavaro-bohémien, inscrit au patrimoine culturel immatériel de l'Allemagne. Sa signature unique réside dans son alternance rythmique irrégulière entre la mesure à trois temps de la valse (Walzer) et la mesure à deux temps du pivot tournant (Dreher). Les danseurs tournent sur place de manière fluide et rapide en s'adaptant continuellement aux cassures de tempo de la musique.\nSource : Wikipedia\ndanse:Zwiefacher"
+      },
+      "id": "PhxEJ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.6195616,
+          42.9982724
+        ]
+      },
+      "properties": {
+        "osm_type": "N",
+        "osm_id": 491486945,
+        "osm_key": "place",
+        "osm_value": "village",
+        "type": "district",
+        "name": "Lantz, Navarre, Espagne",
+        "city": "Lantz",
+        "county": "Iruñerria",
+        "state": "Navarre",
+        "country": "Espagne",
+        "postcode": "31798",
+        "countrycode": "ES",
+        "description": "Le carnaval de Lantz est une des principales festivités du village de Lantz dans la communauté forale de Navarre. Cette fête traditionnelle basque annuelle se déroule sur les trois jours qui précèdent le mercredi des Cendres.\nSource : Wikipedia\ndanse:Carnaval de Lantz"
+      },
+      "id": "W6iZ0"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.2073404,
+          52.5461934
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 130935,
+        "osm_key": "place",
+        "osm_value": "state",
+        "type": "state",
+        "name": "Mazovie (Pologne)",
+        "country": "Pologne",
+        "countrycode": "PL",
+        "extent": [
+          19.2592144,
+          53.4818055,
+          23.1284089,
+          51.013137
+        ],
+        "description": "La mazurka est orignaire de Pologne où on la danse depuis le XVIe siecle dans la province de Mazovie. Au XVIIIe siècle, elle se répand progressivement dans toute l'Europe. C'est à partir de la seconde moitié du XIXe siècle qu'elle apparaît dans les campagnes françaises où elle connaît aussitôt un immense succès. \nSource : Vitrifolk\ndanse:Mazurka (origine historique)"
+      },
+      "id": "IfUqW"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.7508768,
+          44.8170544
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 271971,
+        "osm_key": "place",
+        "osm_value": "village",
+        "type": "city",
+        "name": "Mens, (Dauphiné, France)",
+        "county": "Isère",
+        "state": "Auvergne-Rhône-Alpes",
+        "country": "France",
+        "postcode": "38710",
+        "countrycode": "FR",
+        "extent": [
+          5.6908299,
+          44.8396432,
+          5.8165939,
+          44.7839059
+        ],
+        "description": "Le rigodon (ou rigaudon) est une danse populaire connue pour son appartenance à la tradition dauphinoise. Elle a cependant été très répandue durant tout le XIXe siècle de la Provence jusqu’au Morvan et des Vallées occitanes italiennes jusqu’aux Cévennes. Si son origine est certainement provençale, c’est en Dauphiné et Vivarais que les folkloristes, puis les ethnomusicologues, en ont collecté les formes musicales et chorégraphiques les plus représentatives.\nSource : Modal Media\ndanse:Rigodon\n"
+      },
+      "id": "l1bHN"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          2.448578,
+          43.409038
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 17163695,
+        "osm_key": "place",
+        "osm_value": "region",
+        "type": "other",
+        "name": "Montagne noire (Massif central, France)",
+        "county": "Aveyron",
+        "state": "Occitanie",
+        "country": "France",
+        "countrycode": "FR",
+        "extent": [
+          2.6450148,
+          44.4098484,
+          3.02773,
+          43.993606
+        ],
+        "description": "Branlou, branlon, branlo... Originaire de la Montagne Noire, on le retrouve partout en Occitanie : Tarn, Lauragais, Auvergne, jusqu'au sud de l'Indre.\nSource : Balanquet.org\n\ndanse:Branlou"
+      },
+      "id": "lPM6W"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.5698065,
+          45.5031824
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 1634158,
+        "osm_key": "place",
+        "osm_value": "city",
+        "type": "city",
+        "name": "Montréal",
+        "county": "Agglomération de Montréal",
+        "state": "Québec",
+        "country": "Canada",
+        "countrycode": "CA",
+        "extent": [
+          -73.9741567,
+          45.7047897,
+          -73.4742952,
+          45.4100756
+        ],
+        "description": "Le set câllé, tel qu'il est dansé au Québec au XXe siècle, conserve comme caractéristique d'origine le déroulement progressif et dynamique de la « country dance », née dans les milieux ruraux anglais au XVIIe siècle. Le set québécois comporte de multiples interactions entre quatre couples, ce qui rend indispensable le rôle du câlleur pour guider les danseurs. Les figures exécutées entre les couples de danseurs sont plus importantes que les pas de danse individuels. Toutefois, la « contre-danse » française a tout de même légué au set québécois certains pas popularisée au XVIIe siècle par le célèbre maître de danse Pierre Rameau. Le livre de contredanse découvert à Trois-Rivières confirme l'influence française dans la danse folklorique en Nouvelle-France.\nSource : Répertoire du patrimoine culturel du Québec\ndanse:Set carré"
+      },
+      "id": "aNf7E"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.0863894,
+          47.0978136
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 12105245,
+        "osm_key": "place",
+        "osm_value": "region",
+        "type": "other",
+        "name": "Morvan (France)",
+        "state": "Bourgogne-Franche-Comté",
+        "country": "France",
+        "countrycode": "FR",
+        "extent": [
+          3.611068,
+          47.5123954,
+          4.5414727,
+          46.7054988
+        ],
+        "description": "La bourrée du Morvan fait partie de la grande famille des bourrées à 3 temps du Centre de la France, dont le pas consiste en cellules à 3 appuis. La bourrée du Morvan comprends un pas de bourrée et un pas brancillé.\nSource : Vitrifolk\ndanse:Bourrée du Morvan"
+      },
+      "id": "oOBYU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.000559,
+          55.25
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 88066,
+        "osm_key": "place",
+        "osm_value": "county",
+        "type": "county",
+        "name": "Northumberland (Royaume-Uni)",
+        "state": "Angleterre",
+        "country": "Royaume-Uni",
+        "countrycode": "GB",
+        "extent": [
+          -2.6898096,
+          55.81166,
+          -1.4598735,
+          54.7823703
+        ],
+        "description": "Le cercle circassien est un mixer de la famille des \"big circle\". Originellement dansé sur une mélodie de reel, on le danse aujourd'hui dans les bals folk sur un air de jig. Il a été collecté dans le Northumberland au début du XXe siècle par Maud Karpeles.\nSource : Wikipedia\n\ndanse:Cercle circassien"
+      },
+      "id": "gqbrK"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -92.081509,
+          30.5335302
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 131905,
+        "osm_key": "place",
+        "osm_value": "city",
+        "type": "city",
+        "name": "Opélousas (Louisiane, Etats-Unis)",
+        "county": "Paroisse de Saint-Landry",
+        "state": "Louisiane",
+        "country": "États-Unis d'Amérique",
+        "postcode": "70570",
+        "countrycode": "US",
+        "extent": [
+          -92.119417,
+          30.569655,
+          -92.057135,
+          30.467025
+        ],
+        "description": "Le Zydéco est une danse de couple afro-créole très rythmée et syncopée, née au début du XXe siècle. Elle s'appuie sur de petits pas latéraux ancrés au sol, menés par le son de l'accordéon et du frottoir (planche à laver vestimentaire).\nSource : Wikipedia\nDanse : Zydéco"
+      },
+      "id": "bF9De"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3483915,
+          48.8534951
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 71525,
+        "osm_key": "place",
+        "osm_value": "city",
+        "type": "city",
+        "name": "Paris",
+        "state": "Île-de-France",
+        "country": "France",
+        "countrycode": "FR",
+        "extent": [
+          2.224122,
+          48.902156,
+          2.4697602,
+          48.8155755
+        ],
+        "description": "Danse de bal musette purement parisienne apparue au début des années 1920. Née en réaction à la complexité de la valse, elle se danse en couple très serré.\n\ndanse:La Java"
+      },
+      "id": "1kLRM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.5504787,
+          43.3557594
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 390265,
+        "osm_key": "place",
+        "osm_value": "village",
+        "type": "city",
+        "name": "Pays Basque (France/Espagne)",
+        "county": "Pyrénées-Atlantiques",
+        "state": "Nouvelle-Aquitaine",
+        "country": "France",
+        "postcode": "64310",
+        "countrycode": "FR",
+        "extent": [
+          -1.6196979,
+          43.4005823,
+          -1.5012284,
+          43.2932774
+        ],
+        "description": "Les sauts sont dansés au Pays basque et en Béarn, avec des variantes dans la musique, dans l'enchaînement des pas, et dans l'interprétation des pas qui est même différente selon les provinces du Pays Basque Nord, Labourd, Basse Navarre, et Soule. Au pays basque et en Béarn les sauts portent des noms différents pour la même musique\nSource : Les pieds dans le trad\n\ndanse:Les 7 sauts"
+      },
+      "id": "QA8TP"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.6079458,
+          49.6679567
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 18274588,
+        "osm_key": "place",
+        "osm_value": "region",
+        "type": "other",
+        "name": "Pays de Caux",
+        "state": "Normandie",
+        "country": "France",
+        "countrycode": "FR",
+        "extent": [
+          0.0604241,
+          49.9191779,
+          1.1240384,
+          49.3991331
+        ],
+        "description": "La ronde à trois pas du Pays de Caux est une danse collective normande en ronde emblématique de la Haute-Normandie.\ndanse:Ronde à trois pas"
+      },
+      "id": "nJCYd"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.3324682,
+          45.2219017
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 2935410,
+        "osm_key": "place",
+        "osm_value": "village",
+        "type": "city",
+        "name": "Perpezac-le-Blanc",
+        "county": "Corrèze",
+        "state": "Nouvelle-Aquitaine",
+        "country": "France",
+        "postcode": "19310",
+        "countrycode": "FR",
+        "extent": [
+          1.2826663,
+          45.2381763,
+          1.3632967,
+          45.1910544
+        ],
+        "description": "La sautière  est danse traditionnelle que l’on trouve dans une région très précise, entre l’ouest du département de la Corrèze, l’est de la Dordogne et le sud de la Haute-Vienne.\nSource : CRMTL\ndanse:Sautière"
+      },
+      "id": "PxJcy"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.923549,
+          45.060735
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 44874,
+        "osm_key": "place",
+        "osm_value": "state",
+        "type": "state",
+        "name": "Piémont (Italie)",
+        "country": "Italie",
+        "countrycode": "IT",
+        "extent": [
+          6.6272658,
+          46.4642213,
+          9.2142404,
+          44.0597158
+        ],
+        "description": "Le terme \"brando\" vient de l' italianisation du mot branle français qui signifiait \"donner un mouvement de bascule\". Au delà de la terminologie et bien qu'il existe des points de ressemblance, il est impossible de trouver une continuité certaine entre les Branles de la Renaissance et le brando aussi appelé sbrando ou smarlon. Actuellement il est surtout dansé lors des fêtes des conscrits, d'il piantar di maggio (fête du printemps) et... dans les bals folk.\nSource : Folk en Kélire\ndanse:Sbrando"
+      },
+      "id": "juRLi"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -8.4591491,
+          39.2023528
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 19508714,
+        "osm_key": "boundary",
+        "osm_value": "historic",
+        "type": "other",
+        "name": "Ribatejo (Portugal)",
+        "country": "Portugal",
+        "countrycode": "PT",
+        "extent": [
+          -9.118434,
+          39.8034931,
+          -7.8243609,
+          38.6012092
+        ],
+        "description": "Le Repasseado est une danse portugaise en quadrette.\n\ndanse:Repasseado"
+      },
+      "id": "G1sqr"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.6636947,
+          43.387219
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 166727,
+        "osm_key": "place",
+        "osm_value": "town",
+        "type": "city",
+        "name": "Saint-Jean-de-Luz (Pays Basque)",
+        "county": "Pyrénées-Atlantiques",
+        "state": "Nouvelle-Aquitaine",
+        "country": "France",
+        "postcode": "64500",
+        "countrycode": "FR",
+        "extent": [
+          -1.6698688,
+          43.4222395,
+          -1.5971327,
+          43.3651663
+        ],
+        "description": "Le fandango basque est une danse d’origine espagnole, vraisemblablement andalouse. Proche cousin de la jota aragonaise, il est apparu en Labourd vers 1870.\nSource : Musée Basque de Bayonne\n\ndanse:Fandango"
+      },
+      "id": "f4AW9"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.1466482,
+          47.6998217
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 128104,
+        "osm_key": "place",
+        "osm_value": "village",
+        "type": "city",
+        "name": "Saint-Vincent-sur-Oust (Bretagne, France)",
+        "county": "Morbihan",
+        "state": "Bretagne",
+        "country": "France",
+        "postcode": "56350",
+        "countrycode": "FR",
+        "extent": [
+          -2.1800597,
+          47.7249413,
+          -2.1177043,
+          47.6794458
+        ],
+        "description": "Le Rond de Saint-Vincent appartient à la famille des ronds de Loire-Vilaine. Originaire du pays de Redon, et plus précisément de la commune de Saint-Vincent-sur-Oust dans le Morbihan, le Rond de Saint-Vincent est l'une des danses les plus emblématiques et les plus énergiques de la Haute-Bretagne. Très populaire en fest-noz comme en bal folk, elle est appréciée pour son caractère hypnotique et la force collective qu'elle dégage. \nSource : Acrofolk\ndanse:Rond de Saint-Vincent"
+      },
+      "id": "fQwL6"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.9316667,
+          43.4936111
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 125551,
+        "osm_key": "place",
+        "osm_value": "village",
+        "type": "city",
+        "name": "Samatan (Occitanie, France)",
+        "county": "Gers",
+        "state": "Occitanie",
+        "country": "France",
+        "postcode": "32130",
+        "countrycode": "FR",
+        "extra": {
+          "admin_level": "8"
+        },
+        "extent": [
+          0.8692082,
+          43.5314275,
+          0.9860644,
+          43.4540667
+        ],
+        "description": "La mazurka de Samatan est une variante populaire de la mazurka polonaise du XIXe siècle, très jouée et dansée dans les bals folk en France. Elle sert souvent de référence de base pour l'apprentissage des pas de mazurka en milieu folk.\n\ndanse: Mazurka de Samatan (bal folk)"
+      },
+      "id": "NTV6T"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.8446965,
+          -36.1507222
+        ]
+      },
+      "properties": {
+        "osm_type": "W",
+        "osm_id": 254584358,
+        "osm_key": "highway",
+        "osm_value": "residential",
+        "type": "street",
+        "name": "Santiago del Estero",
+        "city": "Colonia Barón",
+        "county": "Departamento Quemú Quemú",
+        "state": "La Pampa",
+        "country": "Argentine",
+        "postcode": "L6315",
+        "countrycode": "AR",
+        "extent": [
+          -63.8454039,
+          -36.14895,
+          -63.8439996,
+          -36.1524986
+        ],
+        "description": "La chacarera (chakarera en quechua) est un genre musical et une danse traditionnelle en couple originaire du nord d'Argentine (provinces de Catamarca, Salta, Tucumán, Santiago del Estero et Jujuy). \nSource : Wikipedia\nDanse:Chacarera"
+      },
+      "id": "Cqqqa"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.1226783,
+          60.8837542
+        ]
+      },
+      "properties": {
+        "osm_type": "N",
+        "osm_id": 32686890,
+        "osm_key": "place",
+        "osm_value": "town",
+        "type": "city",
+        "name": "Suède",
+        "county": "Comté de Dalécarlie",
+        "country": "Suède",
+        "postcode": "795 03",
+        "countrycode": "SE",
+        "description": "La polska, à ne pas confondre avec la polka, est une danse de couple originaire de Scandinavie. La plus grande diversité de polskas du terroir suédois observables encore aujourd'hui se trouve dans les provinces de Dalécarlie, au centre du pays et dans la petite province de Småland au sud, où chaque commune a sa propre variante.\nSource : Accrofolk\ndanse:Polska"
+      },
+      "id": "jNSge"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          6.911774,
+          46.183634
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 1686699,
+        "osm_key": "place",
+        "osm_value": "state",
+        "type": "state",
+        "name": "Valais (Suisse)",
+        "country": "Suisse",
+        "countrycode": "CH",
+        "extent": [
+          6.7706262,
+          46.6540503,
+          8.4785187,
+          45.8583145
+        ],
+        "description": "La montferrine (ou monfarine, moufrine, etc.) est une danse traditionnelle présente dans plusieurs régions d’Europe, mais particulièrement répandue et préservée dans l’arc alpin. On en trouve des variantes en Suisse (Tessin, Valais, Vaud), en Italie (Piémont, Quatre-Provinces) et en France (Savoie).\nSource : la Vieille Catherine.\n\ndanse:Montferrine"
+      },
+      "id": "xRg6k"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3853059,
+          42.9881386
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 2721530,
+        "osm_key": "boundary",
+        "osm_value": "local_authority",
+        "type": "other",
+        "name": "Vallée d'Ossau (Béarn, France)",
+        "county": "Pyrénées-Atlantiques",
+        "state": "Nouvelle-Aquitaine",
+        "country": "France",
+        "countrycode": "FR",
+        "extent": [
+          -0.5304563,
+          43.180767,
+          -0.2553189,
+          42.7953599
+        ],
+        "description": "Les branles de la Vallée d'Ossau se dansent en chaîne ou en couples. Au XIXe siècle, il est attesté dans les trois vallées principales – Barétous, Aspe et Ossau -, de même qu'en terre de Bigorre, dans la vallée d'Arbéost-Ferrières, limitrophe de la vallée d'Ossau.\nSource : daquidoc.org\n\ndanse:Branle de la Vallée d'Ossau"
+      },
+      "id": "j5xtz"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.7599079,
+          47.6586772
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 192306,
+        "osm_key": "place",
+        "osm_value": "town",
+        "type": "city",
+        "name": "Vannes, Basse-Bretagne, France",
+        "county": "Morbihan",
+        "state": "Bretagne",
+        "country": "France",
+        "postcode": "56000",
+        "countrycode": "FR",
+        "extent": [
+          -2.8155453,
+          47.6945599,
+          -2.6816645,
+          47.6208466
+        ],
+        "description": "L'An-dro (ou en dro) et l'hanter-dro sont des danses traditionnelles bretonnes originaires du pays Vannetais, dans le Morbihan (Basse-Bretagne). An-dro nom signifie « le tour » ou « la ronde » en breton, et hanter-dro signifie demi-tour ou demi-danse.\n\ndanse:An dro\ndanse:Hanter dro"
+      },
+      "id": "GQGIj"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.877431,
+          46.8478091
+        ]
+      },
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 164555,
+        "osm_key": "place",
+        "osm_value": "town",
+        "type": "city",
+        "name": "Vendée, France",
+        "county": "Vendée",
+        "state": "Pays de la Loire",
+        "country": "France",
+        "postcode": "85300",
+        "countrycode": "FR",
+        "extent": [
+          -1.9208871,
+          46.8758254,
+          -1.7634121,
+          46.7899665
+        ],
+        "description": "La Maraichine est une danse issue du Marais vendéen, qui a pris plusieurs formes (ronde, ligne, chaîne moyenne et courte, double front, trio, couples). Le pas se faisait autrefois sur place, par la suite en léger avance-recul, jusqu'à se muer en mouvement plus ample vers l'avant et vers l'arrière.\nLa maraîchine a été réactivée dans l’entre-deux-guerres par certains groupes folkloriques. Ils décident alors de faire démarrer le pas vers l'arrière, pour pouvoir terminer en avançant.\nSources : Yvon Guilcher\n\ndanse:Maraichine"
+      },
+      "id": "CBVGj"
+    }
+  ]
+}
