@@ -156,4 +156,18 @@
   });
   renderCards("all");
 
+  /* Rotación de fotos (cada 5 s, como el video del inicio) */
+  if (!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+    document.querySelectorAll(".split__media.rot").forEach(function (box, k) {
+      var imgs = box.querySelectorAll("img"); if (imgs.length < 2) return;
+      var i = 0;
+      setTimeout(function () {
+        setInterval(function () {
+          imgs[i].classList.remove("is-on"); i = (i + 1) % imgs.length;
+          if (imgs[i].loading === "lazy") imgs[i].loading = "eager";
+          imgs[i].classList.add("is-on");
+        }, 5000);
+      }, k * 1200);
+    });
+  }
 })();

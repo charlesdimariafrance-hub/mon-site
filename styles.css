@@ -312,3 +312,9 @@ em { font-style: italic; }
 .agenda__video video { width: 100%; aspect-ratio: 9/16; background: #000; display: block; }
 @media (max-width: 880px) { .agenda__grid { grid-template-columns: 1fr; } .agenda__poster { max-width: 480px; } }
 @media (max-width: 480px) { .agenda__video { grid-template-columns: 130px 1fr; } }
+
+/* Fotos que rotan en "Otras maneras de aprender" */
+.split__media.rot { position: relative; }
+.split__media.rot img { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease; }
+.split__media.rot img.is-on { opacity: 1; }
+.split__media.rot img.fit { object-fit: contain; background: #fff; }
