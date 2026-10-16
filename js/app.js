@@ -180,12 +180,13 @@
   /* Agenda: lupa que sigue al mouse, línea por línea */
   var poster = document.getElementById("agendaOpen");
   if (poster && window.matchMedia("(hover: hover)").matches) {
-    var lens = poster.querySelector(".agenda__lens"), pimg = poster.querySelector("img"), Z = 2.1;
+    var lens = poster.querySelector(".agenda__lens"), pimg = poster.querySelector("img"), Z = 1.7;
     poster.addEventListener("mousemove", function (e) {
       var r = pimg.getBoundingClientRect(), y = e.clientY - r.top;
       if (y < 0 || y > r.height) { poster.classList.remove("is-lens"); return; }
       poster.classList.add("is-lens");
-      var lw = lens.offsetWidth, lh = lens.offsetHeight;
+      lens.style.width = (r.width * Z) + "px"; lens.style.left = (-r.width * (Z - 1) / 2) + "px";
+      var lw = r.width * Z, lh = lens.offsetHeight;
       lens.style.top = (y - lh / 2) + "px";
       lens.style.backgroundSize = (r.width * Z) + "px " + (r.height * Z) + "px";
       lens.style.backgroundPosition = (lw / 2 - r.width * Z / 2) + "px " + (lh / 2 - y * Z) + "px";

@@ -329,7 +329,7 @@ em { font-style: italic; }
 
 /* Agenda: lupa por línea y video que crece */
 .agenda__poster { overflow: visible; }
-.agenda__lens { position: absolute; left: -12%; width: 124%; height: 96px; pointer-events: none; display: none; background-image: url(img/agenda.jpg); background-repeat: no-repeat; border: 2px solid #C9A45C; box-shadow: 0 16px 40px rgba(0,0,0,.45); z-index: 5; }
+.agenda__lens { position: absolute; height: 110px; pointer-events: none; display: none; background-image: url(img/agenda.jpg); background-repeat: no-repeat; border: 2px solid #C9A45C; box-shadow: 0 16px 40px rgba(0,0,0,.45); z-index: 5; }
 .agenda__poster.is-lens .agenda__lens { display: block; }
 .agenda__poster.is-lens .agenda__zoom { display: none; }
 .agenda__video { grid-template-columns: 200px 1fr; align-items: start; }
