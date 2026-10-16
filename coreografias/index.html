@@ -2485,6 +2485,7 @@ $('#audioViewSpec').onclick=()=>setAudioViewMode('spec');
       for (var idx in (figureAudioURLs || {})) {
         var u = figureAudioURLs[idx];
         if (u && /^(blob:|data:)/.test(u) && audioSaved[idx] !== u) { var b = await (await fetch(u)).blob(); await put('audio-' + idx, b); audioSaved[idx] = u; }
+        if (u && !/^(blob:|data:|https?:)/i.test(u)) { o.mediaRefs = o.mediaRefs || { audio: {}, videos: {} }; o.mediaRefs.audio = o.mediaRefs.audio || {}; o.mediaRefs.audio[idx] = u; }
         if (u && /^(blob:|data:)/.test(u)) { o.mediaRefs = o.mediaRefs || { audio: {}, videos: {} }; o.mediaRefs.audio = o.mediaRefs.audio || {}; o.mediaRefs.audio[idx] = 'idb:audio-' + idx; }
       }
       var s = JSON.stringify(o);
