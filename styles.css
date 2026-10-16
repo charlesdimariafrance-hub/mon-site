@@ -259,3 +259,11 @@ em { font-style: italic; }
   .card__play { left: 8px; bottom: 8px; font-size: .72rem; padding: 4px 8px; }
   .filters { gap: 2px 18px; }
 }
+
+/* Fotos propias (sin bandas negras de YouTube) */
+.tile img.own, .split__media img.own { transform: none; opacity: 1; }
+.tile:hover img.own { transform: scale(1.04); }
+.team__photo { margin: 0 0 clamp(32px, 5vw, 56px); display: grid; grid-template-columns: minmax(0, 520px) 1fr; gap: 20px; align-items: end; }
+.team__photo img { width: 100%; aspect-ratio: 1080 / 1050; object-fit: cover; }
+.team__photo figcaption { font: italic 400 1.1rem var(--serif); color: var(--muted); }
+@media (max-width: 700px) { .team__photo { grid-template-columns: 1fr; } }
