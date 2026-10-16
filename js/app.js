@@ -95,6 +95,7 @@
     }));
     mLists.querySelectorAll(".vbtn").forEach(function (b) { b.setAttribute("aria-current", b.dataset.id === id ? "true" : "false"); });
   };
+  window.cheOpenDance = function (n) { var d = D.filter(function (x) { return x.n === n; })[0]; if (d) openDance(d); };
   var openDance = function (d) {
     mTitle.textContent = d.n;
     mLists.innerHTML = "";

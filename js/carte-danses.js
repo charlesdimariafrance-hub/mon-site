@@ -69,6 +69,7 @@
       country: p.region || p.country || '',
       terroir: p.terroir || '',
       items: items,
+      label: p.label || '',
       lat: g.coordinates[1],
       lng: g.coordinates[0],
       dances: dances,
@@ -139,13 +140,14 @@
       return '<button type="button" class="cod-back" data-back="1">\u2190 Todas las danzas</button>' +
         '<p class="cod-kicker">' + esc(p.country) + (p.terroir && p.terroir !== p.country ? ' \u00b7 ' + esc(p.terroir) : '') + '</p>' +
         '<h2 class="cod-panel-title">' + esc(p.name) + '</h2>' +
+        (p.label ? '<p class="cod-aprox">' + esc(p.label) + '</p>' : '') +
         p.items.map(function (d) {
           return '<article class="cod-dance">' +
             '<h3 class="cod-dance-name">' + esc(d.danse) + '</h3>' +
             (d.video ? '<button type="button" class="cod-video" data-yt="' + esc(d.video) + '" aria-label="Ver el video de ' + esc(d.danse) + '">' +
               '<img src="https://i.ytimg.com/vi/' + esc(d.video) + '/hqdefault.jpg" alt="" loading="lazy"><span class="cod-play"></span></button>' : '') +
             (d.description ? '<p class="cod-dance-desc">' + esc(d.description) + '</p>' : '') +
-            (APROX[d.precision] ? '<p class="cod-aprox">' + APROX[d.precision] + '</p>' : '') +
+            (!p.label && APROX[d.precision] ? '<p class="cod-aprox">' + APROX[d.precision] + '</p>' : '') +
             (d.source_principale ? '<p class="cod-source">Fuente: <a href="' + esc(d.source_principale) + '" target="_blank" rel="noopener">' + esc(host(d.source_principale)) + '</a></p>' : '') +
             '</article>';
         }).join('');
