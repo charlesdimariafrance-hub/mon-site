@@ -326,3 +326,24 @@ em { font-style: italic; }
 .lightbox::backdrop { background: rgba(0,0,0,.85); }
 .lightbox img { display: block; width: min(100%, 1125px); height: auto; margin: 0 auto; }
 .lightbox__close { position: fixed; top: 12px; right: 16px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(255,255,255,.92); color: var(--ink); font-size: 28px; line-height: 1; cursor: pointer; z-index: 2; }
+
+/* Agenda: lupa por línea y video que crece */
+.agenda__poster { overflow: visible; }
+.agenda__lens { position: absolute; left: -12%; width: 124%; height: 96px; pointer-events: none; display: none; background-image: url(img/agenda.jpg); background-repeat: no-repeat; border: 2px solid #C9A45C; box-shadow: 0 16px 40px rgba(0,0,0,.45); z-index: 5; }
+.agenda__poster.is-lens .agenda__lens { display: block; }
+.agenda__poster.is-lens .agenda__zoom { display: none; }
+.agenda__video { grid-template-columns: 200px 1fr; align-items: start; }
+.agenda__vid { position: relative; z-index: 4; }
+.agenda__vid video { transition: transform .35s ease, box-shadow .35s ease; transform-origin: left top; }
+@media (hover: hover) and (min-width: 900px) { .agenda__vid:hover video { transform: scale(1.9); box-shadow: 0 24px 60px rgba(0,0,0,.35); } }
+.agenda__steps ol { margin: .8rem 0 1.4rem; padding-left: 1.3rem; }
+.agenda__steps li { margin: 0 0 .7rem; line-height: 1.5; }
+.agenda__steps a { color: var(--red); }
+.copyrow { display: flex; gap: 8px; align-items: center; margin-top: 6px; flex-wrap: wrap; }
+.copyrow code { background: var(--paper); border: 1px solid var(--line); padding: 6px 10px; font: 500 .92rem/1 ui-monospace, monospace; color: var(--ink); }
+.copybtn { background: var(--red); color: #fff; border: 0; padding: 7px 14px; font: 500 .9rem var(--sans); cursor: pointer; }
+.copybtn.is-ok { background: #2f7d4f; }
+.agenda__links { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn--line { border-color: var(--ink); color: var(--ink); }
+.btn--line:hover { background: var(--ink); color: var(--paper); }
+@media (max-width: 480px) { .agenda__video { grid-template-columns: 1fr; } .agenda__vid { max-width: 220px; } }

@@ -177,4 +177,27 @@
     document.getElementById("agendaClose").addEventListener("click", function () { aBox.close(); });
     aBox.addEventListener("click", function (e) { if (e.target === aBox) aBox.close(); });
   }
+  /* Agenda: lupa que sigue al mouse, línea por línea */
+  var poster = document.getElementById("agendaOpen");
+  if (poster && window.matchMedia("(hover: hover)").matches) {
+    var lens = poster.querySelector(".agenda__lens"), pimg = poster.querySelector("img"), Z = 2.1;
+    poster.addEventListener("mousemove", function (e) {
+      var r = pimg.getBoundingClientRect(), y = e.clientY - r.top;
+      if (y < 0 || y > r.height) { poster.classList.remove("is-lens"); return; }
+      poster.classList.add("is-lens");
+      var lw = lens.offsetWidth, lh = lens.offsetHeight;
+      lens.style.top = (y - lh / 2) + "px";
+      lens.style.backgroundSize = (r.width * Z) + "px " + (r.height * Z) + "px";
+      lens.style.backgroundPosition = (lw / 2 - r.width * Z / 2) + "px " + (lh / 2 - y * Z) + "px";
+    });
+    poster.addEventListener("mouseleave", function () { poster.classList.remove("is-lens"); });
+  }
+  /* Copiar en un clic */
+  document.querySelectorAll(".copybtn").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var t = b.dataset.copy, done = function () { b.textContent = "¡Copiado!"; b.classList.add("is-ok"); setTimeout(function () { b.textContent = "Copiar"; b.classList.remove("is-ok"); }, 2000); };
+      if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, function () { prompt("Copiá el enlace:", t); });
+      else prompt("Copiá el enlace:", t);
+    });
+  });
 })();

@@ -219,17 +219,30 @@
   <!-- AGENDA -->
   <section class="agenda" id="agenda">
     <div class="wrap agenda__grid">
-      <button type="button" class="agenda__poster" id="agendaOpen" aria-label="Ampliar la agenda"><img src="img/agenda.jpg" alt="Agenda de presentaciones de Che, on danse!, octubre a diciembre de 2026" loading="lazy"><span class="agenda__zoom">Tocá para ampliar</span></button>
+      <button type="button" class="agenda__poster" id="agendaOpen" aria-label="Ampliar la agenda"><img src="img/agenda.jpg" alt="Agenda de presentaciones de Che, on danse!, octubre a diciembre de 2026" loading="lazy"><span class="agenda__lens" aria-hidden="true"></span><span class="agenda__zoom">Pasá el mouse para leer · tocá para ampliar</span></button>
       <div class="agenda__text">
         <p class="booking__eyebrow" style="color:var(--red)">Octubre · Noviembre · Diciembre 2026</p>
         <h2 class="h2">Agenda de presentaciones</h2>
         <p>Brunch &amp; Bal, Feria de las Naciones, Noche de Vinos y Quesos, la llegada de Isabelle, acordeonista, y un viaje a Pigüé en diciembre.</p>
         <p class="agenda__cta">¿Querés bailar con nosotros en estas presentaciones? Escribinos cuanto antes a <a href="mailto:cheondanse@gmail.com?subject=Quiero%20bailar%20en%20las%20presentaciones">cheondanse@gmail.com</a>.</p>
         <div class="agenda__video">
-          <video src="img/brunch-historia.mp4" poster="img/brunch-historia.jpg" controls playsinline preload="none"></video>
-          <div>
+          <div class="agenda__vid"><video src="img/brunch-historia.mp4" poster="img/brunch-historia.jpg" controls playsinline preload="none"></video></div>
+          <div class="agenda__steps">
             <h3 class="h3">Compartí el Brunch &amp; Bal en tu historia</h3>
-            <p>Un minuto, paso a paso, para invitar a tus amigos desde Instagram.</p>
+            <p>Nos ayudás mucho invitando a tus amigos. Desde el celular:</p>
+            <ol>
+              <li><strong>Copiá el enlace de inscripción</strong> antes de abrir Instagram:
+                <span class="copyrow"><code id="brunchLink">https://tally.so/r/dWEWAV</code><button type="button" class="copybtn" data-copy="https://tally.so/r/dWEWAV">Copiar</button></span></li>
+              <li><strong>Abrí la publicación del Brunch &amp; Bal</strong> en <a href="https://www.instagram.com/reel/DeVyN1XB2EO/" target="_blank" rel="noopener">el Instagram de Che, on danse!</a></li>
+              <li>Tocá la <strong>flechita para compartir</strong> y elegí <strong>«Agregar a historia»</strong>.</li>
+              <li>Tocá el <strong>ícono de stickers</strong> y elegí el sticker <strong>«Enlace»</strong>.</li>
+              <li><strong>Pegá el enlace</strong> en «URL» y escribí un texto corto, por ejemplo «Reservá tu lugar».</li>
+              <li>Acomodá el sticker y tocá <strong>«Tus historias»</strong>.</li>
+            </ol>
+            <div class="agenda__links">
+              <a class="btn btn--ink" href="https://www.instagram.com/reel/DeVyN1XB2EO/" target="_blank" rel="noopener">Abrir la publicación</a>
+              <a class="btn btn--line" href="https://www.instagram.com/che.on.danse/" target="_blank" rel="noopener">@che.on.danse</a>
+            </div>
           </div>
         </div>
       </div>
