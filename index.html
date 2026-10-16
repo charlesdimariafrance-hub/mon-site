@@ -1,28 +1,341 @@
 <!doctype html>
-<html lang="fr">
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Charles Stuart Di Maria</title>
-<style>
-  :root { --bg:#faf8f4; --ink:#1d1b18; --muted:#6b665e; --accent:#c8692c; }
-  @media (prefers-color-scheme: dark) { :root { --bg:#16140f; --ink:#f2eee6; --muted:#a39d92; } }
-  * { box-sizing:border-box; margin:0; }
-  body { min-height:100vh; display:grid; place-items:center; background:var(--bg); color:var(--ink);
-         font-family: Georgia, "Times New Roman", serif; padding:24px; }
-  main { max-width:560px; text-align:center; }
-  .dot { width:10px; height:10px; border-radius:50%; background:var(--accent); margin:0 auto 28px;
-         animation:pulse 2s ease-in-out infinite; }
-  h1 { font-size:clamp(2rem,6vw,3rem); font-weight:normal; letter-spacing:-.01em; }
-  p { margin-top:16px; color:var(--muted); font-family: system-ui, sans-serif; font-size:1.05rem; }
-  @keyframes pulse { 50% { opacity:.3; transform:scale(.8); } }
-</style>
+<title>Che, on danse! · Danzas tradicionales francesas en Buenos Aires</title>
+<meta name="description" content="Clases de danzas tradicionales francesas en Buenos Aires: sábados en el Liceo Jean Mermoz, tutoriales, música, bal folk y comunidad. Primera clase gratis.">
+<meta property="og:title" content="Che, on danse! · Bailar Francia, en Buenos Aires">
+<meta property="og:description" content="Clases, música, encuentros y proyectos alrededor de las danzas tradicionales francesas.">
+<meta name="theme-color" content="#18233A">
+<link rel="preload" href="fonts/bodoni-moda-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/work-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<main>
-  <div class="dot"></div>
-  <h1>Charles Stuart Di Maria</h1>
-  <p>Le site arrive bientôt.</p>
+
+<a class="skip" href="#main">Ir al contenido</a>
+
+<div class="utility">
+  <div class="wrap utility__row">
+    <nav class="utility__left" aria-label="Accesos rápidos">
+      <a href="#clases">Clases</a>
+      <a href="#tienda">Tienda</a>
+    </nav>
+    <div class="utility__right">
+      <a href="https://www.instagram.com/che.on.danse/" target="_blank" rel="noopener">Instagram</a>
+      <a href="mailto:cheondanse@gmail.com">cheondanse@gmail.com</a>
+    </div>
+  </div>
+</div>
+
+<header class="header" id="top">
+  <div class="wrap header__row">
+    <a class="brand" href="#top" aria-label="Che, on danse! Inicio">Che, on danse!</a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menú</button>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a href="#clases">Clases</a>
+      <a href="#mapa">Mapa</a>
+      <a href="#danzas">Danzas</a>
+      <a href="#aprender">Aprender</a>
+      <a href="#encuentros">Encuentros</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#tienda">Tienda</a>
+      <a class="btn btn--red nav__cta" href="#reservar">Reservar</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO con video -->
+  <section class="hero" aria-label="Presentación">
+    <div class="hero__media" id="heroMedia"></div>
+    <div class="hero__shade"></div>
+    <div class="wrap hero__content">
+      <p class="hero__kicker">Danzas tradicionales francesas</p>
+      <h1 class="hero__title">Bailar Francia,<br>en Buenos Aires.</h1>
+      <p class="hero__lead">Clases, música, encuentros y proyectos culturales alrededor del <em>bal folk</em>. Sin trajes, de forma simple y alegre.</p>
+      <div class="hero__actions">
+        <a class="btn btn--red" href="#reservar">Probar una clase gratis</a>
+        <a class="btn btn--ghost" href="#mapa">Recorrer las danzas</a>
+      </div>
+    </div>
+    <button class="hero__toggle" id="heroToggle" hidden>Pausar video</button>
+  </section>
+
+  <!-- BIENVENIDA -->
+  <section class="welcome" id="clases">
+    <div class="wrap welcome__grid">
+      <div>
+        <h2 class="h2">Unas treinta danzas rurales de Francia, cada sábado.</h2>
+        <p class="lede">Aprendemos las danzas tal como se bailan hoy en los <em>bals folk</em> y <em>bals trad</em> de Francia: rondas bretonas, bourrées del Berry, valses, mazurkas y mixers para cambiar de pareja. No hace falta experiencia ni venir en pareja.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>Dónde</dt><dd>Liceo Franco-Argentino Jean Mermoz<br>Ramsay 2131, CABA</dd></div>
+        <div><dt>Principiantes</dt><dd>Sábados de 14:30 a 16:00</dd></div>
+        <div><dt>Intermedios</dt><dd>Sábados de 16:30 a 18:00</dd></div>
+        <div><dt>Primera clase</dt><dd>Gratis, con inscripción previa por razones de seguro</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- DOS TEJAS (estructura Pineapple) -->
+  <section class="duo wrap" aria-label="Lo principal">
+    <a class="tile" href="#reservar">
+      <img src="https://i.ytimg.com/vi/qZnkDnLcZ2s/hqdefault.jpg" alt="" loading="lazy">
+      <span class="tile__body">
+        <span class="tile__title">Clases presenciales</span>
+        <span class="tile__text">Sábados en Belgrano, por niveles</span>
+      </span>
+    </a>
+    <a class="tile" href="#danzas">
+      <img src="https://i.ytimg.com/vi/AboYFHR80c8/hqdefault.jpg" alt="" loading="lazy">
+      <span class="tile__body">
+        <span class="tile__title">Tutoriales de danza y música</span>
+        <span class="tile__text">33 danzas con videos y partituras</span>
+      </span>
+    </a>
+  </section>
+
+  <!-- RESERVA -->
+  <section class="booking" id="reservar">
+    <div class="wrap booking__grid">
+      <div class="booking__text">
+        <h2 class="h2 h2--light">Reservá tu sábado</h2>
+        <p>Completá el formulario para tu clase de prueba gratuita o para elegir el sábado al que vas a asistir. Te confirmamos por email.</p>
+        <ul class="booking__list">
+          <li><strong>Principiantes</strong> 14:30 a 16:00</li>
+          <li><strong>Intermedios</strong> 16:30 a 18:00</li>
+          <li><strong>Lugar</strong> Ramsay 2131, CABA</li>
+        </ul>
+        <p class="booking__alt">¿Preferís abrirlo aparte? <a href="https://tally.so/r/dWEWAV" target="_blank" rel="noopener">Abrir el formulario en otra pestaña</a></p>
+      </div>
+      <div class="booking__form">
+        <iframe data-tally-src="https://tally.so/embed/dWEWAV?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1" loading="lazy" width="100%" height="620" title="Formulario de inscripción"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAPA DE FRANCIA -->
+  <section class="atlas" id="mapa">
+    <div class="wrap">
+      <h2 class="h2">Francia, región por región</h2>
+      <p class="lede">Cada danza viene de un lugar. Tocá una región para ver lo que bailamos de allí.</p>
+      <div class="atlas__grid">
+        <div class="atlas__map">
+          <svg id="franceMap" role="group" aria-label="Mapa de las regiones de Francia"></svg>
+        </div>
+        <div class="atlas__panel" id="regionPanel" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DANZAS -->
+  <section class="dances" id="danzas">
+    <div class="wrap">
+      <h2 class="h2">Danzas, tutoriales y música</h2>
+      <p class="lede">Para repasar en casa lo que vimos en clase. Cada ficha tiene el tutorial, la música y, cuando existe, la partitura.</p>
+      <div class="filters" role="tablist" aria-label="Filtrar por tipo de danza" id="filters"></div>
+      <div class="cards" id="cards"></div>
+    </div>
+  </section>
+
+  <!-- APRENDER: bloques alternados -->
+  <section class="learn" id="aprender">
+    <div class="wrap">
+      <h2 class="h2">Otras maneras de aprender</h2>
+
+      <article class="split">
+        <div class="split__media"><img src="https://i.ytimg.com/vi/SOMAKkDINZU/hqdefault.jpg" alt="" loading="lazy"></div>
+        <div class="split__body">
+          <h3 class="h3">Danza online para alumnos</h3>
+          <p>Una clase por Zoom para avanzar más rápido o trabajar los pasos que te cuestan. Sesiones de una hora y media, los lunes, entre las 8:00 y las 22:30 hora de Buenos Aires.</p>
+          <p class="split__price">ARS 10.000 por sesión</p>
+          <a class="btn btn--ink" href="https://tally.so/r/bZV9j7" target="_blank" rel="noopener">Solicitar clases online</a>
+        </div>
+      </article>
+
+      <article class="split split--flip">
+        <div class="split__media"><img src="https://i.ytimg.com/vi/04RdjP2y0Aw/hqdefault.jpg" alt="" loading="lazy"></div>
+        <div class="split__body">
+          <h3 class="h3">Formación online para docentes</h3>
+          <p>Aprendé a enseñar danzas tradicionales francesas, organizar un taller y construir progresiones pedagógicas. Pensada para quienes viven en otras provincias: recursos imprimibles y encuentros por videollamada.</p>
+          <a class="btn btn--ink" href="https://cheondanse.super.site/quines-somos/formacin-online-en-danzas-tradicionales-francesas-sept-oct-2026" target="_blank" rel="noopener">Ver la formación</a>
+        </div>
+      </article>
+
+      <article class="split">
+        <div class="split__media"><img src="https://i.ytimg.com/vi/A186jBMs6sE/hqdefault.jpg" alt="" loading="lazy"></div>
+        <div class="split__body">
+          <h3 class="h3">Pedagogía</h3>
+          <p>Fichas de danza con origen, región, ritmo, pasos y variantes. Diagramas cinéticos, espectrogramas para escuchar la música y recursos para docentes.</p>
+          <a class="btn btn--ink" href="https://uneven-increase-231.notion.site/3faf81c2eced81889010e13f13727dd6" target="_blank" rel="noopener">Explorar la pedagogía</a>
+        </div>
+      </article>
+
+      <article class="split split--flip">
+        <div class="split__media"><img src="https://i.ytimg.com/vi/1_wyypH_3LE/hqdefault.jpg" alt="" loading="lazy"></div>
+        <div class="split__body">
+          <h3 class="h3">Francés</h3>
+          <p>Clases presenciales u online que unen lengua, canciones, danza y cultura: vocabulario, consignas y las regiones de Francia.</p>
+          <a class="btn btn--ink" href="mailto:cheondanse@gmail.com?subject=Clases%20de%20franc%C3%A9s">Consultar disponibilidad</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ENCUENTROS Y PROYECTOS: grilla 3x2 -->
+  <section class="meet" id="encuentros">
+    <div class="wrap">
+      <h2 class="h2">Música, encuentros y comunidad</h2>
+      <div class="grid6">
+        <a class="block block--ink" href="https://uneven-increase-231.notion.site/3faf81c2eced81a79e41e03f4fff9f57" target="_blank" rel="noopener">
+          <span class="block__title">Session Trad BA</span>
+          <span class="block__text">Un ensamble mensual para aprender y tocar música tradicional francesa. Violín, acordeón, flauta, gaita, zanfona: todos los instrumentos son bienvenidos.</span>
+        </a>
+        <a class="block block--sky" href="https://tally.so/r/dWEWAV" target="_blank" rel="noopener">
+          <span class="block__title">Brunch &amp; Bal</span>
+          <span class="block__text">Un domingo de brunch, música, iniciación y danzas colectivas. La mejor puerta de entrada a la comunidad.</span>
+        </a>
+        <a class="block block--red" href="https://uneven-increase-231.notion.site/3faf81c2eced81d1a7b0f1fb5d35d62d" target="_blank" rel="noopener">
+          <span class="block__title">Bistrot Bal</span>
+          <span class="block__text">Encuentros que combinan gastronomía, cultura y baile.</span>
+        </a>
+        <a class="block block--mist" href="https://uneven-increase-231.notion.site/3faf81c2eced813f8d4ee82fd3a3710f" target="_blank" rel="noopener">
+          <span class="block__title">Proyecto Gennetines</span>
+          <span class="block__text">Un viaje colectivo desde Argentina al Grand Bal de l’Europe, en Francia, para bailar, aprender y volver a compartir.</span>
+        </a>
+        <a class="block block--ink" href="https://uneven-increase-231.notion.site/3faf81c2eced8125aa21daf0d2285f40" target="_blank" rel="noopener">
+          <span class="block__title">Grand Bal Argentina</span>
+          <span class="block__text">Un festival en Argentina con talleres, música y danzas del mundo.</span>
+        </a>
+        <a class="block block--sky" href="#tienda">
+          <span class="block__title">Tienda</span>
+          <span class="block__text">Remeras, cartas pedagógicas y vestuario de Che, on danse!</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section class="team" id="equipo">
+    <div class="wrap">
+      <h2 class="h2">Quiénes somos</h2>
+      <div class="team__grid">
+        <article class="person">
+          <div class="person__mono" aria-hidden="true">CD</div>
+          <h3 class="h3">Charles Di Maria</h3>
+          <p class="person__role">Profesor de danza y de francés</p>
+          <p>Parisino, vive en Buenos Aires desde hace catorce años. Intérprete titulado en danzas clásicas y contemporáneas, anima los encuentros semanales para tejer lazos entre argentinos y franceses.</p>
+        </article>
+        <article class="person">
+          <div class="person__mono person__mono--sky" aria-hidden="true">GD</div>
+          <h3 class="h3">Geraldine Darnond</h3>
+          <p class="person__role">Cofundadora, docente de francés</p>
+          <p>Argentina, nieta de un lionés. Formada en teatro y composición de canciones, anima desde 2025 talleres semanales con danzas en círculo y cantos.</p>
+        </article>
+        <article class="person">
+          <div class="person__mono person__mono--red" aria-hidden="true">JG</div>
+          <h3 class="h3">Jérôme Guillot</h3>
+          <p class="person__role">Acordeón diatónico</p>
+          <p>Autor del disco <em>Collage</em>, con composiciones propias, y miembro del grupo folk argentino Fiesta Noz.</p>
+          <a class="link" href="https://www.jamendo.com/album/67492/collage" target="_blank" rel="noopener">Escuchar el álbum</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIENDA -->
+  <section class="shop" id="tienda">
+    <div class="wrap">
+      <h2 class="h2">Tienda</h2>
+      <p class="lede">Catálogo en preparación. Consultá la disponibilidad antes de hacer un pedido.</p>
+      <div class="shop__grid">
+        <a class="product" href="mailto:cheondanse@gmail.com?subject=Tienda%3A%20remeras">
+          <span class="product__art product__art--ink">Che, on danse!</span>
+          <span class="product__name">Remeras</span>
+          <span class="product__cta">Consultar</span>
+        </a>
+        <a class="product" href="mailto:cheondanse@gmail.com?subject=Tienda%3A%20cartas%20pedag%C3%B3gicas">
+          <span class="product__art product__art--sky">Andro<br>Gavotte<br>Bourrée</span>
+          <span class="product__name">Cartas pedagógicas</span>
+          <span class="product__cta">Consultar</span>
+        </a>
+        <a class="product" href="mailto:cheondanse@gmail.com?subject=Tienda%3A%20vestuario">
+          <span class="product__art product__art--red">Faldas, blusas<br>y pañuelos</span>
+          <span class="product__name">Vestuario</span>
+          <span class="product__cta">Consultar</span>
+        </a>
+        <a class="product" href="mailto:cheondanse@gmail.com?subject=Tienda%3A%20series%20especiales">
+          <span class="product__art product__art--mist">Series de<br>encuentros</span>
+          <span class="product__name">Pequeñas series</span>
+          <span class="product__cta">Consultar</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DÓNDE: reserva + mapa del lugar -->
+  <section class="place" id="donde">
+    <div class="place__map">
+      <iframe data-map-src="https://maps.google.com/maps?q=Liceo%20Franco%20Argentino%20Jean%20Mermoz%2C%20Ramsay%202131%2C%20Buenos%20Aires&amp;z=15&amp;output=embed" loading="lazy" title="Mapa: Liceo Jean Mermoz, Ramsay 2131" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <div class="place__info">
+      <h2 class="h2 h2--light">Dónde bailamos</h2>
+      <p class="place__addr">Liceo Franco-Argentino Jean Mermoz<br>Ramsay 2131, Belgrano, CABA</p>
+      <p>Sábados por la tarde. Principiantes de 14:30 a 16:00, intermedios de 16:30 a 18:00.</p>
+      <div class="place__actions">
+        <a class="btn btn--red" href="#reservar">Reservar mi clase</a>
+        <a class="btn btn--ghost" href="https://maps.google.com/?q=Ramsay+2131,+Buenos+Aires" target="_blank" rel="noopener">Cómo llegar</a>
+      </div>
+    </div>
+  </section>
+
 </main>
+
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div>
+      <p class="brand brand--light">Che, on danse!</p>
+      <p class="footer__note">Danzas tradicionales francesas en Buenos Aires.</p>
+    </div>
+    <nav aria-label="Clases">
+      <p class="footer__head">Clases</p>
+      <a href="#reservar">Reservar</a>
+      <a href="#danzas">Tutoriales</a>
+      <a href="#aprender">Online y formación</a>
+    </nav>
+    <nav aria-label="Comunidad">
+      <p class="footer__head">Comunidad</p>
+      <a href="#encuentros">Encuentros</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#tienda">Tienda</a>
+    </nav>
+    <div>
+      <p class="footer__head">Contacto</p>
+      <a href="mailto:cheondanse@gmail.com">cheondanse@gmail.com</a>
+      <a href="https://www.instagram.com/che.on.danse/" target="_blank" rel="noopener">Instagram de Che, on danse!</a>
+      <a href="https://www.instagram.com/sessiontradba/" target="_blank" rel="noopener">Instagram de Session Trad BA</a>
+    </div>
+  </div>
+  <div class="wrap footer__base">© 2026 Che, on danse!</div>
+</footer>
+
+<!-- Ventana de video -->
+<dialog class="modal" id="modal" aria-labelledby="modalTitle">
+  <div class="modal__inner">
+    <div class="modal__head">
+      <h3 class="h3" id="modalTitle"></h3>
+      <button class="modal__close" id="modalClose">Cerrar</button>
+    </div>
+    <div class="modal__player" id="modalPlayer"></div>
+    <div class="modal__lists" id="modalLists"></div>
+  </div>
+</dialog>
+
+<script src="js/data.js"></script>
+<script src="js/france.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
