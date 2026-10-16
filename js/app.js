@@ -179,17 +179,58 @@
       else start();
     });
   }
-  /* Agenda: efecto ola al pasar el mouse */
-  var agl = document.querySelector(".ag__list");
-  if (agl) {
-    var agRows = [].slice.call(agl.querySelectorAll(".ag__row"));
-    agRows.forEach(function (row, i) {
-      row.addEventListener("mouseenter", function () {
-        agl.classList.add("is-wave");
-        agRows.forEach(function (r, j) { var d = Math.abs(i - j); r.dataset.d = d > 2 ? 3 : d; });
-      });
-    });
-    agl.addEventListener("mouseleave", function () { agl.classList.remove("is-wave"); agRows.forEach(function (r) { delete r.dataset.d; }); });
+  /* Agenda en damero: ventana grande al pasar el mouse o tocar */
+  var damero = document.getElementById("damero"), dmPop = document.getElementById("dmPop");
+  if (damero && dmPop) {
+    var EV = [
+      { dia: "25", mes: "Oct", sem: "Domingo", corto: "Brunch & Bal", titulo: "Brunch & Bal — Presentación", hora: "10:00 a 14:00", lugar: "Área Mística, Nueva York 4677, Villa Devoto", estado: "seguro" },
+      { dia: "1", mes: "Nov", sem: "Domingo", corto: "Feria de las Naciones", titulo: "Feria de las Naciones — Stand y espectáculo de 15 min", hora: "Desde las 12:00", lugar: "Villa Adelina · Alianza Francesa de Martínez", estado: "seguro" },
+      { dia: "7–9", mes: "Nov", sem: "Sábado a lunes", corto: "Feria de las Colectividades", titulo: "Feria de las Colectividades", hora: "Por definir", lugar: "Rosario", estado: "incierto", nota: "Muy incierto." },
+      { dia: "12", mes: "Nov", sem: "Jueves", corto: "Llega Isabelle", titulo: "Llegada de Isabelle, acordeonista", hora: "Por definir", lugar: "Buenos Aires", estado: "seguro" },
+      { dia: "13", mes: "Nov", sem: "Viernes", corto: "Vinos y Quesos", titulo: "Noche de Vinos y Quesos", hora: "Desde las 18:00", lugar: "Liceo Jean Mermoz, Ramsay 2131", estado: "seguro" },
+      { dia: "14", mes: "Nov", sem: "Sábado", corto: "Show para niños", titulo: "Espectáculo para niños", hora: "Por la tarde", lugar: "Escuela de Géraldine", estado: "incierto" },
+      { dia: "14", mes: "Nov", sem: "Sábado", corto: "Comunidad eslovena", titulo: "Encuentro con la comunidad eslovena", hora: "Desde las 20:00", lugar: "Vicente López", estado: "seguro", nota: "Invitación recibida." },
+      { dia: "14", mes: "Nov", sem: "Sábado", corto: "Noche de los Museos", titulo: "La Noche de los Museos", hora: "Por la noche", lugar: "Museo por definir", estado: "incierto", nota: "Hipotético." },
+      { dia: "15", mes: "Nov", sem: "Domingo", corto: "Música con Isabelle", titulo: "Encuentro musical con Isabelle", hora: "Por definir", lugar: "Lugar por definir", estado: "incierto", nota: "Posible." },
+      { dia: "4–6", mes: "Dic", sem: "Viernes a domingo", corto: "Viaje a Pigüé", titulo: "Viaje y presentaciones en Pigüé", hora: "Salida el viernes por la noche", lugar: "Pigüé", estado: "incierto" }
+    ];
+    var EST = { seguro: "Confirmado", incierto: "Por confirmar" }, MES = { Oct: "Octubre", Nov: "Noviembre", Dic: "Diciembre" };
+    var nCols = function () { return window.innerWidth < 700 ? 2 : 4; }, cur = -1;
+    var show = function (i, el) {
+      var e = EV[i]; cur = i;
+      damero.querySelectorAll(".casilla.is-on").forEach(function (c) { c.classList.remove("is-on"); });
+      el.classList.add("is-on");
+      var col = Array.prototype.indexOf.call(damero.children, el) % nCols();
+      dmPop.className = "dm__pop " + e.estado + " " + (col < nCols() / 2 ? "right" : "left");
+      dmPop.innerHTML = '<span class="est">' + EST[e.estado] + '</span><div class="fecha">' + esc(e.dia) + " " + MES[e.mes] + "<small>" + esc(e.sem) + "</small></div><h3>" + esc(e.titulo) + "</h3><dl><dt>Hora</dt><dd>" + esc(e.hora) + "</dd><dt>Lugar</dt><dd>" + esc(e.lugar) + "</dd></dl>" + (e.nota ? '<p class="nota">' + esc(e.nota) + "</p>" : "");
+      dmPop.hidden = false;
+    };
+    var hide = function () { dmPop.hidden = true; cur = -1; damero.querySelectorAll(".casilla.is-on").forEach(function (c) { c.classList.remove("is-on"); }); };
+    var paint = function () {
+      var c = nCols(); damero.style.setProperty("--cols", c); damero.innerHTML = "";
+      var total = Math.ceil(EV.length / c) * c;
+      for (var i = 0; i < total; i++) {
+        var color = (Math.floor(i / c) + i % c) % 2 === 0 ? "n" : "b", e = EV[i];
+        var el = document.createElement(e ? "button" : "div");
+        if (e) {
+          el.type = "button";
+          el.className = "casilla " + color + " " + e.estado;
+          el.setAttribute("aria-label", e.dia + " de " + MES[e.mes] + ": " + e.titulo + ". " + EST[e.estado] + ". Hora: " + e.hora + ". Lugar: " + e.lugar);
+          el.innerHTML = '<span class="punto"></span><div><div class="mes">' + e.mes + '</div><div class="dia">' + esc(e.dia) + '</div><div class="dsem">' + esc(e.sem) + '</div></div><div class="titulo">' + esc(e.corto) + "</div>";
+          (function (i, el) {
+            el.addEventListener("mouseenter", function () { show(i, el); });
+            el.addEventListener("focus", function () { show(i, el); });
+            el.addEventListener("click", function (ev) { ev.stopPropagation(); show(i, el); });
+          })(i, el);
+        } else { el.className = "casilla vacia " + color; el.innerHTML = "<span>On danse!</span>"; }
+        damero.appendChild(el);
+      }
+    };
+    damero.addEventListener("mouseleave", function () { if (window.matchMedia("(hover: hover)").matches) hide(); });
+    document.addEventListener("click", function (ev) { if (!damero.contains(ev.target)) hide(); });
+    document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") hide(); });
+    var lastC = 0; var re = function () { if (nCols() !== lastC) { lastC = nCols(); paint(); hide(); } };
+    window.addEventListener("resize", re); re();
   }
   /* Copiar en un clic */
   document.querySelectorAll(".copybtn").forEach(function (b) {
