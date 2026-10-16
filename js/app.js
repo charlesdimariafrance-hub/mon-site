@@ -2,7 +2,7 @@
   "use strict";
 
   /* Video de la portada: cambiar este ID para usar otro video de YouTube */
-  var HERO_VIDEO = "h8lHPgf17-E";
+  var HERO_VIDEO = "_xuatd1_CVQ";
 
   var D = window.DANCES, CATS = window.CATEGORIES, REGS = window.REGIONS, MAP = window.FRANCE_MAP;
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
