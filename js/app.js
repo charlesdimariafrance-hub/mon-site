@@ -49,23 +49,14 @@
   }
 
   /* Cargar formularios y mapa del lugar solo cuando se acercan a la pantalla */
-  var lazyFrames = document.querySelectorAll("iframe[data-tally-src], iframe[data-map-src]");
-  var loadFrame = function (f) { f.src = f.getAttribute("data-tally-src") || f.getAttribute("data-map-src"); };
+  var lazyFrames = document.querySelectorAll("iframe[data-map-src]");
+  var loadFrame = function (f) { f.src = f.getAttribute("data-map-src"); };
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) { loadFrame(en.target); io.unobserve(en.target); } });
     }, { rootMargin: "400px" });
     lazyFrames.forEach(function (f) { io.observe(f); });
   } else { lazyFrames.forEach(loadFrame); }
-  // Altura automática del formulario Tally
-  window.addEventListener("message", function (e) {
-    if (typeof e.data !== "string" || e.data.indexOf("Tally.FormHeightChange") === -1) return;
-    try {
-      var d = JSON.parse(e.data), f = document.querySelector("iframe[data-tally-src]");
-      if (f && d.payload && d.payload.height) f.style.height = d.payload.height + "px";
-    } catch (err) {}
-  });
-
   /* Ventana de video */
   var modal = document.getElementById("modal"), player = document.getElementById("modalPlayer"),
       mTitle = document.getElementById("modalTitle"), mLists = document.getElementById("modalLists");
