@@ -398,3 +398,5 @@ em { font-style: italic; }
   .ag__st { grid-column: 2; grid-row: 3; padding-top: 0; }
   .ag__title { letter-spacing: .2em; }
 }
+.agenda__why { border-left: 3px solid #D9B26A; padding: 4px 0 4px 16px; margin: 0 0 1.4rem; line-height: 1.6; }
+.agenda__why a { color: var(--red); }
