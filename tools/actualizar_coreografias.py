@@ -11,7 +11,7 @@ import base64, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "coreografias")
-BOOT = "<script>/* Che, on danse!: carga automática */window.addEventListener('load',()=>{fetch('coreo.json',{cache:'no-cache'}).then(r=>r.json()).then(d=>{if(d&&d.figures&&d.figures.length)restoreExportData(d);}).catch(e=>console.error(e));});</script>"
+BOOT = "<script>window.CHE_PUBLISHED='coreo.json';</script><script>" + open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "autosave.js"), encoding="utf-8").read() + "</script>"
 
 def main(src, editor=None):
     data = json.load(open(src, encoding="utf-8"))
