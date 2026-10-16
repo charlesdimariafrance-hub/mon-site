@@ -170,12 +170,12 @@
       var d = p.v ? D.filter(function (x) { return x.n === p.v; })[0] : null;
       panel.innerHTML = '<p class="note" style="margin:0 0 .3rem;color:' + COL[p.r] + '">' + esc(p.r) + "</p><h3>" + esc(p.n) + "</h3>" +
         '<p><strong>De dónde:</strong> ' + esc(p.l) + "</p><p><strong>Formación:</strong> " + esc(p.f) + "</p>" +
-        (d ? '<button class="btn" type="button" id="mapVideo">Ver el video</button>' : '<p class="note">Todavía no está en nuestro repertorio.</p>');
+        (d ? '<button class="btn" type="button" id="mapVideo">Ver el video</button>' : "");
       var bt = document.getElementById("mapVideo");
       if (bt) bt.addEventListener("click", function () { openDance(d); });
     };
     PTS.forEach(function (p) {
-      var m = L.circleMarker([p.lat, p.lng], { radius: p.v ? 9 : 7, color: "#fff", weight: 2, fillColor: COL[p.r] || "#18233A", fillOpacity: p.v ? 0.95 : 0.6 })
+      var m = L.circleMarker([p.lat, p.lng], { radius: 8, color: "#fff", weight: 2, fillColor: COL[p.r] || "#18233A", fillOpacity: 0.95 })
         .addTo(map).bindTooltip(p.n, { direction: "top", offset: [0, -6] });
       m.on("click", function () { showPoint(p); });
       m._reg = p.r; markers.push(m);
@@ -191,7 +191,7 @@
       if (r && sel.length) map.flyToBounds(L.latLngBounds(sel).pad(0.6), { maxZoom: 8, duration: 0.6 });
       else map.flyToBounds(bounds, { duration: 0.6 });
       var items = PTS.filter(function (p) { return !r || p.r === r; });
-      panel.innerHTML = "<h3>" + esc(r || "Toda Francia") + '</h3><p class="note">' + items.length + ' danzas. Los puntos grandes son las que bailamos en clase.</p><ul class="atlas__list">' +
+      panel.innerHTML = "<h3>" + esc(r || "Toda Francia") + '</h3><p class="note">' + items.length + ' danzas. Tocá una para saber de dónde viene.</p><ul class="atlas__list">' +
         items.map(function (p, i) { return '<li><button type="button" data-i="' + PTS.indexOf(p) + '"><span>' + esc(p.n) + "</span>" + (p.v ? '<span class="cat">▶ video</span>' : "") + "</button></li>"; }).join("") + "</ul>";
       panel.querySelectorAll(".atlas__list button").forEach(function (b) { b.addEventListener("click", function () { showPoint(PTS[+b.dataset.i]); }); });
     };
