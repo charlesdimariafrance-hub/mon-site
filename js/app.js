@@ -3,9 +3,10 @@
 
   /* Videos de la portada: se alternan cada 5 segundos (id de YouTube y segundo de inicio) */
   var HERO_VIDEOS = [
-    { id: "_xuatd1_CVQ", start: 0 },   // bal en el Berry
-    { id: "WuSweqffyzY", start: 25 },  // jóvenes en el Boombal festival
-    { id: "qWREMI9KWAc", start: 15 }   // Gennetines, todas las edades
+    { id: "_xuatd1_CVQ", start: 0, img: "hqdefault" },   // bal en el Berry
+    { id: "6uVbDwjf-AI", start: 60, img: "hq1" },        // parejas al aire libre, Le Son Continu 2022
+    { id: "I2II5rx77Xg", start: 393, img: "hq2" },       // danza en grupo al sol, Le Son Continu 2025
+    { id: "bihxTG0Pyhk", start: 40, img: "hq1" }         // jóvenes y no tan jóvenes, Le Son Continu 2018
   ];
   var HERO_SECONDS = 5;
 
@@ -34,7 +35,7 @@
   var heroMedia = document.getElementById("heroMedia"), heroToggle = document.getElementById("heroToggle");
   var layers = HERO_VIDEOS.map(function (v, i) {
     var layer = el("div", { class: "hero__layer" + (i === 0 ? " is-on" : "") });
-    layer.appendChild(el("img", { src: "https://i.ytimg.com/vi/" + v.id + "/hqdefault.jpg", alt: "" }));
+    layer.appendChild(el("img", { src: "https://i.ytimg.com/vi/" + v.id + "/" + v.img + ".jpg", alt: "" }));
     heroMedia.appendChild(layer);
     return layer;
   });
