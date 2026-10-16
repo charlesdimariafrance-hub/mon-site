@@ -282,7 +282,7 @@ em { font-style: italic; }
 
 /* Reservas: título y grupos */
 .booking__eyebrow { font: 500 .8rem/1 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--sky); margin: 0 0 .9rem; }
-.booking__title { font: 400 clamp(2.4rem, 4.6vw, 3.6rem)/1.02 var(--serif); color: var(--paper); margin: 0 0 1.4rem; letter-spacing: -.01em; }
+.booking__title { font: 400 clamp(2.2rem, 3.6vw, 3.1rem)/1.08 var(--serif); color: var(--paper); margin: 0 0 1.4rem; letter-spacing: -.01em; }
 .booking__title em { font-style: italic; color: var(--sky); padding: 0 .08em; }
 .booking__group { font: 500 .78rem/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--sky); margin: 2rem 0 0; }
 .booking__group + .booking__list { margin-top: .8rem; }

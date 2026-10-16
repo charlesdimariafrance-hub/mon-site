@@ -59,12 +59,16 @@
       else if (s) source = s[1].trim();
       else if (t) text.push(t);
     });
+    var items = Array.isArray(p.danses) ? p.danses : null;
+    if (items) dances = items.map(function (d) { return d.danse; });
     if (!dances.length && p.danse) dances.push(String(p.danse));
     if (!dances.length) return null;
     return {
       id: idx,
       name: p.name || ('Lieu ' + (idx + 1)),
-      country: p.country || '',
+      country: p.region || p.country || '',
+      terroir: p.terroir || '',
+      items: items,
       lat: g.coordinates[1],
       lng: g.coordinates[0],
       dances: dances,
@@ -129,7 +133,26 @@
         '</ul>';
     }
 
+    var APROX = { nom: 'Lugar deducido del nombre de la danza, a confirmar', indicatif: 'Ubicación aproximada: región de origen', region: 'Ubicación aproximada: región de origen' };
+    function host(u) { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return u; } }
+    function renderRich(p) {
+      return '<button type="button" class="cod-back" data-back="1">\u2190 Todas las danzas</button>' +
+        '<p class="cod-kicker">' + esc(p.country) + (p.terroir && p.terroir !== p.country ? ' \u00b7 ' + esc(p.terroir) : '') + '</p>' +
+        '<h2 class="cod-panel-title">' + esc(p.name) + '</h2>' +
+        p.items.map(function (d) {
+          return '<article class="cod-dance">' +
+            '<h3 class="cod-dance-name">' + esc(d.danse) + '</h3>' +
+            (d.video ? '<button type="button" class="cod-video" data-yt="' + esc(d.video) + '" aria-label="Ver el video de ' + esc(d.danse) + '">' +
+              '<img src="https://i.ytimg.com/vi/' + esc(d.video) + '/hqdefault.jpg" alt="" loading="lazy"><span class="cod-play"></span></button>' : '') +
+            (d.description ? '<p class="cod-dance-desc">' + esc(d.description) + '</p>' : '') +
+            (APROX[d.precision] ? '<p class="cod-aprox">' + APROX[d.precision] + '</p>' : '') +
+            (d.source_principale ? '<p class="cod-source">Fuente: <a href="' + esc(d.source_principale) + '" target="_blank" rel="noopener">' + esc(host(d.source_principale)) + '</a></p>' : '') +
+            '</article>';
+        }).join('');
+    }
+
     function renderPlace(p) {
+      if (p.items) { var rich = renderRich(p); if (panel) { panel.innerHTML = rich; panel.scrollTop = 0; } return rich; }
       var html =
         '<button type="button" class="cod-back" data-back="1">\u2190 Todas las danzas</button>' +
         '<p class="cod-kicker">' + esc(p.country || 'Lugar') + '</p>' +
@@ -169,7 +192,7 @@
     function applyFilter() {
       var q = search ? norm(search.value.trim()) : '';
       places.forEach(function (p) {
-        var hit = !q || norm(p.name).indexOf(q) > -1 || p.dances.some(function (d) { return norm(d).indexOf(q) > -1; });
+        var hit = !q || norm(p.name + ' ' + p.terroir + ' ' + p.country).indexOf(q) > -1 || p.dances.some(function (d) { return norm(d).indexOf(q) > -1; });
         var m = markers[p.id];
         if (hit && !layer.hasLayer(m)) layer.addLayer(m);
         if (!hit && layer.hasLayer(m)) layer.removeLayer(m);
@@ -187,6 +210,12 @@
         var b = e.target.closest('button');
         if (!b) return;
         if (b.dataset.back) return clearSelection();
+        if (b.dataset.yt) {
+          var f = document.createElement('iframe');
+          f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(b.dataset.yt) + '?autoplay=1&rel=0&modestbranding=1';
+          f.title = 'Video'; f.allow = 'autoplay; encrypted-media; picture-in-picture'; f.allowFullscreen = true; f.className = 'cod-video-frame';
+          b.replaceWith(f); return;
+        }
         if (b.dataset.id != null) select(parseInt(b.dataset.id, 10), true);
       });
     }
