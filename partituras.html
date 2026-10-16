@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Partituras · Che, on danse!</title>
-<meta name="description" content="Biblioteca de 82 melodías tradicionales francesas con partitura y audio, por región y por danza.">
+<meta name="description" content="Músicas, partituras y melodías tradicionales francesas para acordeón, por región y por danza.">
 <meta name="theme-color" content="#18233A">
 <link rel="preload" href="fonts/bodoni-moda-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/work-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -38,6 +38,20 @@
     .pt-links a { margin: 4px 6px 0 0; }
     .pt-tools { top: 64px; }
   }
+  .pt-links a.pt-yt { background: var(--red); border-color: var(--red); color: #fff; }
+  .pt-links button { display: inline-block; margin-left: 6px; padding: 7px 12px; font: 500 .88rem var(--sans); border: 1px solid var(--red); background: var(--red); color: #fff; cursor: pointer; }
+  .pt-links button:hover { background: var(--ink); border-color: var(--ink); }
+  .yt-modal { border: 0; padding: 0; width: min(640px, 94vw); background: var(--paper); }
+  .yt-modal::backdrop { background: rgba(0,0,0,.7); }
+  .yt-modal .frame { position: relative; aspect-ratio: 16/9; background: #000; }
+  .yt-modal iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .yt-modal .info { padding: 14px 18px 18px; }
+  .yt-modal .info strong { display: block; font: 500 1.05rem/1.3 var(--sans); color: var(--ink); }
+  .yt-modal .info span { font-size: .92rem; color: var(--muted); }
+  .yt-modal .row { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 12px; }
+  .yt-modal .row a { color: var(--red); }
+  .yt-modal .row button { padding: 8px 16px; border: 0; background: var(--ink); color: #fff; font: 500 .95rem var(--sans); cursor: pointer; }
+  @media (max-width: 760px) { .pt-links button { margin: 4px 6px 0 0; } }
 </style>
 </head>
 <body>
@@ -49,7 +63,7 @@
   <div class="wrap">
     <p class="pg-kicker">Biblioteca de melodías</p>
     <h1>Partituras</h1>
-    <p>82 melodías tradicionales francesas con partitura y audio, ordenadas por región y por danza. Para practicar, tocar en la Session Trad BA o preparar una clase.</p>
+    <p>La selección de Che, on danse!: músicas para escuchar, partituras y melodías tradicionales arregladas para acordeón diatónico, ordenadas por región y por danza.</p>
   </div>
 </header>
 <div class="pt-tools"><div class="wrap" id="ptChips">
@@ -58,7 +72,7 @@
 <main class="wrap" style="padding-bottom:80px">
   <p class="pt-count" id="ptCount"></p>
   <div id="ptList"></div>
-  <p class="pg-note" style="margin-top:40px">Partituras y audios de <a href="https://www.partitions.bzh/" target="_blank" rel="noopener">partitions.bzh</a> y <a href="https://www.mustradlib.net/" target="_blank" rel="noopener">MusTradLib</a>. Muchas melodías solo tienen audio MIDI (sonido de computadora); se abre con la mayoría de los reproductores. Cuando la fuente no indica la tonalidad, figura «sin indicar».</p>
+  <p class="pg-note" style="margin-top:40px">Fuentes: la selección de Che, on danse!, YouTube (cada video indica su canal) y <a href="http://folkadanse.free.fr/" target="_blank" rel="noopener">Folkadanse</a>, que publica arreglos para acordeón diatónico con partitura en notación clásica (G/C), en tablatura empujar/tirar (P/T), MIDI y archivo TablEdit (.tef). Los archivos .tef se abren con <a href="https://tabledit.com/tefview/download_f.shtml" target="_blank" rel="noopener">TEFview</a>, gratuito. Los MIDI se escuchan con la mayoría de los reproductores.</p>
 </main>
 <section class="pg-end"><div class="wrap">
   <h2 class="h2">¿Las tocamos juntos?</h2>
@@ -66,6 +80,12 @@
   <p style="margin-top:1.6rem"><a class="btn btn--red" href="session-trad.html">Conocer Session Trad BA</a></p>
 </div></section>
 <footer class="footer"><div class="wrap footer__base">© 2026 Che, on danse! · <a href="mailto:cheondanse@gmail.com" style="color:inherit">cheondanse@gmail.com</a></div></footer>
+<dialog class="yt-modal" id="ytModal" aria-label="Escuchar en YouTube">
+  <div class="frame" id="ytFrame"></div>
+  <div class="info"><strong id="ytTitle"></strong><span id="ytSrc"></span>
+    <div class="row"><a id="ytLink" href="#" target="_blank" rel="noopener">Ver en YouTube</a><button type="button" id="ytClose">Cerrar</button></div>
+  </div>
+</dialog>
 <script>
 (function () {
   var esc = function (s) { return String(s || "").replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
@@ -76,17 +96,19 @@
     var s = norm(q.value), html = "", n = 0, lastR = "", lastT = "";
     DATA.forEach(function (o) {
       if (region && o.r !== region) return;
-      if (s && norm(o.t + " " + o.d + " " + o.p + " " + o.r).indexOf(s) < 0) return;
+      if (s && norm(o.t + " " + o.d + " " + o.src + " " + o.r).indexOf(s) < 0) return;
       n++;
       if (o.r !== lastR) { if (lastR) html += "</tbody></table></section>"; html += '<section class="pt-region"><h2>' + esc(o.r) + "</h2>"; lastR = o.r; lastT = ""; html += '<table class="pt-table"><tbody>'; }
       if (o.d !== lastT) { html += '<tr><td colspan="3"><p class="pt-type">' + esc(o.d) + "</p></td></tr>"; lastT = o.d; }
-      var isMp3 = /\.mp3($|\?)/i.test(o.a);
-      var scoreKind = /\.pdf/i.test(o.s) ? "Partitura PDF" : "Partitura";
-      html += "<tr><td><div class=\"pt-title\">" + esc(o.t) + '</div><div class="pt-sub">' + esc(o.p) + "</div></td>" +
-        '<td class="pt-key">' + esc(o.k) + "</td>" +
-        '<td class="pt-links">' + (o.s ? '<a class="pt-score" href="' + esc(o.s) + '" target="_blank" rel="noopener">' + scoreKind + "</a>" : "") +
-        (o.a ? (isMp3 ? '<audio controls preload="none" src="' + esc(o.a) + '"></audio>' : '<a href="' + esc(o.a) + '" target="_blank" rel="noopener">Audio MIDI</a>') : "") +
-        (o.u ? '<a href="' + esc(o.u) + '" target="_blank" rel="noopener">Fuente</a>' : "") + "</td></tr>";
+      var L = "";
+      if (o.pdf) L += '<a class="pt-score" href="' + esc(o.pdf) + '" target="_blank" rel="noopener">' + (o.pdf2 ? "Partitura (G/C)" : "Partitura") + "</a>";
+      if (o.pdf2) L += '<a href="' + esc(o.pdf2) + '" target="_blank" rel="noopener">Tablatura (P/T)</a>';
+      if (o.yt) L += '<button type="button" data-yt="' + esc(o.yt) + '" data-t="' + esc(o.t) + '" data-s="' + esc(o.src) + '">Escuchar en YouTube</button>';
+      if (o.mid) L += '<a href="' + esc(o.mid) + '" target="_blank" rel="noopener">MIDI</a>';
+      if (o.tef) L += '<a href="' + esc(o.tef) + '" target="_blank" rel="noopener">Archivo .tef</a>';
+      if (o.u && !o.yt) L += '<a href="' + esc(o.u) + '" target="_blank" rel="noopener">Fuente</a>';
+      html += "<tr><td><div class=\"pt-title\">" + esc(o.t) + '</div><div class="pt-sub">Fuente: ' + esc(o.src) + "</div></td>" +
+        '<td class="pt-key"></td><td class="pt-links">' + L + "</td></tr>";
     });
     if (lastR) html += "</tbody></table></section>";
     list.innerHTML = html || '<p class="pt-count">No hay melodías que coincidan.</p>';
@@ -100,6 +122,20 @@
     render();
   });
   q.addEventListener("input", render);
+  var m = document.getElementById("ytModal"), fr = document.getElementById("ytFrame");
+  list.addEventListener("click", function (ev) {
+    var b = ev.target.closest("button[data-yt]"); if (!b) return;
+    document.querySelectorAll("audio").forEach(function (a) { a.pause(); });
+    fr.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(b.dataset.yt) + '?autoplay=1&rel=0" title="' + esc(b.dataset.t) + '" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+    document.getElementById("ytTitle").textContent = b.dataset.t;
+    document.getElementById("ytSrc").textContent = "Fuente: " + b.dataset.s;
+    document.getElementById("ytLink").href = "https://www.youtube.com/watch?v=" + encodeURIComponent(b.dataset.yt);
+    m.showModal();
+  });
+  var closeM = function () { m.close(); };
+  document.getElementById("ytClose").onclick = closeM;
+  m.addEventListener("click", function (ev) { if (ev.target === m) closeM(); });
+  m.addEventListener("close", function () { fr.innerHTML = ""; });
 })();
 </script>
 </body>
