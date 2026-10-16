@@ -179,7 +179,7 @@
   }
   /* Agenda: lupa que sigue al mouse, línea por línea */
   var poster = document.getElementById("agendaOpen");
-  if (poster && window.matchMedia("(hover: hover)").matches) {
+  if (poster && window.matchMedia("(hover: hover) and (min-width: 900px)").matches) {
     var lens = poster.querySelector(".agenda__lens"), pimg = poster.querySelector("img"), Z = 1.7;
     poster.addEventListener("mousemove", function (e) {
       var r = pimg.getBoundingClientRect(), y = e.clientY - r.top;
