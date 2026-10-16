@@ -400,3 +400,5 @@ em { font-style: italic; }
 }
 .agenda__why { border-left: 3px solid #D9B26A; padding: 4px 0 4px 16px; margin: 0 0 1.4rem; line-height: 1.6; }
 .agenda__why a { color: var(--red); }
+.split__media.rot video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
+.split__media.rot video.is-on { opacity: 1; }

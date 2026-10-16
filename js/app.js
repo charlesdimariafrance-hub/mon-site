@@ -156,18 +156,27 @@
   });
   renderCards("all");
 
-  /* Rotación de fotos (cada 5 s, como el video del inicio) */
+  /* Rotación de fotos (cada 5 s); un video se muestra entero, sin sonido */
   if (!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) {
     document.querySelectorAll(".split__media.rot").forEach(function (box, k) {
-      var imgs = box.querySelectorAll("img"); if (imgs.length < 2) return;
-      var i = 0;
-      setTimeout(function () {
-        setInterval(function () {
-          imgs[i].classList.remove("is-on"); i = (i + 1) % imgs.length;
-          if (imgs[i].loading === "lazy") imgs[i].loading = "eager";
-          imgs[i].classList.add("is-on");
-        }, 5000);
-      }, k * 1200);
+      var items = box.querySelectorAll("img, video"); if (items.length < 2) return;
+      var i = 0, timer = null;
+      var schedule = function () {
+        clearTimeout(timer);
+        var el = items[i];
+        if (el.tagName === "VIDEO") {
+          el.currentTime = 0; el.onended = function () { show(i + 1); };
+          var p = el.play(); if (p && p.catch) p.catch(function () { timer = setTimeout(function () { show(i + 1); }, 5000); });
+        } else timer = setTimeout(function () { show(i + 1); }, 5000);
+      };
+      var show = function (n) {
+        items[i].classList.remove("is-on"); i = n % items.length;
+        if (items[i].loading === "lazy") items[i].loading = "eager";
+        items[i].classList.add("is-on"); schedule();
+      };
+      var started = false, start = function () { if (!started) { started = true; setTimeout(schedule, k * 1200); } };
+      if ("IntersectionObserver" in window) new IntersectionObserver(function (en, ob) { if (en[0].isIntersecting) { start(); ob.disconnect(); } }, { threshold: .3 }).observe(box);
+      else start();
     });
   }
   /* Agenda: efecto ola al pasar el mouse */
