@@ -2,10 +2,10 @@
    Palette reprise de TradMap (creactiviste.fr) : violet #674172, rose #F26579,
    écorce #4E3B24, sable #FCFAF7, bordures #E6DDD0. Toutes les classes sont préfixées cod-. */
 .cod-wrap {
-  --cod-violet: #674172;
-  --cod-rose: #F26579;
-  --cod-rose-dark: #C9475B;
-  --cod-ink: #4E3B24;
+  --cod-violet: #18233A;
+  --cod-rose: #A8262F;
+  --cod-rose-dark: #8A1E26;
+  --cod-ink: #18233A;
   --cod-brown: #8C6239;
   --cod-sand: #FCFAF7;
   --cod-sand-2: #FAF6F0;
@@ -101,3 +101,11 @@
   background: var(--cod-violet, #674172); color: #fff; font-weight: 800; font-size: 14px;
   border: 3px solid #fff; box-shadow: 0 0 0 3px rgba(103,65,114,.35), 0 2px 6px rgba(0,0,0,.25); cursor: pointer;
 }
+
+/* Che, on danse! : marcadores sobrios, sin emojis */
+.cod-wrap { border-radius: 0; box-shadow: none; }
+.cod-head-title, .cod-panel-title { font-family: "Bodoni Moda", Georgia, serif; font-weight: 400; }
+.cod-marker { width: 16px; height: 16px; line-height: 16px; font-size: 0; background: var(--cod-ink); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.35); }
+.cod-marker.is-active { background: var(--cod-rose); border-color: #fff; transform: scale(1.35); box-shadow: 0 0 0 4px rgba(168,38,47,.25); }
+.cod-marker-count { top: -9px; right: -11px; min-width: 15px; height: 15px; line-height: 15px; font-size: 10px; font-weight: 600; background: #fff; color: var(--cod-ink); border: 1px solid var(--cod-ink); }
+.cod-cluster { width: 32px; height: 32px; line-height: 26px; font-weight: 500; font-size: 13px; background: var(--cod-ink); box-shadow: 0 0 0 3px rgba(24,35,58,.2); }

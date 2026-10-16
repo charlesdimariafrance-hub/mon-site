@@ -75,12 +75,12 @@
 
   function icon(count, active) {
     return L.divIcon({
-      html: '<div class="cod-marker' + (active ? ' is-active' : '') + '">\uD83D\uDC83' +
+      html: '<div class="cod-marker' + (active ? ' is-active' : '') + '">' +
             (count > 1 ? '<span class="cod-marker-count">' + count + '</span>' : '') + '</div>',
       className: '',
-      iconSize: [30, 30],
-      iconAnchor: [15, 30],
-      popupAnchor: [0, -28]
+      iconSize: [16, 16],
+      iconAnchor: [8, 8],
+      popupAnchor: [0, -8]
     });
   }
 
@@ -117,7 +117,7 @@
         '<p class="cod-kicker">Explorar</p>' +
         '<h2 class="cod-panel-title">Tocá un lugar</h2>' +
         '<p class="cod-muted">' + places.length + ' lugares, ' + total +
-        ' danzas. Cada \uD83D\uDC83 abre la ficha de las danzas de su región.</p>' +
+        ' danzas. Cada punto abre la ficha de las danzas de su región.</p>' +
         '<ul class="cod-index">' +
         places.slice().sort(function (a, b) { return a.dances[0].localeCompare(b.dances[0], 'fr'); })
           .map(function (p) {
