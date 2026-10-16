@@ -431,3 +431,11 @@ em { font-style: italic; }
 /* video: crece pero se ve entero */
 .agenda__video--wide { grid-template-columns: minmax(240px, 330px) minmax(0, 1fr); }
 @media (hover: hover) and (min-width: 900px) { .agenda__vid video { transform-origin: left center; } .agenda__vid:hover video { transform: scale(1.22); } }
+/* Agenda: lugares y textos más legibles */
+.ag__ev strong { font-size: 1.12rem; letter-spacing: 0; }
+.ag__ev span { display: block; margin-top: 3px; font-size: 1rem; font-weight: 500; color: #3A4456; }
+.ag__ev span::before { content: "\2192\00a0"; color: var(--red); }
+.ag__time { font-size: 1.02rem; font-weight: 500; }
+.ag__date span { font-size: .78rem; font-weight: 600; color: #4a4438; }
+.ag__st { font-size: .9rem; font-weight: 600; }
+.ag, .ag * { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
