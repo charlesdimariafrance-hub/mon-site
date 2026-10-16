@@ -170,28 +170,17 @@
       }, k * 1200);
     });
   }
-  /* Agenda: ampliar el afiche */
-  var aBox = document.getElementById("agendaBox"), aOpen = document.getElementById("agendaOpen");
-  if (aBox && aOpen && aBox.showModal) {
-    aOpen.addEventListener("click", function () { aBox.showModal(); aBox.scrollTop = 0; });
-    document.getElementById("agendaClose").addEventListener("click", function () { aBox.close(); });
-    aBox.addEventListener("click", function (e) { if (e.target === aBox) aBox.close(); });
-  }
-  /* Agenda: lupa que sigue al mouse, línea por línea */
-  var poster = document.getElementById("agendaOpen");
-  if (poster && window.matchMedia("(hover: hover) and (min-width: 900px)").matches) {
-    var lens = poster.querySelector(".agenda__lens"), pimg = poster.querySelector("img"), Z = 1.7;
-    poster.addEventListener("mousemove", function (e) {
-      var r = pimg.getBoundingClientRect(), y = e.clientY - r.top;
-      if (y < 0 || y > r.height) { poster.classList.remove("is-lens"); return; }
-      poster.classList.add("is-lens");
-      lens.style.width = (r.width * Z) + "px"; lens.style.left = (-r.width * (Z - 1) / 2) + "px";
-      var lw = r.width * Z, lh = lens.offsetHeight;
-      lens.style.top = (y - lh / 2) + "px";
-      lens.style.backgroundSize = (r.width * Z) + "px " + (r.height * Z) + "px";
-      lens.style.backgroundPosition = (lw / 2 - r.width * Z / 2) + "px " + (lh / 2 - y * Z) + "px";
+  /* Agenda: efecto ola al pasar el mouse */
+  var agl = document.querySelector(".ag__list");
+  if (agl) {
+    var agRows = [].slice.call(agl.querySelectorAll(".ag__row"));
+    agRows.forEach(function (row, i) {
+      row.addEventListener("mouseenter", function () {
+        agl.classList.add("is-wave");
+        agRows.forEach(function (r, j) { var d = Math.abs(i - j); r.dataset.d = d > 2 ? 3 : d; });
+      });
     });
-    poster.addEventListener("mouseleave", function () { poster.classList.remove("is-lens"); });
+    agl.addEventListener("mouseleave", function () { agl.classList.remove("is-wave"); agRows.forEach(function (r) { delete r.dataset.d; }); });
   }
   /* Copiar en un clic */
   document.querySelectorAll(".copybtn").forEach(function (b) {

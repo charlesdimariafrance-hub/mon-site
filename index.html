@@ -219,40 +219,50 @@
   <!-- AGENDA -->
   <section class="agenda" id="agenda">
     <div class="wrap agenda__grid">
-      <button type="button" class="agenda__poster" id="agendaOpen" aria-label="Ampliar la agenda"><img src="img/agenda.jpg" alt="Agenda de presentaciones de Che, on danse!, octubre a diciembre de 2026" loading="lazy"><span class="agenda__lens" aria-hidden="true"></span><span class="agenda__zoom">Pasá el mouse para leer · tocá para ampliar</span></button>
+      <div class="ag" id="agendaCard">
+        <img class="ag__logo" src="img/logo.png" alt="Che, on danse!" width="88" height="88">
+        <p class="ag__title">Agenda</p>
+        <p class="ag__sub">de presentaciones</p>
+        <p class="ag__months">Octubre · Noviembre · Diciembre 2026</p>
+        <ul class="ag__list">
+          <li class="ag__month">Octubre</li>
+          <li class="ag__row"><div class="ag__date"><b>25</b><span>DOM</span></div><div class="ag__time">10:00 h</div><div class="ag__ev"><strong>Brunch &amp; Bal — Presentación</strong><span>Buenos Aires</span></div><div class="ag__st ag__st--ok">Previsto</div></li>
+          <li class="ag__month">Noviembre</li>
+          <li class="ag__row"><div class="ag__date"><b>1</b><span>DOM</span></div><div class="ag__time">Desde 12:00</div><div class="ag__ev"><strong>Feria de las Naciones — Stand y espectáculo de 15 min</strong><span>Villa Adelina · Alianza Francesa de Martínez</span></div><div class="ag__st ag__st--ok">Previsto</div></li>
+          <li class="ag__row"><div class="ag__date"><b>7–9</b><span>SÁB–LUN</span></div><div class="ag__time">Por definir</div><div class="ag__ev"><strong>Feria de las Colectividades</strong><span>Rosario</span></div><div class="ag__st ag__st--no">Muy incierto</div></li>
+          <li class="ag__row"><div class="ag__date"><b>12</b><span>JUE</span></div><div class="ag__time">Por definir</div><div class="ag__ev"><strong>Llegada de Isabelle, acordeonista</strong><span>Buenos Aires</span></div><div class="ag__st ag__st--ok">Previsto</div></li>
+          <li class="ag__row"><div class="ag__date"><b>13</b><span>VIE</span></div><div class="ag__time">Desde 18:00</div><div class="ag__ev"><strong>Noche de Vinos y Quesos</strong><span>Liceo Jean Mermoz</span></div><div class="ag__st ag__st--ok">Previsto</div></li>
+          <li class="ag__row"><div class="ag__date"><b>14</b><span>SÁB</span></div><div class="ag__time">Por la tarde</div><div class="ag__ev"><strong>Espectáculo para niños</strong><span>Escuela de Géraldine</span></div><div class="ag__st ag__st--maybe">Por confirmar</div></li>
+          <li class="ag__row"><div class="ag__date"><b>14</b><span>SÁB</span></div><div class="ag__time">Desde 20:00</div><div class="ag__ev"><strong>Encuentro con la comunidad eslovena</strong><span>Vicente López</span></div><div class="ag__st ag__st--ok">Invitación recibida</div></li>
+          <li class="ag__row"><div class="ag__date"><b>14</b><span>SÁB</span></div><div class="ag__time">Por la noche</div><div class="ag__ev"><strong>La Noche de los Museos</strong><span>Museo por definir</span></div><div class="ag__st ag__st--no">Hipotético</div></li>
+          <li class="ag__row"><div class="ag__date"><b>15</b><span>DOM</span></div><div class="ag__time">Por definir</div><div class="ag__ev"><strong>Encuentro musical con Isabelle</strong><span>Lugar por definir</span></div><div class="ag__st ag__st--maybe">Posible</div></li>
+          <li class="ag__month">Diciembre</li>
+          <li class="ag__row"><div class="ag__date"><b>4–6</b><span>VIE–DOM</span></div><div class="ag__time">Salida viernes por la noche</div><div class="ag__ev"><strong>Viaje y presentaciones en Pigüé</strong><span>Pigüé</span></div><div class="ag__st ag__st--maybe">Por confirmar</div></li>
+        </ul>
+        <p class="ag__legend"><span class="ag__st--ok">Previsto o con invitación</span><span class="ag__st--maybe">Por confirmar</span><span class="ag__st--no">Incierto o hipotético</span></p>
+      </div>
       <div class="agenda__text">
         <p class="booking__eyebrow" style="color:var(--red)">Octubre · Noviembre · Diciembre 2026</p>
         <h2 class="h2">Agenda de presentaciones</h2>
         <p>Brunch &amp; Bal, Feria de las Naciones, Noche de Vinos y Quesos, la llegada de Isabelle, acordeonista, y un viaje a Pigüé en diciembre.</p>
         <p class="agenda__cta">¿Querés bailar con nosotros en estas presentaciones? Escribinos cuanto antes a <a href="mailto:cheondanse@gmail.com?subject=Quiero%20bailar%20en%20las%20presentaciones">cheondanse@gmail.com</a>.</p>
-        <div class="agenda__video">
-          <div class="agenda__vid"><video src="img/brunch-historia.mp4" poster="img/brunch-historia.jpg" controls playsinline preload="none"></video></div>
-          <div class="agenda__steps">
-            <h3 class="h3">Compartí el Brunch &amp; Bal en tu historia</h3>
-            <p>Nos ayudás mucho invitando a tus amigos. Desde el celular:</p>
-            <ol>
-              <li><strong>Copiá el enlace de inscripción</strong> antes de abrir Instagram:
-                <span class="copyrow"><code id="brunchLink">https://tally.so/r/dWEWAV</code><button type="button" class="copybtn" data-copy="https://tally.so/r/dWEWAV">Copiar</button></span></li>
-              <li><strong>Abrí la publicación del Brunch &amp; Bal</strong> en <a href="https://www.instagram.com/reel/DeVyN1XB2EO/" target="_blank" rel="noopener">el Instagram de Che, on danse!</a></li>
-              <li>Tocá la <strong>flechita para compartir</strong> y elegí <strong>«Agregar a historia»</strong>.</li>
-              <li>Tocá el <strong>ícono de stickers</strong> y elegí el sticker <strong>«Enlace»</strong>.</li>
-              <li><strong>Pegá el enlace</strong> en «URL» y escribí un texto corto, por ejemplo «Reservá tu lugar».</li>
-              <li>Acomodá el sticker y tocá <strong>«Tus historias»</strong>.</li>
-            </ol>
-            <div class="agenda__links">
-              <a class="btn btn--ink" href="https://www.instagram.com/reel/DeVyN1XB2EO/" target="_blank" rel="noopener">Abrir la publicación</a>
-              <a class="btn btn--line" href="https://www.instagram.com/che.on.danse/" target="_blank" rel="noopener">@che.on.danse</a>
-            </div>
-          </div>
         </div>
       </div>
     </div>
+    <div class="wrap">
+        <div class="agenda__video agenda__video--wide">
+          <div class="agenda__vid"><video src="img/brunch-historia.mp4" poster="img/brunch-historia.jpg" controls playsinline preload="none"></video></div>
+          <div class="agenda__steps">
+            <h3 class="h3">Compartí el Brunch &amp; Bal en tu historia</h3>
+            <p>El video muestra todo, paso a paso. Lo que necesitás:</p>
+            <ol>
+              <li><strong>Copiá el enlace de inscripción</strong> antes de abrir Instagram:
+                <span class="copyrow"><code id="brunchLink">https://tally.so/r/dWEWAV</code><button type="button" class="copybtn" data-copy="https://tally.so/r/dWEWAV">Copiar</button></span></li>
+              <li><strong>Abrí <a href="https://www.instagram.com/reel/DeVyN1XB2EO/" target="_blank" rel="noopener">la publicación del Brunch &amp; Bal</a></strong> en Instagram y seguí el video.</li>
+            </ol>
+          </div>
+    </div>
   </section>
-
-  <dialog class="lightbox" id="agendaBox" aria-label="Agenda ampliada">
-    <button type="button" class="lightbox__close" id="agendaClose" aria-label="Cerrar">×</button>
-    <img src="img/agenda.jpg" alt="Agenda de presentaciones de Che, on danse!, octubre a diciembre de 2026">
-  </dialog>
 
   <section class="meet" id="encuentros">
     <div class="wrap">
