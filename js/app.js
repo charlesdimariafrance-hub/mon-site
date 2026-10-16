@@ -10,7 +10,7 @@
   ];
   var HERO_SECONDS = 5;
 
-  var D = window.DANCES, CATS = window.CATEGORIES, REGS = window.REGIONS, MAP = window.FRANCE_MAP;
+  var D = window.DANCES, CATS = window.CATEGORIES, REGS = window.REGIONS;
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var thumb = function (id) { return "https://i.ytimg.com/vi/" + id + "/hqdefault.jpg"; };
   var el = function (tag, attrs, html) {
@@ -155,77 +155,50 @@
   });
   renderCards("all");
 
-  /* Mapa interactivo de Francia */
-  var svg = document.getElementById("franceMap"), panel = document.getElementById("regionPanel");
-  var NS = "http://www.w3.org/2000/svg";
-  svg.setAttribute("viewBox", MAP.viewBox);
-  var shapes = {}, labels = {};
-  MAP.regions.forEach(function (r) {
-    var has = !!REGS[r.id];
-    var p = document.createElementNS(NS, "path");
-    p.setAttribute("d", r.d);
-    p.setAttribute("class", "region" + (has ? " region--has" : ""));
-    if (has) {
-      p.setAttribute("tabindex", "0");
-      p.setAttribute("role", "button");
-      p.setAttribute("aria-label", REGS[r.id].name);
-      p.addEventListener("click", function () { showRegion(r.id); });
-      p.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); showRegion(r.id); } });
-    }
-    var t = document.createElementNS(NS, "title"); t.textContent = has ? REGS[r.id].name : r.name; p.appendChild(t);
-    svg.appendChild(p);
-    shapes[r.id] = p;
-  });
-  // Etiquetas centradas en cada región con danzas
-  Object.keys(REGS).forEach(function (id) {
-    if (!shapes[id]) return;
-    var b = shapes[id].getBBox();
-    var tx = document.createElementNS(NS, "text");
-    tx.setAttribute("x", b.x + b.width / 2);
-    tx.setAttribute("y", b.y + b.height / 2 + 5);
-    tx.setAttribute("text-anchor", "middle");
-    tx.setAttribute("class", "region-label");
-    tx.textContent = REGS[id].name.split(" ·")[0];
-    svg.appendChild(tx);
-    labels[id] = tx;
-  });
-
-  var listHTML = function (items) {
-    return '<ul class="atlas__list">' + items.map(function (d) {
-      return '<li><button type="button" data-n="' + esc(d.n) + '"><span>' + esc(d.n) + '</span><span class="cat">' + esc(CATS[d.cat].name) + "</span></button></li>";
-    }).join("") + "</ul>";
-  };
-  var bindList = function () {
-    panel.querySelectorAll(".atlas__list button").forEach(function (b) {
-      b.addEventListener("click", function () {
-        var d = D.filter(function (x) { return x.n === b.dataset.n; })[0];
-        if (d) openDance(d);
-      });
+  /* Mapa de las danzas (Leaflet, un punto por danza) */
+  var panel = document.getElementById("regionPanel"), legend = document.getElementById("mapLegend");
+  var PTS = window.MAP_POINTS || [], COL = window.MAP_REGIONS || {};
+  if (window.L && document.getElementById("danceMap")) {
+    var map = L.map("danceMap", { scrollWheelZoom: false, zoomSnap: 0.25 });
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+      maxZoom: 12, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
+    }).addTo(map);
+    var bounds = L.latLngBounds([[42.3, -5.2], [51.1, 8.3]]);
+    map.fitBounds(bounds);
+    var markers = [];
+    var showPoint = function (p) {
+      var d = p.v ? D.filter(function (x) { return x.n === p.v; })[0] : null;
+      panel.innerHTML = '<p class="note" style="margin:0 0 .3rem;color:' + COL[p.r] + '">' + esc(p.r) + "</p><h3>" + esc(p.n) + "</h3>" +
+        '<p><strong>De dónde:</strong> ' + esc(p.l) + "</p><p><strong>Formación:</strong> " + esc(p.f) + "</p>" +
+        (d ? '<button class="btn" type="button" id="mapVideo">Ver el video</button>' : '<p class="note">Todavía no está en nuestro repertorio.</p>');
+      var bt = document.getElementById("mapVideo");
+      if (bt) bt.addEventListener("click", function () { openDance(d); });
+    };
+    PTS.forEach(function (p) {
+      var m = L.circleMarker([p.lat, p.lng], { radius: p.v ? 9 : 7, color: "#fff", weight: 2, fillColor: COL[p.r] || "#18233A", fillOpacity: p.v ? 0.95 : 0.6 })
+        .addTo(map).bindTooltip(p.n, { direction: "top", offset: [0, -6] });
+      m.on("click", function () { showPoint(p); });
+      m._reg = p.r; markers.push(m);
     });
-  };
-  var chipsHTML = function (current) {
-    var ids = Object.keys(REGS).filter(function (k) { return k !== current; });
-    return '<div class="chips">' + ids.map(function (k) { return '<button class="chip" type="button" data-r="' + k + '">' + esc(REGS[k].name) + "</button>"; }).join("") +
-      (current !== "all" ? '<button class="chip" type="button" data-r="all">Toda Francia</button>' : "") + "</div>";
-  };
-  var bindChips = function () {
-    panel.querySelectorAll(".chip").forEach(function (c) { c.addEventListener("click", function () { showRegion(c.dataset.r); }); });
-  };
-  var showRegion = function (id) {
-    Object.keys(shapes).forEach(function (k) { shapes[k].classList.toggle("region--active", k === id); });
-    Object.keys(labels).forEach(function (k) { labels[k].classList.toggle("region-label--active", k === id); });
-    var items, title, note;
-    if (id === "all") {
-      items = D.filter(function (d) { return !d.reg; });
-      title = "Toda Francia";
-      note = "Valses, mazurkas, scottishes, branles y mixers: el repertorio común de todos los bals folk.";
-    } else {
-      items = D.filter(function (d) { return d.reg === id; });
-      title = REGS[id].name; note = REGS[id].note;
-    }
-    panel.innerHTML = "<h3>" + esc(title) + '</h3><p class="note">' + esc(note) + " " + items.length + " danzas.</p>" + listHTML(items) + chipsHTML(id);
-    bindList(); bindChips();
-  };
-  panel.innerHTML = '<h3>Elegí una región</h3><p class="note">Las regiones en celeste tienen danzas en nuestro repertorio. También podés empezar por aquí:</p>' + chipsHTML("none");
-  bindChips();
+    var filterReg = function (r) {
+      var sel = [];
+      markers.forEach(function (m) {
+        var on = !r || m._reg === r;
+        m.setStyle({ opacity: on ? 1 : 0.15, fillOpacity: on ? 0.95 : 0.1 });
+        if (on) sel.push(m.getLatLng());
+      });
+      legend.querySelectorAll(".chip").forEach(function (c) { c.classList.toggle("is-on", c.dataset.r === (r || "")); });
+      if (r && sel.length) map.flyToBounds(L.latLngBounds(sel).pad(0.6), { maxZoom: 8, duration: 0.6 });
+      else map.flyToBounds(bounds, { duration: 0.6 });
+      var items = PTS.filter(function (p) { return !r || p.r === r; });
+      panel.innerHTML = "<h3>" + esc(r || "Toda Francia") + '</h3><p class="note">' + items.length + ' danzas. Los puntos grandes son las que bailamos en clase.</p><ul class="atlas__list">' +
+        items.map(function (p, i) { return '<li><button type="button" data-i="' + PTS.indexOf(p) + '"><span>' + esc(p.n) + "</span>" + (p.v ? '<span class="cat">▶ video</span>' : "") + "</button></li>"; }).join("") + "</ul>";
+      panel.querySelectorAll(".atlas__list button").forEach(function (b) { b.addEventListener("click", function () { showPoint(PTS[+b.dataset.i]); }); });
+    };
+    legend.innerHTML = '<button class="chip is-on" type="button" data-r="">Toda Francia</button>' + Object.keys(COL).map(function (k) {
+      return '<button class="chip" type="button" data-r="' + esc(k) + '"><i style="background:' + COL[k] + '"></i>' + esc(k) + "</button>";
+    }).join("");
+    legend.querySelectorAll(".chip").forEach(function (c) { c.addEventListener("click", function () { filterReg(c.dataset.r); }); });
+    filterReg("");
+  }
 })();
