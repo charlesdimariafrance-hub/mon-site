@@ -1,8 +1,13 @@
 (function () {
   "use strict";
 
-  /* Video de la portada: cambiar este ID para usar otro video de YouTube */
-  var HERO_VIDEO = "_xuatd1_CVQ";
+  /* Videos de la portada: se alternan cada 5 segundos (id de YouTube y segundo de inicio) */
+  var HERO_VIDEOS = [
+    { id: "_xuatd1_CVQ", start: 0 },   // bal en el Berry
+    { id: "WuSweqffyzY", start: 25 },  // jóvenes en el Boombal festival
+    { id: "qWREMI9KWAc", start: 15 }   // Gennetines, todas las edades
+  ];
+  var HERO_SECONDS = 5;
 
   var D = window.DANCES, CATS = window.CATEGORIES, REGS = window.REGIONS, MAP = window.FRANCE_MAP;
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -25,28 +30,49 @@
     if (e.target.tagName === "A") { nav.classList.remove("is-open"); menuBtn.setAttribute("aria-expanded", "false"); }
   });
 
-  /* Hero: imagen primero, video después de cargar la página (solo en pantallas grandes) */
+  /* Hero: imágenes que se alternan; en pantallas grandes, videos que se alternan */
   var heroMedia = document.getElementById("heroMedia"), heroToggle = document.getElementById("heroToggle");
-  heroMedia.appendChild(el("img", { src: "https://i.ytimg.com/vi/" + HERO_VIDEO + "/hqdefault.jpg", alt: "" }));
+  var layers = HERO_VIDEOS.map(function (v, i) {
+    var layer = el("div", { class: "hero__layer" + (i === 0 ? " is-on" : "") });
+    layer.appendChild(el("img", { src: "https://i.ytimg.com/vi/" + v.id + "/hqdefault.jpg", alt: "" }));
+    heroMedia.appendChild(layer);
+    return layer;
+  });
+  var current = 0, playing = true, timer = null, frames = [];
+  var show = function (i) {
+    layers[current].classList.remove("is-on");
+    current = i;
+    layers[current].classList.add("is-on");
+  };
+  var start = function () {
+    if (!reduceMotion) timer = setInterval(function () { show((current + 1) % layers.length); }, HERO_SECONDS * 1000);
+  };
+  start();
+  var send = function (f, func) {
+    try { f.contentWindow.postMessage(JSON.stringify({ event: "command", func: func, args: [] }), "*"); } catch (e) {}
+  };
   var saveData = navigator.connection && navigator.connection.saveData;
   if (!reduceMotion && !saveData && window.innerWidth >= 900) {
     window.addEventListener("load", function () {
       setTimeout(function () {
-        var src = "https://www.youtube-nocookie.com/embed/" + HERO_VIDEO +
-          "?autoplay=1&mute=1&controls=0&loop=1&playlist=" + HERO_VIDEO +
-          "&playsinline=1&rel=0&disablekb=1&modestbranding=1&iv_load_policy=3&enablejsapi=1";
-        var f = el("iframe", { src: src, title: "Video de baile", allow: "autoplay; encrypted-media", tabindex: "-1", "aria-hidden": "true" });
-        heroMedia.appendChild(f);
-        heroToggle.hidden = false;
-        var playing = true;
-        heroToggle.addEventListener("click", function () {
-          playing = !playing;
-          f.contentWindow.postMessage(JSON.stringify({ event: "command", func: playing ? "playVideo" : "pauseVideo", args: [] }), "*");
-          heroToggle.textContent = playing ? "Pausar video" : "Reproducir video";
+        HERO_VIDEOS.forEach(function (v, i) {
+          var src = "https://www.youtube-nocookie.com/embed/" + v.id +
+            "?autoplay=1&mute=1&controls=0&loop=1&playlist=" + v.id + "&start=" + v.start +
+            "&playsinline=1&rel=0&disablekb=1&modestbranding=1&iv_load_policy=3&enablejsapi=1";
+          var f = el("iframe", { src: src, title: "Video de baile", allow: "autoplay; encrypted-media", tabindex: "-1", "aria-hidden": "true" });
+          layers[i].appendChild(f);
+          frames.push(f);
         });
       }, 600);
     });
   }
+  heroToggle.hidden = reduceMotion;
+  heroToggle.addEventListener("click", function () {
+    playing = !playing;
+    if (playing) { start(); frames.forEach(function (f) { send(f, "playVideo"); }); }
+    else { clearInterval(timer); frames.forEach(function (f) { send(f, "pauseVideo"); }); }
+    heroToggle.textContent = playing ? "Pausar video" : "Reproducir video";
+  });
 
   /* Cargar formularios y mapa del lugar solo cuando se acercan a la pantalla */
   var lazyFrames = document.querySelectorAll("iframe[data-map-src]");
