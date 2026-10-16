@@ -200,7 +200,7 @@
         <div class="split__body">
           <h3 class="h3">Pedagogía</h3>
           <p>Fichas de danza con origen, región, ritmo, pasos y variantes. Diagramas cinéticos, espectrogramas para escuchar la música y recursos para docentes.</p>
-          <a class="btn btn--ink" href="https://uneven-increase-231.notion.site/3faf81c2eced81889010e13f13727dd6" target="_blank" rel="noopener">Explorar la pedagogía</a>
+          <a class="btn btn--ink" href="pedagogia.html">Explorar la pedagogía</a>
         </div>
       </article>
 
@@ -219,7 +219,7 @@
   <!-- AGENDA -->
   <section class="agenda" id="agenda">
     <div class="wrap agenda__grid">
-      <a class="agenda__poster" href="img/agenda.jpg" target="_blank" rel="noopener"><img src="img/agenda.jpg" alt="Agenda de presentaciones de Che, on danse!, octubre a diciembre de 2026" loading="lazy"></a>
+      <button type="button" class="agenda__poster" id="agendaOpen" aria-label="Ampliar la agenda"><img src="img/agenda.jpg" alt="Agenda de presentaciones de Che, on danse!, octubre a diciembre de 2026" loading="lazy"><span class="agenda__zoom">Tocá para ampliar</span></button>
       <div class="agenda__text">
         <p class="booking__eyebrow" style="color:var(--red)">Octubre · Noviembre · Diciembre 2026</p>
         <h2 class="h2">Agenda de presentaciones</h2>
@@ -235,6 +235,11 @@
       </div>
     </div>
   </section>
+
+  <dialog class="lightbox" id="agendaBox" aria-label="Agenda ampliada">
+    <button type="button" class="lightbox__close" id="agendaClose" aria-label="Cerrar">×</button>
+    <img src="img/agenda.jpg" alt="Agenda de presentaciones de Che, on danse!, octubre a diciembre de 2026">
+  </dialog>
 
   <section class="meet" id="encuentros">
     <div class="wrap">

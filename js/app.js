@@ -170,4 +170,11 @@
       }, k * 1200);
     });
   }
+  /* Agenda: ampliar el afiche */
+  var aBox = document.getElementById("agendaBox"), aOpen = document.getElementById("agendaOpen");
+  if (aBox && aOpen && aBox.showModal) {
+    aOpen.addEventListener("click", function () { aBox.showModal(); aBox.scrollTop = 0; });
+    document.getElementById("agendaClose").addEventListener("click", function () { aBox.close(); });
+    aBox.addEventListener("click", function (e) { if (e.target === aBox) aBox.close(); });
+  }
 })();
