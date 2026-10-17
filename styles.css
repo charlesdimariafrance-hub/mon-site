@@ -484,3 +484,9 @@ em { font-style: italic; }
 @media (max-width: 700px) {
   .dm__pop { position: fixed; left: 12px !important; right: 12px !important; bottom: 12px; top: auto; width: auto; min-height: 0; pointer-events: auto; }
 }
+
+/* Segunda marca: Session Trad BA */
+.brands { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.brand2 { font: 500 .78rem/1.1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--red); text-decoration: none; padding-left: 14px; border-left: 1px solid var(--line); white-space: nowrap; }
+.brand2:hover { color: var(--ink); }
+@media (max-width: 420px) { .brands { gap: 10px; } .brand2 { font-size: .66rem; letter-spacing: .1em; padding-left: 10px; } }
