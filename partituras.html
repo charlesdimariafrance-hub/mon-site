@@ -166,7 +166,7 @@
               g.forEach(function (n) { var mel = n === top && n.pitch >= 55; n.instrument = mel ? 0 : 1; n.program = 21; n.velocity = mel ? 115 : 28; n.isDrum = false; });
             });
             mp.noteSequence = ss;
-            vz.config = { noteRGB: "24,35,58", activeNoteRGB: "200,30,45", noteHeight: 7, pixelsPerTimeStep: 70, instruments: [0], scrollType: 1 };
+            vz.config = { noteRGB: "24,35,58", activeNoteRGB: "200,30,45", noteHeight: 11, pixelsPerTimeStep: 95, instruments: [0], scrollType: 1 };
             vz.noteSequence = ss;
           } catch (e) { try { vz.noteSequence = mp.noteSequence; } catch (e2) {} }
           mp.start();
