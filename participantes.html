@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Che, on danse ! — Inscriptos</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#202124;background:#faf9f7}
+*{box-sizing:border-box}body{margin:0;padding:24px}main{max-width:720px;margin:40px auto;background:#fff;border-radius:22px;padding:30px;box-shadow:0 8px 30px #00000012}
+h1{margin:0 0 8px;font-size:clamp(28px,6vw,44px)}.sub{margin:0 0 28px;color:#666}.controls{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin-bottom:24px}
+label{font-weight:700}input,button{font:inherit;border-radius:12px;padding:11px 14px;border:1px solid #ccc}button{cursor:pointer;background:#202124;color:#fff;border:0}
+#count{font-size:1.1rem;font-weight:700;margin:18px 0}ol{padding-left:24px}li{padding:7px 0;border-bottom:1px solid #eee}.note{font-size:.9rem;color:#777;margin-top:25px}#error{color:#a40000}
+
+.navbuttons{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 28px}
+.navbuttons a{font-weight:700;color:#202124;text-decoration:none;background:#f2f2f2;border:1px solid #ddd;border-radius:12px;padding:11px 14px}
+.galeria-che{max-width:900px;margin:32px auto;display:grid;gap:24px}
+.galeria-che img{display:block;width:100%;height:auto;border-radius:16px}
+.galeria-che .profes{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:650px){body{padding:12px}main{margin:12px auto;padding:20px}.galeria-che .profes{grid-template-columns:1fr}}
+
+</style></head>
+<body><main>
+<h1>Che, on danse !</h1>
+<p class="sub">Lista de personas inscriptas para la clase del sábado</p>
+
+<div class="navbuttons">
+  <a href="https://www.google.com/maps/search/?api=1&query=Ramsay+2131%2C+Nu%C3%B1ez%2C+CABA" target="_blank">📍 Cómo llegar — Ramsay 2131</a>
+  <a href="index.html#danzas">Tutoriales de danza</a>
+  <a href="formacion.html">Formación online</a>
+  <a href="https://legrandbal.super.site/" target="_blank">Le Grand Bal 2027</a>
+  <a id="brunch-bal-link" href="brunch-bal.html">Brunch &amp; Bal</a>
+</div>
+
+<div class="controls"><div><label for="fecha">Sábado</label><br><input id="fecha" type="date"></div><button id="ver">Ver inscriptos</button></div>
+<div id="status">Elegí un sábado.</div><div id="count"></div><ol id="lista"></ol><div id="error"></div>
+<p class="note">Esta página muestra solamente nombres. DNI, fecha de nacimiento y datos de contacto no son públicos.</p>
+</main>
+<section class="galeria-che">
+<img loading="lazy" src="img/part-clases.jpg" alt="Clases de danzas francesas">
+<img loading="lazy" src="img/part-brunch.jpg" alt="Brunch & Bal">
+<div class="profes">
+<img loading="lazy" src="img/part-geraldine.jpg" alt="Géraldine">
+<img loading="lazy" src="img/part-charles.jpg" alt="Charles">
+</div>
+</section>
+
+<script>
+const SUPABASE_URL="https://pgeuoheiqyoewqpwungx.supabase.co";
+const API_KEY="sb_publishable_Y7jYW94niVw7EeyoXZlJVQ_hiBm0UX_";
+const fecha=document.getElementById("fecha"),lista=document.getElementById("lista"),count=document.getElementById("count"),status=document.getElementById("status"),error=document.getElementById("error");
+function isSaturday(v){if(!v)return false;const [y,m,d]=v.split("-").map(Number);return new Date(y,m-1,d).getDay()===6}
+async function cargar(){lista.innerHTML="";count.textContent="";error.textContent="";if(!isSaturday(fecha.value)){status.textContent="Elegí un sábado.";return}status.textContent="Cargando…";
+try{const r=await fetch(`${SUPABASE_URL}/rest/v1/rpc/lista_inscriptos`,{method:"POST",headers:{"Content-Type":"application/json","apikey":API_KEY},body:JSON.stringify({p_fecha:fecha.value})});
+if(!r.ok)throw new Error("No se pudo cargar la lista.");const data=await r.json();status.textContent="";
+const normalizar=n=>(n||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+const esCharles=n=>normalizar(n).includes("charles di maria");
+const esGeraldine=n=>normalizar(n).includes("geraldine darnond");
+const autres=data.filter(x=>!esCharles(x.nombre_apellido)&&!esGeraldine(x.nombre_apellido));
+const listeFinale=[
+  {nombre_apellido:"Charles Di Maria"},
+  {nombre_apellido:"Geraldine Darnond"},
+  ...autres
+];
+count.textContent=listeFinale.length+" personas inscriptas";
+for(const x of listeFinale){const li=document.createElement("li");li.textContent=x.nombre_apellido;if(esCharles(x.nombre_apellido)||esGeraldine(x.nombre_apellido))li.style.fontWeight="700";lista.appendChild(li)}}catch(e){status.textContent="";error.textContent=e.message}}
+document.getElementById("ver").onclick=cargar;fecha.onchange=cargar;
+function chargerDateEtListe(){
+  const q=new URLSearchParams(window.location.search);
+  const auto=[q.get("fecha"),q.get("fecha1"),q.get("fecha2")].find(v=>v && /^\\d{4}-\\d{2}-\\d{2}$/.test(v));
+  if(auto){
+    fecha.value=auto;
+  }else{
+    const hoy=new Date();
+    const dias=(6-hoy.getDay()+7)%7;
+    const sab=new Date(hoy.getFullYear(),hoy.getMonth(),hoy.getDate()+dias);
+    const y=sab.getFullYear(),m=String(sab.getMonth()+1).padStart(2,"0"),d=String(sab.getDate()).padStart(2,"0");
+    fecha.value=`${y}-${m}-${d}`;
+  }
+  cargar();
+}
+chargerDateEtListe();
+window.addEventListener("pageshow", function(event) {
+  if (event.persisted || performance.getEntriesByType("navigation")[0]?.type === "back_forward") {
+    window.location.reload();
+  }
+});
+</script></body></html>
