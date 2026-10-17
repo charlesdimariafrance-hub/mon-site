@@ -1,0 +1,233 @@
+[
+ {
+  "id": "d10",
+  "name": "Branle d’Ossau",
+  "sec": 187,
+  "comment": "",
+  "more": "",
+  "moreLink": "",
+  "kineticUrl": "",
+  "variants": [
+   "https://youtu.be/dkZvFhh24FY",
+   "https://youtu.be/bUb-yeVwBps?si=Eri7v5-lF2CZnmHW",
+   "",
+   "",
+   ""
+  ],
+  "images": [
+   "img/lector/d10-1.jpg"
+  ]
+ },
+ {
+  "id": "d1",
+  "name": "Lo crouzado",
+  "sec": 120,
+  "comment": "Ouverture collective.",
+  "more": "",
+  "moreLink": "https://youtube.com/shorts/1X5mF48aFKs",
+  "kineticUrl": "",
+  "variants": [
+   "https://youtu.be/jXbRiDwvXeM?si=fNKPatidBL5s_nme",
+   "https://youtu.be/p3WJ3aqLlxo?si=1TcU2738lyC4XdMR",
+   "https://youtu.be/R2jQSyvINug?si=kAoDq2QYed5g5rXw",
+   "https://youtube.com/shorts/1X5mF48aFKs",
+   "https://youtube.com/shorts/vqLY0Pjm1Ss"
+  ],
+  "images": [
+   "img/lector/d1-1.jpg",
+   "img/lector/d1-2.jpg"
+  ]
+ },
+ {
+  "id": "d2",
+  "name": "Congo de Captieux",
+  "sec": 250,
+  "comment": "",
+  "more": "3.er Congo: completo, partes A y B ×3.\n4.º Congo: cortado; las 3 últimas figuras quedan sin sonido.\n5.º Congo: después de una pequeña pausa, retoma desde el inicio, figura 1/8.",
+  "moreLink": "",
+  "kineticUrl": "",
+  "variants": [
+   "https://youtu.be/ZHovppdfZBk?si=C3P4Ymy4VWxln_s8",
+   "https://youtu.be/bmSTkIxJqyk?si=9smM6G9zawiFC0go",
+   "https://youtu.be/9aC_wmqfHpw?si=YI8lIHlslIFhQ8-s",
+   "",
+   ""
+  ],
+  "images": [
+   "img/lector/d2-1.jpg",
+   "img/lector/d2-2.jpg"
+  ]
+ },
+ {
+  "id": "d4",
+  "name": "Gavotte de Pourlet",
+  "sec": 155,
+  "comment": "",
+  "more": "",
+  "moreLink": "",
+  "kineticUrl": "",
+  "variants": [
+   "https://www.youtube.com/watch?v=LeHd4aQxCVY",
+   "https://youtu.be/kMQkshBFkkw?si=s5vXCQCbLQn5B4Sk",
+   "https://youtu.be/pn-E2lC5NBQ?si=Gux-vT6zV-_Q7yeU",
+   "",
+   ""
+  ],
+  "images": [
+   "img/lector/d4-1.jpg"
+  ]
+ },
+ {
+  "id": "dmu9cs97l50bao",
+  "name": "Pré grande poterie",
+  "sec": 32,
+  "comment": "",
+  "more": "",
+  "moreLink": "",
+  "kineticUrl": "",
+  "variants": [
+   "https://youtu.be/hiDvy3Gq114?si=pLTCWNf1PovwdCkm",
+   "",
+   "",
+   "",
+   ""
+  ],
+  "images": []
+ },
+ {
+  "id": "d5",
+  "name": "Bourrée des poteries",
+  "sec": 136,
+  "comment": "",
+  "more": "",
+  "moreLink": "",
+  "kineticUrl": "",
+  "variants": [
+   "https://youtu.be/3bhI3WbpeQ8?si=M2W-3bEnoByULOGn",
+   "https://youtu.be/-VnW_zRrmdw?si=IKmvvJRVlQ7zn2e0",
+   "",
+   "",
+   ""
+  ],
+  "images": []
+ },
+ {
+  "id": "d9",
+  "name": "Bourrée 3 temps du Berry",
+  "sec": 187,
+  "comment": "",
+  "more": "",
+  "moreLink": "",
+  "kineticUrl": "",
+  "variants": [
+   "https://youtu.be/QG7ZCU3Ui0w?si=k9BeM354JafdS6NN",
+   "",
+   "",
+   "",
+   ""
+  ],
+  "images": []
+ },
+ {
+  "id": "d7",
+  "name": "Bourrée 2 temps + Aurore Sand",
+  "sec": 214,
+  "comment": "",
+  "more": "",
+  "moreLink": "",
+  "kineticUrl": "",
+  "variants": [
+   "https://youtube.com/shorts/43tEqWlVil0?si=birqirJ6qjqx2DFV",
+   "",
+   "",
+   "",
+   ""
+  ],
+  "images": []
+ },
+ {
+  "id": "dmua66851ia0f9",
+  "name": "Gavotte Glazig",
+  "sec": 206,
+  "comment": "",
+  "more": "",
+  "moreLink": "",
+  "kineticUrl": "",
+  "variants": [
+   "https://youtu.be/YpDmSiSFEyI",
+   "",
+   "",
+   "",
+   ""
+  ],
+  "images": []
+ },
+ {
+  "id": "d6",
+  "name": "Rond paludier",
+  "sec": 90,
+  "comment": "",
+  "more": "",
+  "moreLink": "",
+  "kineticUrl": "",
+  "variants": [
+   "https://youtu.be/XBzjNPk7AVI?si=vRLBeNf-F3dGpaG4",
+   "",
+   "",
+   "",
+   ""
+  ],
+  "images": []
+ },
+ {
+  "id": "d3",
+  "name": "Gavotte Dardoup bal à 8",
+  "sec": 45,
+  "comment": "",
+  "more": "",
+  "moreLink": "",
+  "kineticUrl": "",
+  "variants": [
+   "https://youtu.be/faFCiqbOy3k?si=nrPkoN4DxywShv4z",
+   "",
+   "",
+   "",
+   ""
+  ],
+  "images": []
+ },
+ {
+  "id": "d8",
+  "name": "Gavotte Dardoup en chaîne et bal à 4",
+  "sec": 210,
+  "comment": "",
+  "more": "",
+  "moreLink": "",
+  "kineticUrl": "",
+  "variants": [
+   "https://youtu.be/iGVVsRFexjY?si=rDGn5HQYja6ES34G",
+   "",
+   "",
+   "",
+   ""
+  ],
+  "images": []
+ },
+ {
+  "id": "d11",
+  "name": "Pantalon quadrille",
+  "sec": 60,
+  "comment": "",
+  "more": "",
+  "moreLink": "",
+  "kineticUrl": "",
+  "variants": [
+   "https://youtu.be/PxtTntprURk?si=rghzCYCdfIfac79H",
+   "",
+   "",
+   "",
+   ""
+  ],
+  "images": []
+ }
+]
