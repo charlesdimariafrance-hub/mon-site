@@ -527,3 +527,8 @@ html, body { overflow-x: clip; max-width: 100%; }
 @keyframes pickD { 50% { transform: translateY(6px); } }
 @media (max-width: 880px) { .booking__arrow::before { content: "↓"; animation-name: pickD; } }
 @media (prefers-reduced-motion: reduce) { .booking__arrow::before { animation: none; } }
+
+/* Hero: segunda fila de botones (Elijo mi sábado · Playlist) */
+.hero__actions--more { margin-top: 12px; }
+.booking__form { position: relative; }
+.booking__anchor { position: absolute; left: 0; top: 330px; width: 1px; height: 1px; }
