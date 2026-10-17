@@ -60,6 +60,11 @@
   .pt-player midi-visualizer svg { display: block; }
   .pt-links button.pt-play { background: var(--ink); border-color: var(--ink); }
   .pt-links button.pt-play:hover { background: var(--red); border-color: var(--red); }
+  .pt-ctl { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; max-width: 640px; }
+  .pt-ctl .pt-pp { padding: 8px 16px; border: 0; background: var(--ink); color: #fff; font: 500 .92rem var(--sans); cursor: pointer; min-width: 128px; }
+  .pt-ctl .pt-pp:disabled { opacity: .6; }
+  .pt-ctl .pt-pos { flex: 1; accent-color: var(--red); }
+  .pt-ctl .pt-time { font: 500 .85rem var(--sans); color: var(--muted); white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -139,38 +144,69 @@
     midiLib = new Promise(function (ok, ko) { var sc = document.createElement("script"); sc.src = "https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.5.0"; sc.onload = ok; sc.onerror = ko; document.head.appendChild(sc); });
     return midiLib;
   }
+  var accLib = null;
+  function loadAcc() { return accLib || (accLib = import("https://cdn.jsdelivr.net/npm/smplr@0.15.1/+esm")); }
   var nPl = 0;
   list.addEventListener("click", function (ev) {
     var p = ev.target.closest("button.pt-play");
     if (p) {
       var tr = p.closest("tr"), nx = tr.nextElementSibling;
-      if (nx && nx.classList.contains("pt-player")) { nx.querySelectorAll("audio").forEach(function (a) { a.pause(); }); var mp = nx.querySelector("midi-player"); if (mp && mp.stop) mp.stop(); nx.remove(); if (nx.dataset.src === (p.dataset.mp3 || p.dataset.mid)) return; }
+      if (nx && nx.classList.contains("pt-player")) { nx.querySelectorAll("audio").forEach(function (a) { a.pause(); }); if (nx._stop) nx._stop(); nx.remove(); if (nx.dataset.src === (p.dataset.mp3 || p.dataset.mid)) return; }
       document.querySelectorAll("audio").forEach(function (a) { a.pause(); });
+      if (window._ptStop) { try { window._ptStop(); } catch (e) {} window._ptStop = null; }
       var row = document.createElement("tr"); row.className = "pt-player"; row.dataset.src = p.dataset.mp3 || p.dataset.mid;
       var td = document.createElement("td"); td.colSpan = 3; row.appendChild(td); tr.after(row);
       if (p.dataset.mp3) { td.innerHTML = '<audio controls autoplay preload="none" src="' + esc(p.dataset.mp3) + '"></audio>'; return; }
       var id = "viz" + (++nPl);
       td.innerHTML = '<p class="pt-sub">Cargando el reproductor…</p>';
-      loadMidi().then(function () {
+      Promise.all([loadMidi(), loadAcc()]).then(function (libs) {
+        var Soundfont = libs[1].Soundfont;
         var w = Math.max(260, list.clientWidth - 30);
-        td.innerHTML = '<midi-player src="' + esc(p.dataset.mid) + '" sound-font visualizer="#' + id + '"></midi-player><div class="pt-viz" style="width:' + w + 'px"><midi-visualizer type="staff" id="' + id + '"></midi-visualizer></div>';
-        var mp = td.querySelector("midi-player"), vz = td.querySelector("midi-visualizer");
-        mp.addEventListener("load", function () {
-          try {
-            var ns = mp.noteSequence, ss = typeof ns.clone === "function" ? ns.clone() : JSON.parse(JSON.stringify(ns));
-            // Melodía = la nota más aguda de cada ataque; el resto es acompañamiento
-            var groups = {};
-            ss.notes.forEach(function (n) { var k = Math.round((n.startTime || 0) * 50); (groups[k] = groups[k] || []).push(n); });
-            Object.keys(groups).forEach(function (k) {
-              var g = groups[k], top = g.reduce(function (a, b) { return b.pitch > a.pitch ? b : a; });
-              g.forEach(function (n) { var mel = n === top && n.pitch >= 55; n.instrument = mel ? 0 : 1; n.program = 21; n.velocity = mel ? 115 : 28; n.isDrum = false; });
-            });
-            mp.noteSequence = ss;
-            vz.config = { noteRGB: "24,35,58", activeNoteRGB: "200,30,45", noteHeight: 11, pixelsPerTimeStep: 95, instruments: [0], scrollType: 1 };
-            vz.noteSequence = ss;
-          } catch (e) { try { vz.noteSequence = mp.noteSequence; } catch (e2) {} }
-          mp.start();
-        }, { once: true });
+        td.innerHTML = '<div class="pt-ctl"><button type="button" class="pt-pp">▶ Reproducir</button><input type="range" class="pt-pos" min="0" max="100" step="0.1" value="0" aria-label="Posición"><span class="pt-time">0:00</span></div><div class="pt-viz" style="width:' + w + 'px"><midi-visualizer type="staff" id="' + id + '"></midi-visualizer></div>';
+        var vz = td.querySelector("midi-visualizer"), pp = td.querySelector(".pt-pp"), pos = td.querySelector(".pt-pos"), tm = td.querySelector(".pt-time");
+        var ctx = new (window.AudioContext || window.webkitAudioContext)();
+        var acc = new Soundfont(ctx, { instrument: "accordion", kit: "MusyngKite" });
+        var ns, mel = [], dur = 0, t0 = 0, at = 0, playing = false, raf = 0, idx = 0;
+        var fmt = function (x) { x = Math.max(0, Math.floor(x)); return Math.floor(x / 60) + ":" + String(x % 60).padStart(2, "0"); };
+        function stop() { playing = false; cancelAnimationFrame(raf); try { acc.stop(); } catch (e) {} pp.textContent = "▶ Reproducir"; }
+        function tick() {
+          if (!playing) return;
+          var t = ctx.currentTime - t0;
+          if (t >= dur) { stop(); at = 0; pos.value = 0; tm.textContent = "0:00"; return; }
+          pos.value = (t / dur) * 100; tm.textContent = fmt(t) + " / " + fmt(dur);
+          while (idx < mel.length && mel[idx].startTime <= t) { try { vz.redraw(mel[idx], true); } catch (e) {} idx++; }
+          raf = requestAnimationFrame(tick);
+        }
+        function play() {
+          ctx.resume();
+          var now = ctx.currentTime + 0.08; t0 = now - at;
+          ns.notes.forEach(function (n) {
+            if (n.startTime < at) return;
+            acc.start({ note: n.pitch, velocity: n.velocity, time: t0 + n.startTime, duration: Math.max(0.05, n.endTime - n.startTime) });
+          });
+          idx = 0; while (idx < mel.length && mel[idx].startTime < at) idx++;
+          playing = true; pp.textContent = "❚❚ Pausa"; raf = requestAnimationFrame(tick);
+        }
+        pp.onclick = function () { if (playing) { at = ctx.currentTime - t0; stop(); } else play(); };
+        pos.oninput = function () { var was = playing; if (playing) stop(); at = (pos.value / 100) * dur; tm.textContent = fmt(at) + " / " + fmt(dur); if (was) play(); };
+        row._stop = function () { stop(); try { ctx.close(); } catch (e) {} };
+        window._ptStop = row._stop;
+        pp.disabled = true; pp.textContent = "Cargando…";
+        Promise.all([window.core.urlToNoteSequence(p.dataset.mid), acc.load]).then(function (r) {
+          ns = r[0];
+          var groups = {};
+          ns.notes.forEach(function (n) { var k = Math.round((n.startTime || 0) * 50); (groups[k] = groups[k] || []).push(n); });
+          Object.keys(groups).forEach(function (k) {
+            var g = groups[k], top = g.reduce(function (x, y) { return y.pitch > x.pitch ? y : x; });
+            g.forEach(function (n) { var m = n === top && n.pitch >= 55; n.instrument = m ? 0 : 1; n.program = 21; n.velocity = m ? 105 : 30; n.isDrum = false; });
+          });
+          mel = ns.notes.filter(function (n) { return n.instrument === 0; }).sort(function (x, y) { return x.startTime - y.startTime; });
+          dur = ns.totalTime || ns.notes.reduce(function (m, n) { return Math.max(m, n.endTime); }, 0);
+          vz.config = { noteRGB: "24,35,58", activeNoteRGB: "200,30,45", noteHeight: 11, pixelsPerTimeStep: 95, instruments: [0], scrollType: 1 };
+          vz.noteSequence = ns;
+          tm.textContent = "0:00 / " + fmt(dur);
+          pp.disabled = false; play();
+        }, function () { td.innerHTML = '<p class="pt-sub">No se pudo cargar la música. <a href="' + esc(p.dataset.mid) + '">Descargar el MIDI</a></p>'; });
       }, function () { td.innerHTML = '<p class="pt-sub">No se pudo cargar el reproductor. <a href="' + esc(p.dataset.mid) + '">Descargar el MIDI</a></p>'; });
       return;
     }
