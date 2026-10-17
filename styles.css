@@ -501,3 +501,6 @@ em { font-style: italic; }
 .dm__pop [class*="punto"], .dm__pop .estado::before { border-radius: 0; }
 .brand { white-space: nowrap; }
 @media (max-width: 420px) { .brand { font-size: 1.25rem; } }
+.booking__people { margin: 1.1rem 0 1.4rem; }
+.booking__people .btn { border-color: var(--ink); color: var(--ink); font-weight: 600; }
+.booking__people .btn:hover { background: var(--ink); color: var(--paper); }
