@@ -492,7 +492,7 @@ em { font-style: italic; }
 @media (max-width: 420px) { .brands { gap: 10px; } .brand2 { font-size: .66rem; letter-spacing: .1em; padding-left: 10px; } }
 /* Agenda: logo a la derecha, más grande; leyenda fina y cuadrada */
 .dm__head { justify-content: space-between; }
-.dm__head img.dm__logo { width: 120px; height: 120px; flex: 0 0 auto; filter: drop-shadow(0 4px 14px rgba(0,0,0,.35)); }
+.dm__head img.dm__logo { width: 120px; height: 120px; flex: 0 0 auto; background: #fff; display: block; }
 .dm__chip { font: 500 .78rem/1 var(--sans); letter-spacing: .18em; padding: 8px 12px 8px 10px; border-radius: 0; background: transparent !important; color: #f7f3ea; border: 1px solid rgba(247,243,234,.35); display: inline-flex; align-items: center; gap: 10px; }
 .dm__chip::before { content: ""; width: 10px; height: 10px; flex: 0 0 auto; }
 .dm__chip.seguro::before { background: var(--seguro); } .dm__chip.incierto::before { background: var(--incierto); }
