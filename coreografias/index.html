@@ -54,7 +54,7 @@ button { font: inherit; cursor: pointer; }
 .dancer.h .circle { background: var(--c); }
 .dancer .num { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font: 600 clamp(9px, 1.5vw, 13px)/1 var(--sans); color: var(--c); }
 .dancer.h .num { color: #fff; }
-.empty { position: absolute; left: 12px; right: 12px; top: 12px; background: rgba(255,255,255,.94); border-left: 3px solid var(--gold); padding: 8px 12px; font-size: .86rem; color: var(--muted); }
+.empty { margin: 0 auto 10px; max-width: min(100%, 74vh); background: #fff; border-left: 3px solid var(--gold); padding: 8px 12px; font-size: .86rem; color: var(--muted); }
 .panel.static .controls, .panel.static .tl, .panel.static .hint, .panel.static .parts, .panel.static .opts, .panel.static .now { display: none; }
 .panel.static h2 { margin-bottom: 14px; }
 .panel { display: flex; flex-direction: column; }
@@ -285,8 +285,8 @@ function selectFig(i, push) {
   $('#title').textContent = nice(fig.name);
   const ms = fig.mouvements.filter(m => m.steps.length > 1 || m.name !== 'Départ');
   const hasDiagram = steps.length > 1;
-  const old = $('#board .empty'); if (old) old.remove();
-  if (!hasDiagram) $('#board').insertAdjacentHTML('beforeend', `<div class="empty">Esta figura todavía no tiene diagrama: acá ves la posición de salida.${fig.video ? ' Mirá el video.' : ''}</div>`);
+  const old = $('.stage .empty'); if (old) old.remove();
+  if (!hasDiagram) $('#board').insertAdjacentHTML('beforebegin', `<div class="empty">Esta figura todavía no tiene diagrama: acá ves la posición de salida.${fig.video ? ' Mirá el video.' : ''}</div>`);
   // audio
   audio.pause(); audio.removeAttribute('src');
   if (fig.audio) { audio.src = fig.audio; audio.playbackRate = rate; audio.load(); }
