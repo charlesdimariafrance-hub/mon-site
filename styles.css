@@ -518,3 +518,12 @@ html, body { overflow-x: clip; max-width: 100%; }
   .agenda__vid { max-width: 320px; margin: 0 auto; }
   .agenda__steps code { word-break: break-all; overflow-wrap: anywhere; }
 }
+
+/* Indicación hacia el formulario: flecha a la derecha en compu, abajo en teléfono */
+.booking__pick { display: flex; align-items: center; gap: 14px; margin: 1.4rem 0; padding: 14px 18px; border: 1px solid #D9B26A; color: var(--paper); font-size: 1.05rem; line-height: 1.4; }
+.booking__pick strong { color: #D9B26A; white-space: nowrap; }
+.booking__arrow::before { content: "→"; font-size: 1.9rem; line-height: 1; color: #D9B26A; display: inline-block; animation: pickR 1.4s ease-in-out infinite; }
+@keyframes pickR { 50% { transform: translateX(6px); } }
+@keyframes pickD { 50% { transform: translateY(6px); } }
+@media (max-width: 880px) { .booking__arrow::before { content: "↓"; animation-name: pickD; } }
+@media (prefers-reduced-motion: reduce) { .booking__arrow::before { animation: none; } }
