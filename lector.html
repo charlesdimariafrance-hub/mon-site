@@ -44,6 +44,8 @@
   .lx-chips button.on b { color: #f3c2c2; }
   .lx-var select { height: 38px; border: 1px solid var(--line); background: #fff; font: 500 .82rem var(--sans); }
   .lx-var small { grid-column: 2 / -1; color: var(--muted); font-size: .78rem; margin-top: -2px; }
+  .lx-show { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: space-between; padding: 14px 16px; border: 1px solid var(--line); background: var(--mist); margin: -10px 0 26px; font-size: .92rem; }
+  .lx-show span { color: var(--muted); }
   .lx-ctl { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding: 6px 20px 12px; }
   .lx-speed { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border: 1px solid var(--line); font: 500 .9rem var(--sans); }
   .lx-speed input { width: 130px; accent-color: var(--red); }
@@ -159,6 +161,11 @@
     <button class="lx-b" type="button" onclick="window.print()">Imprimir</button>
     <button class="lx-b" type="button" onclick="resetAll()">Volver al repertorio original</button>
   </div>
+  <div class="lx-show" id="showBox">
+    <div><strong>MP3 del espectáculo</strong> <span id="showSt">Si recibiste «Berisso 2026 - todas las musicas.mp3», cargalo acá una vez: cada pieza suena con su música, con velocidad y repetición.</span></div>
+    <label class="lx-b ink">Cargar el MP3 <input type="file" accept="audio/*,.mp3" onchange="loadShow(this.files[0]);this.value=''"></label>
+    <button class="lx-b" type="button" id="showDel" onclick="removeShow()" hidden>Quitar</button>
+  </div>
 
   <div class="lx-list" id="list"></div>
 </main>
@@ -230,7 +237,7 @@ function norm(d) { d.variants = Array.isArray(d.variants) ? d.variants.slice(0, 
   const b = (typeof BASE !== "undefined" && BASE.find) ? BASE.find(x => x.id === d.id) : null;
   if (!Array.isArray(d.variantTypes)) d.variantTypes = []; if (!Array.isArray(d.variantTitles)) d.variantTitles = [];
   d.variants.forEach((u, i) => { if (b && b.variants && u) { const j = b.variants.indexOf(u); if (j >= 0) { if (!d.variantTypes[i]) d.variantTypes[i] = b.variantTypes[j]; if (!d.variantTitles[i]) d.variantTitles[i] = b.variantTitles[j]; } } d.variantTypes[i] = d.variantTypes[i] || "Música"; d.variantTitles[i] = d.variantTitles[i] || ""; });
-  d.variantTypes.length = NV; d.variantTitles.length = NV; d.images = Array.isArray(d.images) ? d.images : []; ["name", "comment", "more", "moreLink", "kineticUrl"].forEach(k => d[k] = d[k] || ""); d.sec = Number(d.sec) || 0; return d; }
+  d.variantTypes.length = NV; d.variantTitles.length = NV; if (!d.cue && b && b.cue) d.cue = b.cue; d.images = Array.isArray(d.images) ? d.images : []; ["name", "comment", "more", "moreLink", "kineticUrl"].forEach(k => d[k] = d[k] || ""); d.sec = Number(d.sec) || 0; return d; }
 function save() { try { localStorage.setItem(KEY, JSON.stringify(P)); } catch (e) {} const f = $("saved"); if (f) { f.textContent = "Guardado"; clearTimeout(save.t); save.t = setTimeout(() => f.textContent = "Guardado automático", 900); } }
 function ytId(u) { try { u = new URL(u); if (u.hostname.includes("youtu.be")) return u.pathname.slice(1).split("/")[0]; if (u.hostname.includes("youtube")) { if (/^\/(shorts|embed)\//.test(u.pathname)) return u.pathname.split("/")[2]; return u.searchParams.get("v") || ""; } } catch (e) {} return ""; }
 
@@ -286,7 +293,7 @@ async function showScore(d) {
   items.forEach(x => { if (x.pdf) S.insertAdjacentHTML("beforeend", `<iframe src="${esc(x.u)}" title="Partitura"></iframe>`); else { const im = new Image(); im.src = x.u; im.alt = "Partitura o dibujo de " + d.name; im.onclick = () => { const z = $("zoom"); z.querySelector("img").src = x.u; z.classList.add("open"); }; S.appendChild(im); } });
 }
 function ui() { render(); const d = P[cur]; $("now").textContent = d ? (cur + 1) + ". " + d.name : "Elegí una pieza o «Escuchar todo»"; }
-function stopMedia() { A.pause(); A.removeAttribute("src"); if (mp3Url) { URL.revokeObjectURL(mp3Url); mp3Url = null; } if (yt && yt.stopVideo) try { yt.stopVideo(); } catch (e) {} mode = null; }
+function stopMedia() { A.pause(); if (mode !== "cue") A.removeAttribute("src"); if (mp3Url) { URL.revokeObjectURL(mp3Url); mp3Url = null; } if (yt && yt.stopVideo) try { yt.stopVideo(); } catch (e) {} mode = null; }
 let curVar = -1;
 function pickVar(d) { let k = d.variants.findIndex((v, j) => ytId(v) && d.variantTypes[j] === "Música"); if (k < 0) k = d.variants.findIndex(v => ytId(v)); return k; }
 function chips(d) { const C = $("vchips"); const items = d.variants.map((v, j) => ({ v, j })).filter(x => ytId(x.v)); C.innerHTML = items.length > 0 ? items.map(x => `<button type="button" class="${x.j === curVar ? "on" : ""}" onclick="playVar(${x.j})"><b>${esc(d.variantTypes[x.j])}</b>${esc(d.variantTitles[x.j] || ("Video " + (x.j + 1)))}</button>`).join("") : ""; }
@@ -307,6 +314,12 @@ async function start(i) {
   cur = i; stopMedia(); const d = P[i]; ui(); showScore(d); curVar = -1; chips(d);
   $("player").scrollIntoView({ behavior: "smooth", block: "start" });
   const rec = await mainMp3(d.id);
+  if (!rec && showUrl && d.cue) {
+    mode = "cue"; A.loop = false; if (A.getAttribute("src") !== showUrl) A.src = showUrl; setSpeed(rate);
+    const go = () => { A.currentTime = d.cue[0]; A.play().catch(() => {}); };
+    if (A.readyState >= 1) go(); else A.addEventListener("loadedmetadata", go, { once: true });
+    $("ytBox").innerHTML = '<div class="lx-empty">Sonando el MP3 del espectáculo</div>'; yt = null; $("ppBtn").textContent = "❚❚ Pausa"; return;
+  }
   if (rec) {
     mode = "mp3"; mp3Url = URL.createObjectURL(rec.blob); A.src = mp3Url; A.loop = loop; setSpeed(rate);
     $("ytBox").innerHTML = '<div class="lx-empty">Sonando el MP3 de tu navegador</div>'; yt = null;
@@ -314,7 +327,12 @@ async function start(i) {
   }
   startYT(d, pickVar(d));
 }
-A.addEventListener("ended", () => { if (!loop && chain) next(); });
+A.addEventListener("ended", () => { if (mode === "mp3" && !loop && chain) next(); });
+A.addEventListener("timeupdate", () => { if (mode !== "cue" || cur < 0) return; const c = P[cur].cue; if (!c || A.currentTime < c[1]) return; if (loop) A.currentTime = c[0]; else if (chain) next(); else A.pause(); });
+let showUrl = null;
+async function initShow() { const r = await dGet("show:mp3"); if (showUrl) URL.revokeObjectURL(showUrl); showUrl = r ? URL.createObjectURL(r.blob) : null; $("showSt").textContent = r ? "Cargado: " + r.name + ". Cada pieza con música usa este MP3." : "Si recibiste «Berisso 2026 - todas las musicas.mp3», cargalo acá una vez: cada pieza suena con su música, con velocidad y repetición."; $("showDel").hidden = !r; }
+async function loadShow(f) { if (!f) return; await dPut({ key: "show:mp3", danceId: "", kind: "show", name: f.name, type: f.type, size: f.size, blob: f }); initShow(); }
+async function removeShow() { await dDel("show:mp3"); stopAll(); initShow(); }
 A.addEventListener("play", () => $("ppBtn").textContent = "❚❚ Pausa");
 A.addEventListener("pause", () => { if (!A.ended) $("ppBtn").textContent = "▶ Seguir"; });
 function playAt(i) { chain = false; start(i); }
@@ -324,11 +342,11 @@ function prev() { start(Math.max(0, cur - 1)); }
 function stopAll() { stopMedia(); chain = false; cur = -1; curVar = -1; $("vchips").innerHTML = ""; ui(); $("ppBtn").textContent = "❚❚ Pausa"; $("pos").value = 0; $("tCur").textContent = "0:00"; $("tDur").textContent = "0:00"; }
 function togglePause() {
   if (cur < 0) return playAll();
-  if (mode === "mp3") { A.paused ? A.play() : A.pause(); }
+  if (mode === "mp3" || mode === "cue") { A.paused ? A.play() : A.pause(); }
   else if (mode === "yt" && yt && yt.getPlayerState) { yt.getPlayerState() === 1 ? yt.pauseVideo() : yt.playVideo(); }
 }
-function timeNow() { if (mode === "mp3") return [A.currentTime || 0, A.duration || 0]; if (mode === "yt" && yt && yt.getCurrentTime) return [yt.getCurrentTime() || 0, yt.getDuration() || 0]; return [0, 0]; }
-function seek(v) { const [, d] = timeNow(); if (!d) return; const t = (v / 1000) * d; if (mode === "mp3") A.currentTime = t; else if (yt && yt.seekTo) yt.seekTo(t, true); }
+function timeNow() { if (mode === "cue" && cur >= 0 && P[cur].cue) { const c = P[cur].cue; return [Math.max(0, (A.currentTime || 0) - c[0]), c[1] - c[0]]; } if (mode === "mp3") return [A.currentTime || 0, A.duration || 0]; if (mode === "yt" && yt && yt.getCurrentTime) return [yt.getCurrentTime() || 0, yt.getDuration() || 0]; return [0, 0]; }
+function seek(v) { const [, d] = timeNow(); if (!d) return; const t = (v / 1000) * d; if (mode === "cue") A.currentTime = P[cur].cue[0] + t; else if (mode === "mp3") A.currentTime = t; else if (yt && yt.seekTo) yt.seekTo(t, true); }
 setInterval(() => { const [c, d] = timeNow(); if (!d) return; if (document.activeElement !== $("pos")) $("pos").value = Math.round((c / d) * 1000); $("tCur").textContent = fmt(c); $("tDur").textContent = fmt(d); }, 400);
 
 /* ---------- Ficha ---------- */
@@ -392,7 +410,7 @@ fetch("data/lector.json").then(r => r.json()).then(b => {
   BASE = b.map(norm);
   let saved = null; try { saved = JSON.parse(localStorage.getItem(KEY) || "null"); } catch (e) {}
   P = (Array.isArray(saved) && saved.length ? saved : JSON.parse(JSON.stringify(BASE))).map(norm);
-  render();
+  render(); initShow();
 });
 </script>
 </body>
