@@ -497,3 +497,7 @@ em { font-style: italic; }
 .dm__chip::before { content: ""; width: 10px; height: 10px; flex: 0 0 auto; }
 .dm__chip.seguro::before { background: var(--seguro); } .dm__chip.incierto::before { background: var(--incierto); }
 @media (max-width: 560px) { .dm__head img.dm__logo { width: 84px; height: 84px; } }
+.casilla .punto { width: 10px; height: 10px; border-radius: 0; top: 24px; }
+.dm__pop [class*="punto"], .dm__pop .estado::before { border-radius: 0; }
+.brand { white-space: nowrap; }
+@media (max-width: 420px) { .brand { font-size: 1.25rem; } }
