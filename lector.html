@@ -225,7 +225,7 @@
 <footer class="footer"><div class="wrap footer__base">© 2026 Che, on danse! · <a href="mailto:cheondanse@gmail.com" style="color:inherit">cheondanse@gmail.com</a></div></footer>
 
 <script>
-const KEY = "lector-session-trad-v1";
+const KEY = "lector-session-trad-v2";
 let BASE = [], P = [], active = null, urls = [];
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -239,6 +239,7 @@ function norm(d) { d.variants = Array.isArray(d.variants) ? d.variants.slice(0, 
   d.variants.forEach((u, i) => { if (b && b.variants && u) { const j = b.variants.indexOf(u); if (j >= 0) { if (!d.variantTypes[i]) d.variantTypes[i] = b.variantTypes[j]; if (!d.variantTitles[i]) d.variantTitles[i] = b.variantTitles[j]; } } d.variantTypes[i] = d.variantTypes[i] || "Música"; d.variantTitles[i] = d.variantTitles[i] || ""; });
   d.variantTypes.length = NV; d.variantTitles.length = NV; if (!d.cue && b && b.cue) d.cue = b.cue; d.images = Array.isArray(d.images) ? d.images : []; ["name", "comment", "more", "moreLink", "kineticUrl"].forEach(k => d[k] = d[k] || ""); d.sec = Number(d.sec) || 0; return d; }
 function save() { try { localStorage.setItem(KEY, JSON.stringify(P)); } catch (e) {} const f = $("saved"); if (f) { f.textContent = "Guardado"; clearTimeout(save.t); save.t = setTimeout(() => f.textContent = "Guardado automático", 900); } }
+function ytTimes(u) { try { u = new URL(u); const n = v => { if (!v) return 0; const m = String(v).match(/^(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s?)?$/); return m ? (+m[1] || 0) * 3600 + (+m[2] || 0) * 60 + (+m[3] || 0) : (parseInt(v) || 0); }; return [n(u.searchParams.get("t") || u.searchParams.get("start")), n(u.searchParams.get("end"))]; } catch (e) { return [0, 0]; } }
 function ytId(u) { try { u = new URL(u); if (u.hostname.includes("youtu.be")) return u.pathname.slice(1).split("/")[0]; if (u.hostname.includes("youtube")) { if (/^\/(shorts|embed)\//.test(u.pathname)) return u.pathname.split("/")[2]; return u.searchParams.get("v") || ""; } } catch (e) {} return ""; }
 
 /* ---------- Base local (IndexedDB) para MP3, imágenes y JSON propios ---------- */
@@ -294,19 +295,19 @@ async function showScore(d) {
 }
 function ui() { render(); const d = P[cur]; $("now").textContent = d ? (cur + 1) + ". " + d.name : "Elegí una pieza o «Escuchar todo»"; }
 function stopMedia() { A.pause(); if (mode !== "cue") A.removeAttribute("src"); if (mp3Url) { URL.revokeObjectURL(mp3Url); mp3Url = null; } if (yt && yt.stopVideo) try { yt.stopVideo(); } catch (e) {} mode = null; }
-let curVar = -1;
+let curVar = -1, ytStart = 0;
 function pickVar(d) { let k = d.variants.findIndex((v, j) => ytId(v) && d.variantTypes[j] === "Música"); if (k < 0) k = d.variants.findIndex(v => ytId(v)); return k; }
 function chips(d) { const C = $("vchips"); const items = d.variants.map((v, j) => ({ v, j })).filter(x => ytId(x.v)); C.innerHTML = items.length > 0 ? items.map(x => `<button type="button" class="${x.j === curVar ? "on" : ""}" onclick="playVar(${x.j})"><b>${esc(d.variantTypes[x.j])}</b>${esc(d.variantTitles[x.j] || ("Video " + (x.j + 1)))}</button>`).join("") : ""; }
 function playVar(j) { if (cur < 0) return; startYT(P[cur], j); }
 async function startYT(d, k) {
   stopMedia(); curVar = k; chips(d);
-  const id = ytId(d.variants[k] || "");
+  const id = ytId(d.variants[k] || ""); const [ts, te] = ytTimes(d.variants[k] || ""); ytStart = ts;
   if (!id) { $("ytBox").innerHTML = '<div class="lx-empty">Esta pieza no tiene video ni MP3 todavía.</div>'; if (chain) setTimeout(() => next(), 1500); return; }
   mode = "yt"; await loadYT();
   $("ytBox").innerHTML = '<div id="ytFrame"></div>';
-  yt = new YT.Player("ytFrame", { host: "https://www.youtube-nocookie.com", videoId: id, playerVars: { rel: 0, playsinline: 1, modestbranding: 1 },
+  yt = new YT.Player("ytFrame", { host: "https://www.youtube-nocookie.com", videoId: id, playerVars: Object.assign({ rel: 0, playsinline: 1, modestbranding: 1 }, ts ? { start: ts } : {}, te ? { end: te } : {}),
     events: { onReady: e => { setSpeed(rate); e.target.playVideo(); },
-      onStateChange: e => { if (e.data === YT.PlayerState.ENDED) { if (loop) { e.target.seekTo(0); e.target.playVideo(); } else if (chain) next(); } if (e.data === YT.PlayerState.PLAYING) $("ppBtn").textContent = "❚❚ Pausa"; if (e.data === YT.PlayerState.PAUSED) $("ppBtn").textContent = "▶ Seguir"; } } });
+      onStateChange: e => { if (e.data === YT.PlayerState.ENDED) { if (loop) { e.target.seekTo(ytStart); e.target.playVideo(); } else if (chain) next(); } if (e.data === YT.PlayerState.PLAYING) $("ppBtn").textContent = "❚❚ Pausa"; if (e.data === YT.PlayerState.PAUSED) $("ppBtn").textContent = "▶ Seguir"; } } });
   $("ppBtn").textContent = "❚❚ Pausa";
 }
 async function start(i) {
