@@ -155,7 +155,22 @@
         var w = Math.max(260, list.clientWidth - 30);
         td.innerHTML = '<midi-player src="' + esc(p.dataset.mid) + '" sound-font visualizer="#' + id + '"></midi-player><div class="pt-viz" style="width:' + w + 'px"><midi-visualizer type="staff" id="' + id + '"></midi-visualizer></div>';
         var mp = td.querySelector("midi-player"), vz = td.querySelector("midi-visualizer");
-        mp.addEventListener("load", function () { try { vz.noteSequence = mp.noteSequence; } catch (e) {} mp.start(); }, { once: true });
+        mp.addEventListener("load", function () {
+          try {
+            var ns = mp.noteSequence, ss = typeof ns.clone === "function" ? ns.clone() : JSON.parse(JSON.stringify(ns));
+            // Melodía = la nota más aguda de cada ataque; el resto es acompañamiento
+            var groups = {};
+            ss.notes.forEach(function (n) { var k = Math.round((n.startTime || 0) * 50); (groups[k] = groups[k] || []).push(n); });
+            Object.keys(groups).forEach(function (k) {
+              var g = groups[k], top = g.reduce(function (a, b) { return b.pitch > a.pitch ? b : a; });
+              g.forEach(function (n) { var mel = n === top && n.pitch >= 55; n.instrument = mel ? 0 : 1; n.program = 21; n.velocity = mel ? 115 : 28; n.isDrum = false; });
+            });
+            mp.noteSequence = ss;
+            vz.config = { noteRGB: "24,35,58", activeNoteRGB: "200,30,45", noteHeight: 7, pixelsPerTimeStep: 70, instruments: [0], scrollType: 1 };
+            vz.noteSequence = ss;
+          } catch (e) { try { vz.noteSequence = mp.noteSequence; } catch (e2) {} }
+          mp.start();
+        }, { once: true });
       }, function () { td.innerHTML = '<p class="pt-sub">No se pudo cargar el reproductor. <a href="' + esc(p.dataset.mid) + '">Descargar el MIDI</a></p>'; });
       return;
     }
