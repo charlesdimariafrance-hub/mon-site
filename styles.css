@@ -531,4 +531,4 @@ html, body { overflow-x: clip; max-width: 100%; }
 /* Hero: segunda fila de botones (Elijo mi sábado · Playlist) */
 .hero__actions--more { margin-top: 12px; }
 .booking__form { position: relative; }
-.booking__anchor { position: absolute; left: 0; top: 330px; width: 1px; height: 1px; }
+.booking__anchor { position: absolute; left: 0; top: 520px; width: 1px; height: 1px; }
