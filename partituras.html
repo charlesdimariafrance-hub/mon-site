@@ -52,6 +52,13 @@
   .yt-modal .row a { color: var(--red); }
   .yt-modal .row button { padding: 8px 16px; border: 0; background: var(--ink); color: #fff; font: 500 .95rem var(--sans); cursor: pointer; }
   @media (max-width: 760px) { .pt-links button { margin: 4px 6px 0 0; } }
+  .pt-player td { background: var(--mist); padding: 14px 12px; }
+  .pt-player audio { width: 100%; max-width: 520px; }
+  .pt-player midi-player { display: block; width: 100%; max-width: 640px; margin-bottom: 10px; }
+  .pt-player midi-visualizer { display: block; background: #fff; border: 1px solid var(--line); overflow-x: auto; max-height: 220px; }
+  .pt-player midi-visualizer svg { display: block; }
+  .pt-links button.pt-play { background: var(--ink); border-color: var(--ink); }
+  .pt-links button.pt-play:hover { background: var(--red); border-color: var(--red); }
 </style>
 </head>
 <body>
@@ -72,7 +79,7 @@
 <main class="wrap" style="padding-bottom:80px">
   <p class="pt-count" id="ptCount"></p>
   <div id="ptList"></div>
-  <p class="pg-note" style="margin-top:40px">Fuentes: la selección de Che, on danse!, YouTube (cada video indica su canal) y <a href="http://folkadanse.free.fr/" target="_blank" rel="noopener">Folkadanse</a>, que publica arreglos para acordeón diatónico con partitura en notación clásica (G/C), en tablatura empujar/tirar (P/T), MIDI y archivo TablEdit (.tef). Los archivos .tef se abren con <a href="https://tabledit.com/tefview/download_f.shtml" target="_blank" rel="noopener">TEFview</a>, gratuito. Los MIDI se escuchan con la mayoría de los reproductores.</p>
+  <p class="pg-note" style="margin-top:40px">Fuentes: la selección de Che, on danse!, YouTube (cada video indica su canal) los archivos sonoros de la <a href="https://amta.fr/category/ressources/archives-sonores" target="_blank" rel="noopener">AMTA</a> (grabaciones de colecta © AMTA, se escuchan en su sitio), la <a href="https://www2.diatotrad.fr/index.php?m=diatotheque" target="_blank" rel="noopener">Diatothèque de Diato Trad 92</a> (publicada con el acuerdo de sus autores) y <a href="http://folkadanse.free.fr/" target="_blank" rel="noopener">Folkadanse</a>, que publica arreglos para acordeón diatónico con partitura en notación clásica (G/C), en tablatura empujar/tirar (P/T), MIDI y archivo TablEdit (.tef). Los archivos .tef se abren con <a href="https://tabledit.com/tefview/download_f.shtml" target="_blank" rel="noopener">TEFview</a>, gratuito. Con «Escuchar y ver la partitura» la melodía suena aquí mismo mientras la partitura avanza.</p>
 </main>
 <section class="pg-end"><div class="wrap">
   <h2 class="h2">¿Las tocamos juntos?</h2>
@@ -104,9 +111,11 @@
       if (o.pdf) L += '<a class="pt-score" href="' + esc(o.pdf) + '" target="_blank" rel="noopener">' + (o.pdf2 ? "Partitura (G/C)" : "Partitura") + "</a>";
       if (o.pdf2) L += '<a href="' + esc(o.pdf2) + '" target="_blank" rel="noopener">Tablatura (P/T)</a>';
       if (o.yt) L += '<button type="button" data-yt="' + esc(o.yt) + '" data-t="' + esc(o.t) + '" data-s="' + esc(o.src) + '">Escuchar en YouTube</button>';
-      if (o.mid) L += '<a href="' + esc(o.mid) + '" target="_blank" rel="noopener">MIDI</a>';
+      if (o.mp3) L += '<button type="button" class="pt-play" data-mp3="' + esc(o.mp3) + '">Escuchar MP3</button>';
+      if (o.mid) L += '<button type="button" class="pt-play" data-mid="' + esc(o.mid.replace("http://folkadanse.free.fr/", "/fd/")) + '">Escuchar y ver la partitura</button>';
+      if (o.amta) L += '<a class="pt-score" href="' + esc(o.u) + '" target="_blank" rel="noopener">Escuchar en AMTA</a>';
       if (o.tef) L += '<a href="' + esc(o.tef) + '" target="_blank" rel="noopener">Archivo .tef</a>';
-      if (o.u && !o.yt) L += '<a href="' + esc(o.u) + '" target="_blank" rel="noopener">Fuente</a>';
+      if (o.u && !o.yt && !o.amta) L += '<a href="' + esc(o.u) + '" target="_blank" rel="noopener">Fuente</a>';
       html += "<tr><td><div class=\"pt-title\">" + esc(o.t) + '</div><div class="pt-sub">Fuente: ' + esc(o.src) + "</div></td>" +
         '<td class="pt-key"></td><td class="pt-links">' + L + "</td></tr>";
     });
@@ -123,7 +132,29 @@
   });
   q.addEventListener("input", render);
   var m = document.getElementById("ytModal"), fr = document.getElementById("ytFrame");
+  var midiLib = null;
+  function loadMidi() {
+    if (midiLib) return midiLib;
+    midiLib = new Promise(function (ok, ko) { var sc = document.createElement("script"); sc.src = "https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.5.0"; sc.onload = ok; sc.onerror = ko; document.head.appendChild(sc); });
+    return midiLib;
+  }
+  var nPl = 0;
   list.addEventListener("click", function (ev) {
+    var p = ev.target.closest("button.pt-play");
+    if (p) {
+      var tr = p.closest("tr"), nx = tr.nextElementSibling;
+      if (nx && nx.classList.contains("pt-player")) { nx.querySelectorAll("audio").forEach(function (a) { a.pause(); }); var mp = nx.querySelector("midi-player"); if (mp && mp.stop) mp.stop(); nx.remove(); if (nx.dataset.src === (p.dataset.mp3 || p.dataset.mid)) return; }
+      document.querySelectorAll("audio").forEach(function (a) { a.pause(); });
+      var row = document.createElement("tr"); row.className = "pt-player"; row.dataset.src = p.dataset.mp3 || p.dataset.mid;
+      var td = document.createElement("td"); td.colSpan = 3; row.appendChild(td); tr.after(row);
+      if (p.dataset.mp3) { td.innerHTML = '<audio controls autoplay preload="none" src="' + esc(p.dataset.mp3) + '"></audio>'; return; }
+      var id = "viz" + (++nPl);
+      td.innerHTML = '<p class="pt-sub">Cargando el reproductor…</p>';
+      loadMidi().then(function () {
+        td.innerHTML = '<midi-player src="' + esc(p.dataset.mid) + '" sound-font visualizer="#' + id + '"></midi-player><midi-visualizer type="staff" id="' + id + '"></midi-visualizer>';
+      }, function () { td.innerHTML = '<p class="pt-sub">No se pudo cargar el reproductor. <a href="' + esc(p.dataset.mid) + '">Descargar el MIDI</a></p>'; });
+      return;
+    }
     var b = ev.target.closest("button[data-yt]"); if (!b) return;
     document.querySelectorAll("audio").forEach(function (a) { a.pause(); });
     fr.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(b.dataset.yt) + '?autoplay=1&rel=0" title="' + esc(b.dataset.t) + '" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';

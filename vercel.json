@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/fd/:path*", "destination": "http://folkadanse.free.fr/:path*" }
+  ]
+}
