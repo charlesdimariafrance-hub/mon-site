@@ -504,3 +504,5 @@ em { font-style: italic; }
 .booking__people { margin: 1.1rem 0 1.4rem; }
 .booking__people .btn { border-color: var(--ink); color: var(--ink); font-weight: 600; }
 .booking__people .btn:hover { background: var(--ink); color: var(--paper); }
+.booking__people .btn { border: 1px solid var(--paper); color: var(--paper); background: transparent; }
+.booking__people .btn:hover { background: var(--red); border-color: var(--red); color: #fff; }
