@@ -55,7 +55,8 @@
   .pt-player td { background: var(--mist); padding: 14px 12px; }
   .pt-player audio { width: 100%; max-width: 520px; }
   .pt-player midi-player { display: block; width: 100%; max-width: 640px; margin-bottom: 10px; }
-  .pt-player midi-visualizer { display: block; background: #fff; border: 1px solid var(--line); overflow-x: auto; max-height: 220px; }
+  .pt-viz { background: #fff; border: 1px solid var(--line); overflow-x: auto; overflow-y: hidden; }
+  .pt-viz midi-visualizer { display: block; }
   .pt-player midi-visualizer svg { display: block; }
   .pt-links button.pt-play { background: var(--ink); border-color: var(--ink); }
   .pt-links button.pt-play:hover { background: var(--red); border-color: var(--red); }
@@ -151,7 +152,10 @@
       var id = "viz" + (++nPl);
       td.innerHTML = '<p class="pt-sub">Cargando el reproductor…</p>';
       loadMidi().then(function () {
-        td.innerHTML = '<midi-player src="' + esc(p.dataset.mid) + '" sound-font visualizer="#' + id + '"></midi-player><midi-visualizer type="staff" id="' + id + '"></midi-visualizer>';
+        var w = Math.max(260, list.clientWidth - 30);
+        td.innerHTML = '<midi-player src="' + esc(p.dataset.mid) + '" sound-font visualizer="#' + id + '"></midi-player><div class="pt-viz" style="width:' + w + 'px"><midi-visualizer type="staff" id="' + id + '"></midi-visualizer></div>';
+        var mp = td.querySelector("midi-player"), vz = td.querySelector("midi-visualizer");
+        mp.addEventListener("load", function () { try { vz.noteSequence = mp.noteSequence; } catch (e) {} mp.start(); }, { once: true });
       }, function () { td.innerHTML = '<p class="pt-sub">No se pudo cargar el reproductor. <a href="' + esc(p.dataset.mid) + '">Descargar el MIDI</a></p>'; });
       return;
     }
