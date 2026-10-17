@@ -1,5 +1,6 @@
 {
   "rewrites": [
-    { "source": "/fd/:path*", "destination": "http://folkadanse.free.fr/:path*" }
+    { "source": "/fd/:path*", "destination": "http://folkadanse.free.fr/:path*" },
+    { "source": "/nl/:path*", "destination": "https://joyful-chebakia-f75e42.netlify.app/:path*" }
   ]
 }
