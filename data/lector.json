@@ -8,14 +8,19 @@
   "moreLink": "",
   "kineticUrl": "",
   "variants": [
-   "https://youtu.be/dkZvFhh24FY",
    "https://youtu.be/bUb-yeVwBps?si=Eri7v5-lF2CZnmHW",
-   "",
-   "",
-   ""
+   "https://youtu.be/dkZvFhh24FY"
   ],
   "images": [
    "img/lector/d10-1.jpg"
+  ],
+  "variantTitles": [
+   "Branle de la vallée d'Ossau, stage vielles et danses · lealonna3",
+   "Tutorial del Branle d’Ossau en castellano · Le Grand Bal"
+  ],
+  "variantTypes": [
+   "Baile",
+   "Tutorial"
   ]
  },
  {
@@ -36,6 +41,20 @@
   "images": [
    "img/lector/d1-1.jpg",
    "img/lector/d1-2.jpg"
+  ],
+  "variantTitles": [
+   "Lo crouzado (Bourrée) · Tonin Troupel",
+   "Lo Crouzado · Jean Ségurel et ses Troubadours",
+   "Lo Crouzado (Musique de France) · BIGES JOHN",
+   "Bourrée 3T Lo crouzado 2/3 explicación · Le Grand Bal",
+   "Bourrée 3T Lo crouzado (completa) · Le Grand Bal"
+  ],
+  "variantTypes": [
+   "Música",
+   "Música",
+   "Música",
+   "Tutorial",
+   "Tutorial"
   ]
  },
  {
@@ -49,13 +68,21 @@
   "variants": [
    "https://youtu.be/ZHovppdfZBk?si=C3P4Ymy4VWxln_s8",
    "https://youtu.be/bmSTkIxJqyk?si=9smM6G9zawiFC0go",
-   "https://youtu.be/9aC_wmqfHpw?si=YI8lIHlslIFhQ8-s",
-   "",
-   ""
+   "https://youtu.be/9aC_wmqfHpw?si=YI8lIHlslIFhQ8-s"
   ],
   "images": [
    "img/lector/d2-1.jpg",
    "img/lector/d2-2.jpg"
+  ],
+  "variantTitles": [
+   "Congo de Captieux · Michael Shade",
+   "Le Rondeau du blaireau · La Lampe à Folk",
+   "Suite de congos · Le Bal Brotto Lopez"
+  ],
+  "variantTypes": [
+   "Música",
+   "Música",
+   "Música"
   ]
  },
  {
@@ -67,14 +94,22 @@
   "moreLink": "",
   "kineticUrl": "",
   "variants": [
-   "https://www.youtube.com/watch?v=LeHd4aQxCVY",
    "https://youtu.be/kMQkshBFkkw?si=s5vXCQCbLQn5B4Sk",
-   "https://youtu.be/pn-E2lC5NBQ?si=Gux-vT6zV-_Q7yeU",
-   "",
-   ""
+   "https://www.youtube.com/watch?v=LeHd4aQxCVY",
+   "https://youtu.be/pn-E2lC5NBQ?si=Gux-vT6zV-_Q7yeU"
   ],
   "images": [
    "img/lector/d4-1.jpg"
+  ],
+  "variantTitles": [
+   "Gavotte bro Pourlet · Bagad Brieg",
+   "Gavotte Pourlet, Tradi'Deiz 2018 · Bleunioù Sivi",
+   "Suite Dardoup, Tradi'Deiz 2022 · Kenleur"
+  ],
+  "variantTypes": [
+   "Música",
+   "Baile",
+   "Baile"
   ]
  },
  {
@@ -86,13 +121,15 @@
   "moreLink": "",
   "kineticUrl": "",
   "variants": [
-   "https://youtu.be/hiDvy3Gq114?si=pLTCWNf1PovwdCkm",
-   "",
-   "",
-   "",
-   ""
+   "https://youtu.be/hiDvy3Gq114?si=pLTCWNf1PovwdCkm"
   ],
-  "images": []
+  "images": [],
+  "variantTitles": [
+   "Bourrée 3 temps de Prondines · Didier Champion"
+  ],
+  "variantTypes": [
+   "Música"
+  ]
  },
  {
   "id": "d5",
@@ -104,12 +141,17 @@
   "kineticUrl": "",
   "variants": [
    "https://youtu.be/3bhI3WbpeQ8?si=M2W-3bEnoByULOGn",
-   "https://youtu.be/-VnW_zRrmdw?si=IKmvvJRVlQ7zn2e0",
-   "",
-   "",
-   ""
+   "https://youtu.be/-VnW_zRrmdw?si=IKmvvJRVlQ7zn2e0"
   ],
-  "images": []
+  "images": [],
+  "variantTitles": [
+   "Les grandes poteries · Icoranda",
+   "Bourrée des grandes poteries · Sonneurs de la Vallée Noire"
+  ],
+  "variantTypes": [
+   "Música",
+   "Música"
+  ]
  },
  {
   "id": "d9",
@@ -120,13 +162,15 @@
   "moreLink": "",
   "kineticUrl": "",
   "variants": [
-   "https://youtu.be/QG7ZCU3Ui0w?si=k9BeM354JafdS6NN",
-   "",
-   "",
-   "",
-   ""
+   "https://youtu.be/QG7ZCU3Ui0w?si=k9BeM354JafdS6NN"
   ],
-  "images": []
+  "images": [],
+  "variantTitles": [
+   "Bourrées du Berry (presentación de stage, 2015) · Atelier de la Danse Populaire"
+  ],
+  "variantTypes": [
+   "Tutorial"
+  ]
  },
  {
   "id": "d7",
@@ -137,13 +181,15 @@
   "moreLink": "",
   "kineticUrl": "",
   "variants": [
-   "https://youtube.com/shorts/43tEqWlVil0?si=birqirJ6qjqx2DFV",
-   "",
-   "",
-   "",
-   ""
+   "https://youtube.com/shorts/43tEqWlVil0?si=birqirJ6qjqx2DFV"
   ],
-  "images": []
+  "images": [],
+  "variantTitles": [
+   "Bourrée en línea de 8, Boombal 2012 · TominatorBelgium"
+  ],
+  "variantTypes": [
+   "Baile"
+  ]
  },
  {
   "id": "dmua66851ia0f9",
@@ -154,13 +200,15 @@
   "moreLink": "",
   "kineticUrl": "",
   "variants": [
-   "https://youtu.be/YpDmSiSFEyI",
-   "",
-   "",
-   "",
-   ""
+   "https://youtu.be/YpDmSiSFEyI"
   ],
-  "images": []
+  "images": [],
+  "variantTitles": [
+   "Gavotte Glazig, versión para escenario · Le Grand Bal"
+  ],
+  "variantTypes": [
+   "Baile"
+  ]
  },
  {
   "id": "d6",
@@ -171,13 +219,15 @@
   "moreLink": "",
   "kineticUrl": "",
   "variants": [
-   "https://youtu.be/XBzjNPk7AVI?si=vRLBeNf-F3dGpaG4",
-   "",
-   "",
-   "",
-   ""
+   "https://youtu.be/XBzjNPk7AVI?si=vRLBeNf-F3dGpaG4"
   ],
-  "images": []
+  "images": [],
+  "variantTitles": [
+   "L'alouette grise (Rond paludier) · Duo Blain-Leyzour"
+  ],
+  "variantTypes": [
+   "Música"
+  ]
  },
  {
   "id": "d3",
@@ -188,13 +238,15 @@
   "moreLink": "",
   "kineticUrl": "",
   "variants": [
-   "https://youtu.be/faFCiqbOy3k?si=nrPkoN4DxywShv4z",
-   "",
-   "",
-   "",
-   ""
+   "https://youtu.be/faFCiqbOy3k?si=nrPkoN4DxywShv4z"
   ],
-  "images": []
+  "images": [],
+  "variantTitles": [
+   "Tons doubles et tons triples (Suite du pays Dardoup) · Bagad Ar Meilhou Glaz"
+  ],
+  "variantTypes": [
+   "Música"
+  ]
  },
  {
   "id": "d8",
@@ -205,13 +257,15 @@
   "moreLink": "",
   "kineticUrl": "",
   "variants": [
-   "https://youtu.be/iGVVsRFexjY?si=rDGn5HQYja6ES34G",
-   "",
-   "",
-   "",
-   ""
+   "https://youtu.be/iGVVsRFexjY?si=rDGn5HQYja6ES34G"
   ],
-  "images": []
+  "images": [],
+  "variantTitles": [
+   "Tons simples et bals à huit (Suite du pays Dardoup) · Bagad Ar Meilhou Glaz"
+  ],
+  "variantTypes": [
+   "Música"
+  ]
  },
  {
   "id": "d11",
@@ -222,12 +276,14 @@
   "moreLink": "",
   "kineticUrl": "",
   "variants": [
-   "https://youtu.be/PxtTntprURk?si=rghzCYCdfIfac79H",
-   "",
-   "",
-   "",
-   ""
+   "https://youtu.be/PxtTntprURk?si=rghzCYCdfIfac79H"
   ],
-  "images": []
+  "images": [],
+  "variantTitles": [
+   "Quadrille de Coulon, primera figura · Compagnie Révérences"
+  ],
+  "variantTypes": [
+   "Baile"
+  ]
  }
 ]

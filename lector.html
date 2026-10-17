@@ -37,6 +37,13 @@
   .lx-score img { width: 100%; height: auto; display: block; background: #fff; cursor: zoom-in; }
   .lx-score iframe { width: 100%; height: 400px; border: 0; background: #fff; }
   .lx-score .lx-empty { color: var(--muted); align-self: center; text-align: center; font-size: .92rem; }
+  .lx-chips { display: flex; gap: 6px; flex-wrap: wrap; padding: 0 20px 6px; }
+  .lx-chips button { border: 1px solid var(--line); background: #fff; padding: 6px 10px; font: 500 .82rem var(--sans); color: var(--ink); cursor: pointer; text-align: left; max-width: 100%; }
+  .lx-chips button b { font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-size: .7rem; margin-right: 6px; color: var(--red); }
+  .lx-chips button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .lx-chips button.on b { color: #f3c2c2; }
+  .lx-var select { height: 38px; border: 1px solid var(--line); background: #fff; font: 500 .82rem var(--sans); }
+  .lx-var small { grid-column: 2 / -1; color: var(--muted); font-size: .78rem; margin-top: -2px; }
   .lx-ctl { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding: 6px 20px 12px; }
   .lx-speed { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border: 1px solid var(--line); font: 500 .9rem var(--sans); }
   .lx-speed input { width: 130px; accent-color: var(--red); }
@@ -84,7 +91,7 @@
   .lx-th img { width: 100%; height: auto; max-height: 460px; object-fit: contain; }
   .lx-th iframe { width: 100%; height: 420px; border: 0; }
   .lx-th button { position: absolute; top: 6px; right: 6px; width: 28px; height: 28px; border: 0; background: rgba(0,0,0,.65); color: #fff; cursor: pointer; }
-  .lx-var { display: grid; grid-template-columns: 22px minmax(0, 1fr) 40px; gap: 6px; align-items: center; margin-top: 6px; }
+  .lx-var { display: grid; grid-template-columns: 22px minmax(0, 1fr) 96px 40px; gap: 6px; align-items: center; margin-top: 6px; }
   .lx-var span { text-align: center; font-weight: 600; color: var(--muted); }
   .lx-var button { height: 38px; border: 1px solid var(--line); background: #fff; cursor: pointer; }
   .lx-var button:disabled { opacity: .35; }
@@ -127,6 +134,7 @@
       <div class="lx-video"><div id="ytBox"><div class="lx-empty">El video aparece aquí</div></div></div>
       <div class="lx-score" id="score"><div class="lx-empty">La partitura y los dibujos de la pieza aparecen aquí</div></div>
     </div>
+    <div class="lx-chips" id="vchips"></div>
     <audio id="mp3" preload="none" hidden></audio>
     <div class="lx-ctl">
       <button class="lx-b" type="button" onclick="prev()">◀ Anterior</button>
@@ -141,7 +149,7 @@
       <input id="pos" type="range" min="0" max="1000" value="0" aria-label="Posición en la pieza" oninput="seek(this.value)">
       <div class="lx-times"><span id="tCur">0:00</span><span id="tDur">0:00</span></div>
     </div>
-    <p class="lx-note">Cada pieza suena con su MP3 principal si cargaste uno en tu navegador; si no, con su primer video de YouTube. En YouTube la velocidad se ajusta a los valores que permite cada video (0,5×, 0,75×, 1×, 1,25×).</p>
+    <p class="lx-note">Cada pieza suena con su MP3 principal si cargaste uno en tu navegador; si no, con su primer video de YouTube. Debajo del video podés elegir otra versión: música, baile o tutorial. En YouTube la velocidad se ajusta a los valores que permite cada video (0,5×, 0,75×, 1×, 1,25×).</p>
   </section>
 
   <div class="lx-tools">
@@ -184,6 +192,7 @@
       </section>
       <section class="lx-sec" id="secYt">
         <h3>Videos de YouTube</h3>
+        <p class="lx-st">Marcá cada video como Música, Baile o Tutorial. «Escuchar todo» usa el primer video de Música.</p>
         <div id="vars"></div>
         <div id="ytPrev"></div>
       </section>
@@ -216,7 +225,12 @@ const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "
 const fmt = s => { s = Math.max(0, Math.round(Number(s) || 0)); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
 const parseT = v => { v = String(v).trim(); if (v.includes(":")) { const [m, s] = v.split(":").map(Number); return Math.max(0, (m || 0) * 60 + (s || 0)); } return Math.max(0, Number(v) || 0); };
 const uid = () => "p" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-function norm(d) { d.variants = Array.isArray(d.variants) ? d.variants.slice(0, 5) : [d.youtube || ""]; while (d.variants.length < 5) d.variants.push(""); d.images = Array.isArray(d.images) ? d.images : []; ["name", "comment", "more", "moreLink", "kineticUrl"].forEach(k => d[k] = d[k] || ""); d.sec = Number(d.sec) || 0; return d; }
+const NV = 6, TYPES = ["Música", "Baile", "Tutorial"];
+function norm(d) { d.variants = Array.isArray(d.variants) ? d.variants.slice(0, NV) : [d.youtube || ""]; while (d.variants.length < NV) d.variants.push("");
+  const b = (typeof BASE !== "undefined" && BASE.find) ? BASE.find(x => x.id === d.id) : null;
+  if (!Array.isArray(d.variantTypes)) d.variantTypes = []; if (!Array.isArray(d.variantTitles)) d.variantTitles = [];
+  d.variants.forEach((u, i) => { if (b && b.variants && u) { const j = b.variants.indexOf(u); if (j >= 0) { if (!d.variantTypes[i]) d.variantTypes[i] = b.variantTypes[j]; if (!d.variantTitles[i]) d.variantTitles[i] = b.variantTitles[j]; } } d.variantTypes[i] = d.variantTypes[i] || "Música"; d.variantTitles[i] = d.variantTitles[i] || ""; });
+  d.variantTypes.length = NV; d.variantTitles.length = NV; d.images = Array.isArray(d.images) ? d.images : []; ["name", "comment", "more", "moreLink", "kineticUrl"].forEach(k => d[k] = d[k] || ""); d.sec = Number(d.sec) || 0; return d; }
 function save() { try { localStorage.setItem(KEY, JSON.stringify(P)); } catch (e) {} const f = $("saved"); if (f) { f.textContent = "Guardado"; clearTimeout(save.t); save.t = setTimeout(() => f.textContent = "Guardado automático", 900); } }
 function ytId(u) { try { u = new URL(u); if (u.hostname.includes("youtu.be")) return u.pathname.slice(1).split("/")[0]; if (u.hostname.includes("youtube")) { if (/^\/(shorts|embed)\//.test(u.pathname)) return u.pathname.split("/")[2]; return u.searchParams.get("v") || ""; } } catch (e) {} return ""; }
 
@@ -273,17 +287,13 @@ async function showScore(d) {
 }
 function ui() { render(); const d = P[cur]; $("now").textContent = d ? (cur + 1) + ". " + d.name : "Elegí una pieza o «Escuchar todo»"; }
 function stopMedia() { A.pause(); A.removeAttribute("src"); if (mp3Url) { URL.revokeObjectURL(mp3Url); mp3Url = null; } if (yt && yt.stopVideo) try { yt.stopVideo(); } catch (e) {} mode = null; }
-async function start(i) {
-  if (i < 0 || i >= P.length) { stopAll(); return; }
-  cur = i; stopMedia(); const d = P[i]; ui(); showScore(d);
-  $("player").scrollIntoView({ behavior: "smooth", block: "start" });
-  const rec = await mainMp3(d.id);
-  if (rec) {
-    mode = "mp3"; mp3Url = URL.createObjectURL(rec.blob); A.src = mp3Url; A.loop = loop; setSpeed(rate);
-    $("ytBox").innerHTML = '<div class="lx-empty">Sonando el MP3 de tu navegador</div>'; yt = null;
-    A.play().catch(() => {}); $("ppBtn").textContent = "❚❚ Pausa"; return;
-  }
-  const id = ytId(d.variants.find(v => ytId(v)) || "");
+let curVar = -1;
+function pickVar(d) { let k = d.variants.findIndex((v, j) => ytId(v) && d.variantTypes[j] === "Música"); if (k < 0) k = d.variants.findIndex(v => ytId(v)); return k; }
+function chips(d) { const C = $("vchips"); const items = d.variants.map((v, j) => ({ v, j })).filter(x => ytId(x.v)); C.innerHTML = items.length > 0 ? items.map(x => `<button type="button" class="${x.j === curVar ? "on" : ""}" onclick="playVar(${x.j})"><b>${esc(d.variantTypes[x.j])}</b>${esc(d.variantTitles[x.j] || ("Video " + (x.j + 1)))}</button>`).join("") : ""; }
+function playVar(j) { if (cur < 0) return; startYT(P[cur], j); }
+async function startYT(d, k) {
+  stopMedia(); curVar = k; chips(d);
+  const id = ytId(d.variants[k] || "");
   if (!id) { $("ytBox").innerHTML = '<div class="lx-empty">Esta pieza no tiene video ni MP3 todavía.</div>'; if (chain) setTimeout(() => next(), 1500); return; }
   mode = "yt"; await loadYT();
   $("ytBox").innerHTML = '<div id="ytFrame"></div>';
@@ -292,6 +302,18 @@ async function start(i) {
       onStateChange: e => { if (e.data === YT.PlayerState.ENDED) { if (loop) { e.target.seekTo(0); e.target.playVideo(); } else if (chain) next(); } if (e.data === YT.PlayerState.PLAYING) $("ppBtn").textContent = "❚❚ Pausa"; if (e.data === YT.PlayerState.PAUSED) $("ppBtn").textContent = "▶ Seguir"; } } });
   $("ppBtn").textContent = "❚❚ Pausa";
 }
+async function start(i) {
+  if (i < 0 || i >= P.length) { stopAll(); return; }
+  cur = i; stopMedia(); const d = P[i]; ui(); showScore(d); curVar = -1; chips(d);
+  $("player").scrollIntoView({ behavior: "smooth", block: "start" });
+  const rec = await mainMp3(d.id);
+  if (rec) {
+    mode = "mp3"; mp3Url = URL.createObjectURL(rec.blob); A.src = mp3Url; A.loop = loop; setSpeed(rate);
+    $("ytBox").innerHTML = '<div class="lx-empty">Sonando el MP3 de tu navegador</div>'; yt = null;
+    A.play().catch(() => {}); $("ppBtn").textContent = "❚❚ Pausa"; return;
+  }
+  startYT(d, pickVar(d));
+}
 A.addEventListener("ended", () => { if (!loop && chain) next(); });
 A.addEventListener("play", () => $("ppBtn").textContent = "❚❚ Pausa");
 A.addEventListener("pause", () => { if (!A.ended) $("ppBtn").textContent = "▶ Seguir"; });
@@ -299,7 +321,7 @@ function playAt(i) { chain = false; start(i); }
 function playAll() { chain = true; start(cur >= 0 && cur < P.length ? cur : 0); }
 function next() { if (cur + 1 >= P.length) { stopAll(); $("now").textContent = "Fin del repertorio"; return; } start(cur + 1); }
 function prev() { start(Math.max(0, cur - 1)); }
-function stopAll() { stopMedia(); chain = false; cur = -1; ui(); $("ppBtn").textContent = "❚❚ Pausa"; $("pos").value = 0; $("tCur").textContent = "0:00"; $("tDur").textContent = "0:00"; }
+function stopAll() { stopMedia(); chain = false; cur = -1; curVar = -1; $("vchips").innerHTML = ""; ui(); $("ppBtn").textContent = "❚❚ Pausa"; $("pos").value = 0; $("tCur").textContent = "0:00"; $("tDur").textContent = "0:00"; }
 function togglePause() {
   if (cur < 0) return playAll();
   if (mode === "mp3") { A.paused ? A.play() : A.pause(); }
@@ -320,9 +342,9 @@ function openFicha(i, sec) {
 function closeFicha() { $("modal").classList.remove("open"); document.body.style.overflow = ""; $("ytPrev").innerHTML = ""; document.querySelectorAll("#slots audio").forEach(a => a.pause()); active = null; render(); if (cur >= 0 && P[cur]) showScore(P[cur]); }
 function setField(k, v) { if (active === null) return; P[active][k] = v; if (k === "name") $("mTitle").textContent = v || "Pieza"; save(); }
 function openLink(id) { const u = $(id).value.trim(); if (u) window.open(u, "_blank", "noopener"); }
-function renderVars() { const d = P[active]; $("vars").innerHTML = d.variants.map((u, i) => `<div class="lx-var"><span>${i + 1}</span><input class="lx-f" type="url" value="${esc(u)}" placeholder="Enlace de YouTube" oninput="setVar(${i},this.value)"><button type="button" onclick="topVar(${i})" ${i === 0 ? "disabled" : ""} title="Usar como video principal">↑</button></div>`).join(""); }
-function setVar(i, v) { P[active].variants[i] = v; save(); if (i === 0) renderYtPrev(); }
-function topVar(i) { const v = P[active].variants; v.unshift(v.splice(i, 1)[0]); save(); renderVars(); renderYtPrev(); }
+function renderVars() { const d = P[active]; $("vars").innerHTML = d.variants.map((u, i) => `<div class="lx-var"><span>${i + 1}</span><input class="lx-f" type="url" value="${esc(u)}" placeholder="Enlace de YouTube" oninput="setVar(${i},this.value)"><select aria-label="Tipo de video" onchange="P[active].variantTypes[${i}]=this.value;save()">${TYPES.map(t => `<option ${d.variantTypes[i] === t ? "selected" : ""}>${t}</option>`).join("")}</select><button type="button" onclick="topVar(${i})" ${i === 0 ? "disabled" : ""} title="Poner primero">↑</button>${d.variantTitles[i] ? `<small>${esc(d.variantTitles[i])}</small>` : ""}</div>`).join(""); }
+function setVar(i, v) { P[active].variants[i] = v; P[active].variantTitles[i] = ""; save(); if (i === 0) renderYtPrev(); }
+function topVar(i) { const d = P[active]; ["variants", "variantTypes", "variantTitles"].forEach(k => d[k].unshift(d[k].splice(i, 1)[0])); save(); renderVars(); renderYtPrev(); }
 function renderYtPrev() { const id = ytId(P[active].variants[0]); $("ytPrev").innerHTML = id ? `<div class="lx-yt"><iframe src="https://www.youtube-nocookie.com/embed/${esc(id)}?rel=0" title="Video" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe></div>` : '<p class="lx-st">El video 1 es el que usa el lector. Usá ↑ para cambiarlo.</p>'; }
 function renderSlots() { $("slots").innerHTML = [1, 2, 3, 4, 5].map(s => `<div class="lx-slot"><strong style="font-size:.85rem">MP3 ${s}${s === 1 ? " · principal" : ""}</strong><input type="file" accept="audio/*,.mp3" onchange="storeMp3(${s},this.files[0]);this.value=''"><div class="lx-st" id="mSt${s}">Ningún MP3.</div><audio id="mAu${s}" controls hidden></audio><div class="lx-row"><button class="lx-b" type="button" onclick="removeMp3(${s})">Quitar</button></div></div>`).join(""); }
 async function storeMp3(s, f) { if (!f || active === null) return; const id = P[active].id; await dPut({ key: id + ":audio:" + s, danceId: id, kind: "audio", slot: s, name: f.name, type: f.type, size: f.size, blob: f }); if (s === 1) await dDel(id + ":audio"); refreshMedia(); }
