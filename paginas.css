@@ -42,3 +42,24 @@
 .pg-facts li { display: flex; justify-content: space-between; gap: 18px; padding: 12px 0; border-bottom: 1px solid var(--line); }
 .pg-facts li strong { font-weight: 500; color: var(--ink); }
 .pg-sec--one .wrap { max-width: 860px; }
+
+/* Hero "película" (formación) */
+.pg-hero--film { min-height: min(84vh, 720px); }
+.film { position: absolute; inset: 0; overflow: hidden; background: #0d1424; }
+.film__slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s ease; }
+.film__slide.on { opacity: 1; }
+.pg-hero .film__slide img, .film__slide video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .58; filter: sepia(.2) contrast(1.06) saturate(.9); transform: scale(1.04); }
+.film__slide.on img, .film__slide.on video { animation: filmKB 7s ease-out forwards; }
+@keyframes filmKB { from { transform: scale(1.04) translate(0, 0); } to { transform: scale(1.15) translate(-1.6%, -1%); } }
+.film__slide--diag { background: radial-gradient(ellipse at 70% 50%, #22304d 0%, #0d1424 70%); }
+.film__slide--diag canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.film__cap { position: absolute; right: clamp(16px, 6vw, 80px); top: clamp(64px, 9vw, 88px); font: 500 .74rem/1.3 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: #D8B77A; }
+.film__grain { position: absolute; inset: -50%; pointer-events: none; opacity: .13; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: filmGrain .9s steps(5) infinite; }
+@keyframes filmGrain { 0% { transform: translate(0, 0); } 25% { transform: translate(-4%, 3%); } 50% { transform: translate(3%, -5%); } 75% { transform: translate(-2%, -2%); } 100% { transform: translate(5%, 4%); } }
+.pg-hero--film::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.55) 100%), linear-gradient(to top, rgba(13,20,36,.9) 0%, rgba(13,20,36,0) 58%); }
+.pg-hero--film .wrap { z-index: 2; }
+@media (max-width: 759px) { .film__cap { right: auto; left: 50%; transform: translateX(-50%); top: 24px; white-space: nowrap; } }
+@media (prefers-reduced-motion: reduce) { .film__slide.on img, .film__slide.on video, .film__grain { animation: none; } }
