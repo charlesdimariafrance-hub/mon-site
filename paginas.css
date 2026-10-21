@@ -49,7 +49,8 @@
 .film__slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s ease; }
 .film__slide.on { opacity: 1; }
 .pg-hero .film__slide img, .film__slide video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .58; filter: sepia(.2) contrast(1.06) saturate(.9); transform: scale(1.04); }
-.film__slide.on img, .film__slide.on video { animation: filmKB 7s ease-out forwards; }
+.film__slide.on img, .film__slide.on video, .film__slide.out img, .film__slide.out video { animation: filmKB 7.5s linear forwards; }
+.film__slide.out { opacity: 0; }
 @keyframes filmKB { from { transform: scale(1.04) translate(0, 0); } to { transform: scale(1.15) translate(-1.6%, -1%); } }
 .film__slide--diag { background: radial-gradient(ellipse at 70% 50%, #22304d 0%, #0d1424 70%); }
 .film__slide--diag canvas { position: absolute; inset: 0; width: 100%; height: 100%; }

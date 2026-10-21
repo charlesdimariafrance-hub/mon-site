@@ -108,7 +108,10 @@
   /* ---------- encadenado ---------- */
   function show(i) {
     slides.forEach(function (s, k) {
-      var on = k === i; s.classList.toggle('on', on);
+      var on = k === i;
+      if (!on && s.classList.contains('on')) { s.classList.add('out'); setTimeout(function () { if (!s.classList.contains('on')) s.classList.remove('out'); }, 1600); }
+      if (on) s.classList.remove('out');
+      s.classList.toggle('on', on);
       var v = s.querySelector('video');
       if (v) { if (on) { try { v.currentTime = 0; v.play().catch(function () {}); } catch (e) {} } else v.pause(); }
       if (on) { var im = s.querySelector('img,video'); if (im) { im.style.animation = 'none'; void im.offsetWidth; im.style.animation = ''; } }
