@@ -532,3 +532,5 @@ html, body { overflow-x: clip; max-width: 100%; }
 .hero__actions--more { margin-top: 12px; }
 .booking__form { position: relative; }
 .booking__anchor { position: absolute; left: 0; top: 520px; width: 1px; height: 1px; }
+.tile video { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.tile:hover video { transform: scale(1.04); }
