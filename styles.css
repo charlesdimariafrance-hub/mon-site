@@ -534,3 +534,7 @@ html, body { overflow-x: clip; max-width: 100%; }
 .booking__anchor { position: absolute; left: 0; top: 520px; width: 1px; height: 1px; }
 .tile video { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
 .tile:hover video { transform: scale(1.04); }
+.tile.rot img, .tile.rot video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
+.tile.rot img.is-on, .tile.rot video.is-on { opacity: 1; }
+.tile.rot .tile__body { z-index: 2; }
+.tile.rot::after { z-index: 1; }

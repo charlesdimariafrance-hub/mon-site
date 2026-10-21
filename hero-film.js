@@ -57,7 +57,53 @@
       c.lineWidth = Math.max(2, r * .32); c.strokeStyle = col; c.stroke();
     });
   };
-  var diagrams = slides.filter(function (s) { return s.classList.contains('film__slide--diag'); }).map(function (s) { return new Diagram(s); });
+
+  /* ---------- mapa de Francia animado ---------- */
+  var CARTE = null;
+  function MapAnim(slide) { this.slide = slide; this.cv = slide.querySelector('canvas'); this.ctx = this.cv.getContext('2d'); this.tau = 0; this.wasOn = false; }
+  MapAnim.prototype.size = Diagram.prototype.size;
+  MapAnim.prototype.draw = function (dt) {
+    var on = this.slide.classList.contains('on');
+    if (on && !this.wasOn) this.tau = 0;
+    this.wasOn = on;
+    if (!CARTE || (!on && this.tau === 0)) return;
+    this.tau += dt;
+    var wh = this.size(), w = wh[0], h = wh[1], c = this.ctx, mob = w < 760, T = this.tau;
+    var L0 = -5.3, L1 = 9.7, B0 = 41.2, B1 = 51.2, k = Math.cos(46.5 * Math.PI / 180);
+    var mw = (L1 - L0) * k, mh = B1 - B0;
+    var H = mob ? h * .36 : Math.min(h * .55, w * .25 * mh / mw), Wd = H * mw / mh;
+    var X = mob ? (w - Wd) / 2 : w - Wd - Math.max(24, w * .06), Y = mob ? h * .08 : Math.max(64, h * .11);
+    var cap = this.slide.querySelector('.film__cap'); if (cap) { cap.style.top = Math.max(12, Y - 28) + 'px'; if (!mob) cap.style.right = Math.max(24, w * .06) + 'px'; }
+    var z = 1 + .05 * Math.min(1, T / 6), cx = X + Wd / 2, cy = Y + H / 2;
+    var P = function (lon, lat) { return [cx + ((lon - L0) * k / mw * Wd - Wd / 2) * z, cy + ((B1 - lat) / mh * H - H / 2) * z]; };
+    c.clearRect(0, 0, w, h);
+    // contorno que se dibuja
+    var prog = Math.min(1, T / 1.6);
+    c.save(); c.lineJoin = 'round';
+    CARTE.outline.forEach(function (ring) {
+      var n = Math.max(2, Math.floor(ring.length * prog));
+      c.beginPath();
+      for (var i = 0; i < n; i++) { var q = P(ring[i][0], ring[i][1]); i ? c.lineTo(q[0], q[1]) : c.moveTo(q[0], q[1]); }
+      if (prog >= 1) { c.closePath(); c.fillStyle = 'rgba(216,183,122,' + (.07 * Math.min(1, (T - 1.6) / .8)) + ')'; c.fill(); }
+      c.strokeStyle = 'rgba(216,183,122,.75)'; c.lineWidth = 1.6; c.stroke();
+    });
+    c.restore();
+    // danzas que aparecen
+    var pts = CARTE.points, r = Math.max(2.5, H * .007);
+    c.font = '500 ' + Math.max(10, Math.round(H * .022)) + 'px "Work Sans", system-ui, sans-serif';
+    pts.forEach(function (p, i) {
+      var t0 = 1.4 + i * (3.2 / pts.length), u = (T - t0) / .5; if (u <= 0) return;
+      var q = P(p[0], p[1]), a = Math.min(1, u);
+      var ring = ((T - t0) % 2.4) / 2.4;
+      c.beginPath(); c.arc(q[0], q[1], r + ring * r * 4, 0, Math.PI * 2);
+      c.strokeStyle = 'rgba(232,90,79,' + (.5 * (1 - ring) * a) + ')'; c.lineWidth = 1; c.stroke();
+      c.beginPath(); c.arc(q[0], q[1], r * (u < 1 ? 1 + .6 * Math.sin(u * Math.PI) : 1), 0, Math.PI * 2);
+      c.fillStyle = 'rgba(232,90,79,' + a + ')'; c.fill();
+      if (i % 7 === 3 && !mob) { c.fillStyle = 'rgba(244,236,220,' + Math.min(1, (T - t0 - .3) / .6) * .9 + ')'; c.fillText(p[2], q[0] + r * 2.2, q[1] + r); }
+    });
+  };
+  var diagrams = slides.filter(function (s) { return s.classList.contains('film__slide--diag') && !s.classList.contains('film__slide--map'); }).map(function (s) { return new Diagram(s); })
+    .concat(slides.filter(function (s) { return s.classList.contains('film__slide--map'); }).map(function (s) { return new MapAnim(s); }));
 
   /* ---------- encadenado ---------- */
   function show(i) {
@@ -78,6 +124,7 @@
     diagrams.forEach(function (d) { if (d.slide.classList.contains('on') || d.slide.classList.contains('was')) d.draw(dt); else d.draw(0); });
     requestAnimationFrame(loop);
   }
+  fetch('img/film-carte.json').then(function (r) { return r.json(); }).then(function (d) { CARTE = d; }).catch(function () {});
   fetch('img/film-diagramas.json').then(function (r) { return r.json(); }).then(function (d) { DATA = d; }).catch(function () {});
   requestAnimationFrame(loop);
 })();

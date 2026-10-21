@@ -158,7 +158,7 @@
 
   /* Rotación de fotos (cada 5 s); un video se muestra entero, sin sonido */
   if (!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) {
-    document.querySelectorAll(".split__media.rot").forEach(function (box, k) {
+    document.querySelectorAll(".split__media.rot, .tile.rot").forEach(function (box, k) {
       var items = box.querySelectorAll("img, video"); if (items.length < 2) return;
       var i = 0, timer = null;
       var schedule = function () {
@@ -196,7 +196,7 @@
     ];
     var EST = { seguro: "Confirmado", incierto: "Por confirmar" }, MES = { Oct: "Octubre", Nov: "Noviembre", Dic: "Diciembre" };
     var nCols = function () { return window.innerWidth < 700 ? 2 : 4; }, cur = -1;
-    var show = function (i, el) {
+    var showDm = function (i, el) {
       var e = EV[i]; cur = i;
       damero.querySelectorAll(".casilla.is-on").forEach(function (c) { c.classList.remove("is-on"); });
       el.classList.add("is-on");
@@ -218,9 +218,9 @@
           el.setAttribute("aria-label", e.dia + " de " + MES[e.mes] + ": " + e.titulo + ". " + EST[e.estado] + ". Hora: " + e.hora + ". Lugar: " + e.lugar);
           el.innerHTML = '<span class="punto"></span><div><div class="mes">' + e.mes + '</div><div class="dia">' + esc(e.dia) + '</div><div class="dsem">' + esc(e.sem) + '</div></div><div class="titulo">' + esc(e.corto) + "</div>";
           (function (i, el) {
-            el.addEventListener("mouseenter", function () { show(i, el); });
-            el.addEventListener("focus", function () { show(i, el); });
-            el.addEventListener("click", function (ev) { ev.stopPropagation(); show(i, el); });
+            el.addEventListener("mouseenter", function () { showDm(i, el); });
+            el.addEventListener("focus", function () { showDm(i, el); });
+            el.addEventListener("click", function (ev) { ev.stopPropagation(); showDm(i, el); });
           })(i, el);
         } else { el.className = "casilla vacia " + color; el.innerHTML = "<span>On danse!</span>"; }
         damero.appendChild(el);
