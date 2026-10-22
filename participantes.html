@@ -66,7 +66,7 @@ for(const x of listeFinale){const li=document.createElement("li");li.textContent
 document.getElementById("ver").onclick=cargar;fecha.onchange=cargar;
 function chargerDateEtListe(){
   const q=new URLSearchParams(window.location.search);
-  const auto=[q.get("fecha"),q.get("fecha1"),q.get("fecha2")].find(v=>v && /^\\d{4}-\\d{2}-\\d{2}$/.test(v));
+  const auto=[q.get("fecha"),q.get("fecha1"),q.get("fecha2")].find(v=>v && /^\d{4}-\d{2}-\d{2}$/.test(v));
   if(auto){
     fecha.value=auto;
   }else{
