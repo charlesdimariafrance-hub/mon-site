@@ -1,5 +1,5 @@
 /* Contenido copiado de Notion ("Danzas tradicionales francesas").
-   cat: c = En círculo y cadena · g = A 3 ó 4 ó + · p = A 2 · m = Mixers
+   cat: c = En círculo y cadena · g = A 3 ó 4 ó + · p = A 2 · m = Danzas de rotación
    reg: región en el mapa (bre, cvl, ara, naq) o "" si se baila en toda Francia
    t = videos tutorial, m = música, s = partituras (Google Drive) */
 
@@ -7,7 +7,7 @@ window.CATEGORIES = {
   c: { name: "En círculo y cadena", desc: "Rondas, cadenas y danzas colectivas." },
   g: { name: "A 3 ó 4 ó +", desc: "Danzas para pequeños grupos." },
   p: { name: "A 2", desc: "Danzas y figuras para dos." },
-  m: { name: "Mixers", desc: "Danzas con cambio de pareja." }
+  m: { name: "Danzas de rotación", desc: "Danzas en ronda en las que vamos cambiando de compañero o compañera." }
 };
 
 window.REGIONS = {
