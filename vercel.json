@@ -1,5 +1,19 @@
 {
   "rewrites": [
-    { "source": "/fd/:path*", "destination": "http://folkadanse.free.fr/:path*" }
+    {
+      "source": "/fd/:path*",
+      "destination": "http://folkadanse.free.fr/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/img/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    }
   ]
 }
