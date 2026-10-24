@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<base href="/coreografias/congo/">
+<title>Congo de Captieux · Coreografías · Che, on danse!</title>
+<meta name="description" content="Congo de Captieux: tres cadrettes, figura por figura, con la música.">
+<style>
+@font-face { font-family: "Bodoni Moda"; src: url(/fonts/bodoni-moda-latin-400-normal.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Bodoni Moda"; src: url(/fonts/bodoni-moda-latin-400-italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Work Sans"; src: url(/fonts/work-sans-latin-400-normal.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Work Sans"; src: url(/fonts/work-sans-latin-500-normal.woff2) format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Work Sans"; src: url(/fonts/work-sans-latin-600-normal.woff2) format("woff2"); font-weight: 600; font-display: swap; }
+html, body { overflow-x: clip; } body { margin: 0; } a.tab { text-decoration: none; } a.tab:hover { border-color: var(--ink); }
+</style>
+<style>
+/* Layout: navy header band like the live page, then a two-column stage (board + score card) that stacks on phones */
+:root{
+  --bg:#f3f3f1; --paper:#ffffff; --board:#fbfaf6; --grid:#e9e5da; --ink:#1c2233; --muted:#6a6f7c; --line:#d9d6ce;
+  --navy:#17213a; --navy-ink:#f4f1ea; --sky:#9cc3ff; --red:#c8323f; --gold:#c99a2e;
+  --p1:#1d6fd1; --p2:#f29d12; --p3:#1f8f55; --p4:#8a3ff0; --p5:#d6455a; --p6:#138a8c;
+  --display:"Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --body:"Work Sans", "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12151d; --paper:#1b202b; --board:#191d27; --grid:#272c38; --ink:#e9e7e1; --muted:#9aa0ad; --line:#323846;
+  --navy:#0d1322; --navy-ink:#f4f1ea; --sky:#9cc3ff; --red:#ff6b77; --gold:#e3b850;
+  --p1:#4a93ff; --p2:#ffb23a; --p3:#3dbb7a; --p4:#a874ff; --p5:#ff6b80; --p6:#2bb7b9; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#12151d; --paper:#1b202b; --board:#191d27; --grid:#272c38; --ink:#e9e7e1; --muted:#9aa0ad; --line:#323846;
+  --navy:#0d1322; --navy-ink:#f4f1ea; --sky:#9cc3ff; --red:#ff6b77; --gold:#e3b850;
+  --p1:#4a93ff; --p2:#ffb23a; --p3:#3dbb7a; --p4:#a874ff; --p5:#ff6b80; --p6:#2bb7b9; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45}
+.band{background:var(--navy);color:var(--navy-ink)}
+.inner{max-width:1040px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left,0px));padding-right:max(16px, env(safe-area-inset-right,0px))}
+.band .inner{padding-block:22px 26px}
+.back{color:var(--navy-ink);opacity:.8;font-size:13px;text-decoration:none}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(34px,6vw,46px);line-height:1.05;margin:.35em 0 .25em;text-wrap:balance}
+h1 em{color:var(--sky);font-style:italic}
+.lead{margin:0;max-width:62ch;font-weight:500;font-size:14.5px;opacity:.92}
+.draft{display:inline-flex;gap:8px;align-items:center;margin-top:12px;padding:4px 10px;border:1px solid var(--gold);color:var(--gold);border-radius:999px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+main.inner{padding-block:18px 40px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:14px;scrollbar-width:thin}
+.tab{flex:0 0 auto;display:flex;align-items:baseline;gap:7px;padding:8px 12px;background:var(--paper);border:1px solid var(--line);border-radius:3px;font-size:14px;color:var(--muted)}
+.tab b{font-family:var(--display);font-weight:400;font-size:18px;color:var(--red)}
+.tab small{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase}
+.tab.on{background:var(--navy);color:var(--navy-ink);border-color:var(--navy)}
+.tab.on b{color:var(--navy-ink)}
+.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:820px){.grid{grid-template-columns:1fr}}
+.note{border-left:3px solid var(--gold);background:var(--paper);padding:7px 12px;font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.stage{display:grid;grid-template-columns:22px minmax(0,1fr) 22px;grid-template-rows:auto auto auto;gap:4px;align-items:center}
+.side{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-align:center;font-weight:600}
+.side.v{writing-mode:vertical-rl}
+.side.v.l{transform:rotate(180deg)}
+.side.top,.side.bot{grid-column:2}
+.boardwrap{position:relative;width:100%;max-width:100%;aspect-ratio:1/1;border:1px solid var(--ink);border-radius:14px;background:var(--board);overflow:hidden}
+svg{display:block;width:100%;height:100%}
+.gl{stroke:var(--grid);stroke-width:.25}
+.dia{fill:none;stroke:var(--line);stroke-width:.35;stroke-dasharray:1.2 1}
+.tick{stroke-width:.75;stroke-linecap:round}
+.lbl{font-family:var(--body);font-weight:600;font-size:2.5px;text-anchor:middle;dominant-baseline:central}
+.nm{font-family:var(--body);font-size:2.05px;fill:var(--muted);text-anchor:middle}
+.hide-names .nm{display:none}
+.compass text{font-family:var(--body);font-size:2.3px;fill:var(--muted);font-weight:600}
+.status{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 14px;align-items:baseline;margin-top:12px}
+.status .fig{font-family:var(--display);font-size:21px;line-height:1.2;text-wrap:balance}
+.status .meta{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+button,select{font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:8px 12px;cursor:pointer}
+button:focus-visible,select:focus-visible,.seg:focus-visible{outline:2px solid var(--p1);outline-offset:2px}
+#play{background:var(--navy);color:var(--navy-ink);border-color:var(--navy);min-width:112px;font-weight:600}
+.clock{font-variant-numeric:tabular-nums;font-size:14px;color:var(--muted);margin-left:auto}
+label.chk{display:flex;gap:6px;align-items:center;font-size:13.5px;color:var(--muted);cursor:pointer}
+.bar{position:relative;display:flex;height:30px;margin-top:12px;border-radius:5px;overflow:hidden;border:1px solid var(--line);background:var(--paper);cursor:pointer;touch-action:none}
+.seg{height:100%;border-right:1px solid var(--paper);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums}
+.seg.v0{background:color-mix(in srgb,var(--p1) 14%,var(--paper))}
+.seg.v1{background:color-mix(in srgb,var(--p1) 24%,var(--paper))}
+.seg.v2{background:color-mix(in srgb,var(--p1) 34%,var(--paper))}
+.seg.idle{background:repeating-linear-gradient(45deg,var(--paper) 0 4px,var(--bg) 4px 8px)}
+.seg.cur{outline:2px solid var(--ink);outline-offset:-2px;color:var(--ink);font-weight:600}
+.head{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--red);pointer-events:none}
+.barlegend{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:4px;font-variant-numeric:tabular-nums}
+.card{background:var(--paper);border:1px solid var(--line);padding:18px 18px 16px;min-width:0}
+.card h2{font-family:var(--display);font-weight:400;font-size:30px;margin:0;line-height:1.1}
+.card .sub{color:var(--muted);font-size:13px;margin:2px 0 12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.card h3{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:16px 0 8px;font-weight:600}
+.pairs{display:grid;grid-template-columns:1fr 1fr;gap:5px 12px;font-size:13px}
+.pairs span{display:flex;gap:6px;align-items:center;min-width:0}
+.dot{flex:0 0 auto;width:10px;height:10px;border-radius:50%}
+.keys{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted);margin-top:10px;align-items:center}
+.keys i{display:inline-block;width:10px;height:10px;border-radius:50%;border:1.5px solid var(--ink);vertical-align:-1px;margin-right:4px}
+.keys i.f{background:var(--ink)}
+ol.figs{list-style:none;margin:0;padding:0;display:grid;gap:2px;counter-reset:f}
+ol.figs li button{width:100%;text-align:left;display:grid;grid-template-columns:22px 1fr;gap:6px;border:0;border-radius:4px;padding:6px 6px;background:transparent;font-size:13.5px;line-height:1.3}
+ol.figs li button b{font-family:var(--display);font-weight:400;color:var(--red);font-size:16px;line-height:1.1}
+ol.figs li button:hover{background:var(--bg)}
+ol.figs li.cur button{background:var(--navy);color:var(--navy-ink)}
+ol.figs li.cur button b{color:var(--navy-ink)}
+.vueltas{display:flex;gap:6px;margin-bottom:8px}
+.vueltas button{flex:1;padding:6px;font-size:13px}
+.vueltas button.cur{border-color:var(--ink);font-weight:600}
+.howto{margin:0;padding-left:18px;font-size:13px;color:var(--muted);display:grid;gap:4px}
+</style>
+</head>
+<body>
+<div class="band"><div class="inner">
+  <a class="back" href="/">← Che, on danse!</a>
+  <h1>Coreografías <em>Berisso</em></h1>
+  <p class="lead">Elegí una figura y tocá ▶. Los bailarines se mueven con la música; podés ir más lento o saltar a una parte.</p>
+</div></div>
+
+<main class="inner">
+  <nav class="tabs" aria-label="Danzas">
+    <a class="tab" href="../#figura-1"><b>1</b>Branle <small>con música</small></a>
+    <a class="tab" href="../#figura-2"><b>2</b>Lo crouzado <small>salida</small></a>
+    <span class="tab on" aria-current="page"><b>3</b>Congo <small>con música</small></span>
+    <a class="tab" href="../#figura-4"><b>4</b>Gavotte Pourlet <small>con música</small></a>
+    <a class="tab" href="../#figura-5"><b>5</b>Court Poteries <small>salida</small></a>
+    <a class="tab" href="../#figura-6"><b>6</b>Long bourrée des Poteries <small>salida</small></a>
+    <a class="tab" href="../#figura-7"><b>7</b>Bourrée 3 temps Berry <small>con música</small></a>
+    <a class="tab" href="../#figura-8"><b>8</b>Bourrée 2 temps <small>con música</small></a>
+    <a class="tab" href="../#figura-9"><b>9</b>Gavotte Glazig <small>video</small></a>
+  </nav>
+
+  <div class="grid">
+    <section>
+      <div class="note">Diagrama cinético · tres cadrettes mirando al noreste · las 8 figuras se bailan 3 veces; después quedan quietos y sigue la música.</div>
+      <div class="stage">
+        <div class="side top">Fondo</div>
+        <div class="side v l" style="grid-row:2;grid-column:1">Jesús</div>
+        <div class="boardwrap" style="grid-row:2;grid-column:2" id="wrap">
+          <svg id="svg" viewBox="0 0 100 100" aria-label="Plano de baile del Congo con 12 bailarines"></svg>
+        </div>
+        <div class="side v" style="grid-row:2;grid-column:3">Cristo</div>
+        <div class="side bot" style="grid-row:3">Público</div>
+      </div>
+
+      <div class="status">
+        <div class="fig" id="figname">Introducción</div>
+        <div class="meta" id="figmeta">Esperan en la posición de salida</div>
+      </div>
+
+      <div class="bar" id="bar" role="slider" tabindex="0" aria-label="Línea de tiempo"></div>
+      <div class="barlegend"><span>0:00</span><span id="lgstart"></span><span id="lgend"></span><span id="lgtotal"></span></div>
+
+      <div class="controls">
+        <button id="play" type="button">▶ Reproducir</button>
+        <button id="restart" type="button">↺ Desde el inicio</button>
+        <select id="rate" aria-label="Velocidad">
+          <option value="1">Velocidad 1×</option>
+          <option value="0.75">Velocidad 0,75×</option>
+          <option value="0.5">Velocidad 0,5×</option>
+        </select>
+        <label class="chk"><input type="checkbox" id="names" checked> Nombres</label>
+        <span class="clock" id="clock">0:00 / 2:16</span>
+      </div>
+      <audio id="audio" src="../musica/figura_3.mp3" preload="auto"></audio>
+    </section>
+
+    <aside class="card">
+      <h2>Congo</h2>
+      <div class="sub">de Captieux, Gironda · 12 bailarines en 3 cadrettes</div>
+      <div class="pairs" id="pairs"></div>
+      <div class="keys"><span><i class="f"></i>Caballero</span><span><i></i>Dama</span><span>La rayita indica hacia dónde mira.</span></div>
+
+      <h3>Figuras</h3>
+      <div class="vueltas" id="vueltas"></div>
+      <ol class="figs" id="figs"></ol>
+
+      <h3>Cómo leerlo</h3>
+      <ul class="howto">
+        <li>Salida: cada cadrette es un rombo; las dos parejas se miran de frente, en el eje noreste–suroeste.</li>
+        <li>En la salida el caballero (lleno) está a la izquierda y la dama (vacía) a la derecha.</li>
+        <li>Cuando alguien gira sobre sí mismo, gira en sentido antihorario.</li>
+        <li id="howtime"></li>
+      </ul>
+    </aside>
+  </div>
+</main>
+
+<script>
+// ---- Datos del HTML pedagógico (orientado norte–sur, una cadrette) ----
+const KF = [["001a",16.0,[336.7,659.4,0],[640.7,659.4,0],[640.7,336.0,180],[336.7,336.0,180]],["001b",19.0,[338.2,554.7,0],[643.0,554.7,0],[643.0,422.1,180],[338.2,422.1,180]],["002a",21.0,[336.7,659.4,0],[640.7,659.4,0],[640.7,336.0,180],[336.7,336.0,180]],["002b",24.0,[338.2,554.7,0],[643.0,554.7,0],[643.0,422.1,180],[338.2,422.1,180]],["002c",26.0,[643.0,554.7,0],[335.1,554.7,0],[335.1,427.8,180],[639.2,422.1,180]],["003a",27.0,[639.2,664.2,0],[335.1,660.2,0],[335.1,312.5,180],[639.2,312.5,180]],["003b",28.0,[639.2,560.3,0],[335.1,560.3,0],[335.1,424.6,180],[639.2,424.6,180]],["004a",30.0,[639.2,664.2,0],[335.1,660.2,0],[335.1,312.5,180],[639.2,312.5,180]],["004b",32.0,[270.0,644.5,270],[639.2,422.1,270],[696.6,332.1,90],[335.1,554.5,90]],["005a",35.0,[336.7,659.4,0],[640.7,659.4,0],[640.7,336.0,180],[336.7,336.0,180]],["005b",37.0,[291.7,422.1,0],[507.3,336.0,0],[597.3,554.7,180],[381.7,640.8,180]],["006a",39.0,[552.3,422.1,0],[223.4,336.0,180],[223.4,554.7,180],[552.3,640.8,0]],["006b",40.0,[552.3,121.8,0],[223.4,663.3,180],[223.4,798.2,180],[552.3,266.0,0]],["007a",42.0,[665.5,336.0,180],[336.7,336.0,180],[336.7,662.5,0],[668.6,662.5,0]],["007b",45.0,[597.3,554.7,180],[381.7,640.8,180],[291.7,422.1,0],[507.3,336.0,0]],["007c",46.0,[223.4,554.7,180],[552.3,640.8,0],[552.3,422.1,0],[223.4,336.0,180]],["008a",47.0,[336.7,659.4,0],[640.7,659.4,0],[640.7,336.0,180],[336.7,336.0,180]],["008b",49.0,[459.2,531.4,309],[336.7,679.6,0],[533.7,488.4,132],[653.1,343.6,180]],["008c",51.0,[423.5,660.6,309],[336.7,679.6,0],[591.1,386.7,132],[653.1,343.6,180]],["008d",52.0,[423.5,660.6,309],[399.5,555.4,180],[591.1,386.7,132],[591.1,469.3,0]],["001a",53.0,[336.7,659.4,0],[640.7,659.4,0],[640.7,336.0,180],[336.7,336.0,180]]];
+const FIG_BOUNDS = [16,21,27,30,35,39,42,47,53];          // inicio de cada figura en el HTML original
+const FIGS = [
+  ["Avant-deux",""],
+  ["Medio avant-deux y cruce en pastourelle",""],
+  ["Avant-deux en épingle à cheveux",""],
+  ["Épingle à cheveux en la diagonal de las damas","vuelta a la salida"],
+  ["Croisé à l'anglaise y croisé à la française",""],
+  ["Persecución en épingle à cheveux",""],
+  ["Croisé à l'anglaise y croisé à la française",""],
+  ["Choque de hombros de los caballeros en épingle y levé de las damas","vuelta a la salida"]
+];
+// ---- Música (03 Congo de Captieux.mp3, 2:16) ----
+const T0 = 17.87;          // entra la melodía después de la introducción y el silencio
+const BEAT = 0.5452;       // un tiempo
+const PHRASE = 8*BEAT;     // una figura = 8 tiempos
+const ROUND = 8*PHRASE;    // una vuelta = 8 figuras
+const ROUNDS = 3;
+const TEND = T0 + ROUNDS*ROUND;
+// ---- Plano: tres cadrettes como en el esquema del 20/09/2026 ----
+const GROUPS = [
+  {c:[25,37], names:["Gaby","Ana","Laura","Liby"]},
+  {c:[75,37], names:["Ximena","Laure","Macarena","Charles"]},
+  {c:[50,67], names:["Trixie","Claudia","Geraldine","Evan"]}
+];
+const CX = 488.7, CY = 497.7, SCALE = 0.045, ROT = 45; // giro de 45° hacia el noreste
+const PCOL = ["--p1","--p2","--p3","--p4","--p5","--p6"];
+
+function snapFacing(r, prev){ const a=((r%360)+360)%360; const d0=Math.min(a,360-a), d180=Math.abs(a-180); return Math.abs(d0-d180)<1 ? prev : (d0<d180?0:180); }
+function beatSnap(t){ return T0 + Math.round((t-T0)/BEAT)*BEAT; }
+function mapTime(h, round){
+  let k=0; while(k<7 && h>=FIG_BOUNDS[k+1]) k++;
+  const u=(h-FIG_BOUNDS[k])/(FIG_BOUNDS[k+1]-FIG_BOUNDS[k]);
+  return beatSnap(T0 + round*ROUND + k*PHRASE + u*PHRASE);
+}
+// Línea de tiempo global: [t, [[x,y,facing]x4]]
+const TL = [];
+const base = KF[0].slice(2);
+TL.push({t:0, d:base, fig:-1});
+for(let r=0;r<ROUNDS;r++) for(const k of KF){ if(k[1]>=53) continue; TL.push({t:mapTime(k[1],r), d:k.slice(2), fig:FIG_BOUNDS.findLastIndex(b=>k[1]>=b), round:r}); }
+TL.push({t:TEND, d:base, fig:-2});
+// Ángulos continuos: solo frente (0/180 en el HTML); todo cambio es media vuelta antihoraria
+const ANG = TL.map(()=>[0,0,0,0]);
+for(let i=0;i<4;i++){ let f=base[i][2], a=f; TL.forEach((k,j)=>{ const nf=snapFacing(k.d[i][2], f); if(nf!==f){ a-=180; f=nf; } ANG[j][i]=a; }); }
+
+function place(gi, x, y){
+  const dx=x-CX, dy=y-CY, th=ROT*Math.PI/180;
+  const rx=dx*Math.cos(th)-dy*Math.sin(th), ry=dx*Math.sin(th)+dy*Math.cos(th);
+  return [GROUPS[gi].c[0]+rx*SCALE, GROUPS[gi].c[1]+ry*SCALE];
+}
+const ease=u=>u*u*(3-2*u);
+function stateAt(t){
+  let j=0; while(j<TL.length-1 && TL[j+1].t<=t) j++;
+  const a=TL[j], b=TL[Math.min(j+1,TL.length-1)];
+  const u = b.t>a.t ? ease(Math.min(1,Math.max(0,(t-a.t)/(b.t-a.t)))) : 0;
+  return [0,1,2,3].map(i=>({x:a.d[i][0]+(b.d[i][0]-a.d[i][0])*u, y:a.d[i][1]+(b.d[i][1]-a.d[i][1])*u,
+    ang:ANG[j][i]+(ANG[Math.min(j+1,TL.length-1)][i]-ANG[j][i])*u}));
+}
+
+// ---- Dibujo ----
+const NS="http://www.w3.org/2000/svg", svg=document.getElementById('svg');
+const el=(n,a,p)=>{const e=document.createElementNS(NS,n); for(const k in a) e.setAttribute(k,a[k]); (p||svg).appendChild(e); return e;};
+for(let i=1;i<10;i++){ el('line',{x1:i*10,y1:0,x2:i*10,y2:100,class:'gl'}); el('line',{x1:0,y1:i*10,x2:100,y2:i*10,class:'gl'}); }
+// rombos de salida
+GROUPS.forEach((g,gi)=>{ const p=base.map(d=>place(gi,d[0],d[1])); el('polygon',{points:[p[0],p[1],p[2],p[3]].map(q=>q.join(',')).join(' '),class:'dia'}); });
+// brújula
+const cmp=el('g',{class:'compass',transform:'translate(91,90)'});
+el('circle',{r:5,fill:'none',stroke:'var(--line)','stroke-width':.3},cmp);
+el('text',{x:0,y:-5.9,'text-anchor':'middle'},cmp).textContent='N';
+el('line',{x1:0,y1:0,x2:3.2,y2:-3.2,stroke:'var(--red)','stroke-width':.6,'stroke-linecap':'round'},cmp);
+el('text',{x:4.2,y:-4.2}, cmp).textContent='NE';
+const tokens=[];
+GROUPS.forEach((g,gi)=>{ for(let i=0;i<4;i++){
+  const pair=gi*2+(i<2?0:1), cab=(i===0||i===2), col=`var(${PCOL[pair]})`;
+  const G=el('g',{}); const R=el('g',{},G);
+  el('line',{x1:0,y1:-2.3,x2:0,y2:-4.6,class:'tick',stroke:col},R);
+  el('circle',{r:2.3,fill:cab?col:'var(--board)',stroke:col,'stroke-width':cab?0:.55},G);
+  const tx=el('text',{class:'lbl',fill:cab?'#fff':col},G); tx.textContent=pair+1;
+  const nm=el('text',{class:'nm',y:5.6},G); nm.textContent=g.names[i];
+  tokens.push({gi,i,G,R});
+}});
+function draw(t){
+  const s=stateAt(t);
+  for(const k of tokens){ const d=s[k.i]; const [x,y]=place(k.gi,d.x,d.y);
+    k.G.setAttribute('transform',`translate(${x.toFixed(2)},${y.toFixed(2)})`);
+    k.R.setAttribute('transform',`rotate(${(d.ang+ROT).toFixed(1)})`); }
+}
+
+// ---- Panel ----
+const pairs=document.getElementById('pairs');
+GROUPS.forEach((g,gi)=>[[0,1],[2,3]].forEach((ix,pi)=>{ const n=gi*2+pi;
+  pairs.insertAdjacentHTML('beforeend',`<span><i class="dot" style="background:var(${PCOL[n]})"></i>Pareja ${n+1} · ${g.names[ix[0]]} y ${g.names[ix[1]]}</span>`); }));
+const fmt=s=>{s=Math.max(0,s); return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');};
+document.getElementById('howtime').textContent=`De 0:00 a ${fmt(T0)} (introducción) y desde ${fmt(TEND)} hasta el final de la música, quedan quietos.`;
+document.getElementById('lgstart').textContent='▸ '+fmt(T0)+' entra el baile';
+document.getElementById('lgend').textContent='■ '+fmt(TEND)+' fin de la 3ª vuelta';
+
+const audio=document.getElementById('audio');
+let DUR=136.2; audio.addEventListener('loadedmetadata',()=>{ if(isFinite(audio.duration)) DUR=audio.duration; buildBar(); });
+document.getElementById('lgtotal').textContent=fmt(DUR);
+const bar=document.getElementById('bar'); let segs=[], head;
+function segments(){ const a=[{t0:0,t1:T0,idle:true,label:'intro'}];
+  for(let r=0;r<ROUNDS;r++) for(let f=0;f<8;f++) a.push({t0:T0+r*ROUND+f*PHRASE,t1:T0+r*ROUND+(f+1)*PHRASE,r,f,label:f+1});
+  a.push({t0:TEND,t1:DUR,idle:true,label:'fin'}); return a; }
+function buildBar(){ bar.innerHTML=''; segs=segments().map(s=>{ const d=document.createElement('div'); d.className='seg '+(s.idle?'idle':'v'+s.r); d.style.width=((s.t1-s.t0)/DUR*100)+'%'; d.textContent=s.label; bar.appendChild(d); return {...s,el:d}; });
+  head=document.createElement('div'); head.className='head'; bar.appendChild(head); document.getElementById('lgtotal').textContent=fmt(DUR); }
+buildBar();
+function seekFromEvent(e){ const r=bar.getBoundingClientRect(); const u=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width)); seek(u*DUR); }
+let dragging=false;
+bar.addEventListener('pointerdown',e=>{dragging=true; bar.setPointerCapture(e.pointerId); seekFromEvent(e);});
+bar.addEventListener('pointermove',e=>{ if(dragging) seekFromEvent(e); });
+bar.addEventListener('pointerup',()=>dragging=false);
+bar.addEventListener('keydown',e=>{ if(e.key==='ArrowRight'){seek(cur+BEAT*2);e.preventDefault();} if(e.key==='ArrowLeft'){seek(cur-BEAT*2);e.preventDefault();} });
+
+const figsEl=document.getElementById('figs'), vEl=document.getElementById('vueltas');
+FIGS.forEach((f,i)=>figsEl.insertAdjacentHTML('beforeend',`<li><button type="button" data-f="${i}"><b>${i+1}</b><span>${f[0]}${f[1]?', '+f[1]:''}</span></button></li>`));
+for(let r=0;r<ROUNDS;r++) vEl.insertAdjacentHTML('beforeend',`<button type="button" data-r="${r}">Vuelta ${r+1}</button>`);
+let selRound=0;
+figsEl.addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; seek(T0+selRound*ROUND+(+b.dataset.f)*PHRASE+0.01); });
+vEl.addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; selRound=+b.dataset.r; seek(T0+selRound*ROUND+0.01); });
+
+// ---- Reloj ----
+let cur=0, playing=false, lastCT=0, lastPerf=0;
+const playBtn=document.getElementById('play');
+function seek(t){ cur=Math.min(DUR,Math.max(0,t)); try{ audio.currentTime=cur; }catch(_){} lastCT=cur; lastPerf=performance.now(); update(); }
+playBtn.addEventListener('click',()=>{ if(audio.paused){ if(cur>=DUR-0.05) seek(0); audio.play().catch(()=>{}); } else audio.pause(); });
+document.getElementById('restart').addEventListener('click',()=>seek(0));
+audio.addEventListener('play',()=>{playing=true; playBtn.textContent='❚❚ Pausa'; lastCT=audio.currentTime; lastPerf=performance.now();});
+audio.addEventListener('pause',()=>{playing=false; playBtn.textContent='▶ Reproducir'; cur=audio.currentTime; update();});
+audio.addEventListener('ended',()=>{playing=false; playBtn.textContent='▶ Reproducir';});
+const rateSel=document.getElementById('rate');
+rateSel.addEventListener('change',()=>{ audio.playbackRate=+rateSel.value; audio.preservesPitch=true; });
+document.getElementById('names').addEventListener('change',e=>svg.classList.toggle('hide-names',!e.target.checked));
+
+function update(){
+  draw(cur);
+  document.getElementById('clock').textContent=fmt(cur)+' / '+fmt(DUR);
+  head && (head.style.left=(cur/DUR*100)+'%');
+  let name, meta, f=-1, r=-1;
+  if(cur<T0){ name='Introducción'; meta='Esperan en la posición de salida'; }
+  else if(cur>=TEND){ name='Final'; meta='La música sigue; quedan en su lugar'; }
+  else { const x=cur-T0; r=Math.floor(x/ROUND); f=Math.floor((x-r*ROUND)/PHRASE); const b=Math.floor((x-r*ROUND-f*PHRASE)/BEAT)+1;
+    name=`${f+1}. ${FIGS[f][0]}`+(FIGS[f][1]?`, ${FIGS[f][1]}`:''); meta=`Vuelta ${r+1} de 3 · tiempo ${Math.min(8,b)} de 8`; selRound=r; }
+  document.getElementById('figname').textContent=name; document.getElementById('figmeta').textContent=meta;
+  segs.forEach(s=>s.el.classList.toggle('cur', s.idle ? (s.label==='intro'?cur<T0:cur>=TEND) : (s.r===r&&s.f===f)));
+  [...figsEl.children].forEach((li,i)=>li.classList.toggle('cur',i===f));
+  [...vEl.children].forEach((b,i)=>b.classList.toggle('cur',i===selRound));
+}
+function loop(now){
+  if(playing){ if(audio.currentTime!==lastCT){ lastCT=audio.currentTime; lastPerf=now; }
+    cur=Math.min(DUR, lastCT+(now-lastPerf)/1000*audio.playbackRate); update(); }
+  requestAnimationFrame(loop);
+}
+update(); requestAnimationFrame(loop);
+</script>
+
+</body>
+</html>

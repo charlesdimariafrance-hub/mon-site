@@ -408,12 +408,16 @@ fetch('coreo.json').then(r => r.json()).then(d => {
   DATA = d;
   if (Array.isArray(d.dancers) && d.dancers.length) IDS = d.dancers.filter(id => HOME[id]);
   $('#figs').innerHTML = d.figures.map((f, i) => {
-    const has = f.mouvements.some(m => m.steps.length > 1), extra = !has ? (f.video ? 'video' : 'salida') : (f.audio ? 'con música' : '');
+    const has = f.mouvements.some(m => m.steps.length > 1), extra = f.page ? 'con música' : !has ? (f.video ? 'video' : 'salida') : (f.audio ? 'con música' : '');
     return `<button class="fig" aria-pressed="false" data-i="${i}"><b>${f.id}</b>${esc(nice(f.name))}${extra ? ` <small>${extra}</small>` : ''}</button>`;
   }).join('');
   $('#figs').querySelectorAll('.fig').forEach(b => b.onclick = () => selectFig(Number(b.dataset.i)));
+  // Figuras con página propia (p. ej. Congo): se abren en su página
+  const openPage = f => { if (f && f.page) { location.href = f.page; return true; } return false; };
+  $('#figs').querySelectorAll('.fig').forEach(b => { const f = d.figures[Number(b.dataset.i)]; if (f.page) b.onclick = () => openPage(f); });
   buildShell();
   const m = location.hash.match(/figura-(\d+)/), start = m ? d.figures.findIndex(f => String(f.id) === m[1]) : 0;
+  if (start >= 0 && openPage(d.figures[start])) return;
   selectFig(start >= 0 ? start : 0, false);
 }).catch(() => { $('#loading').textContent = 'No se pudieron cargar las coreografías. Probá recargar la página.'; });
 </script>
