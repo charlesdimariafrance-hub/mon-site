@@ -57,14 +57,17 @@ const esCharles=n=>/^charles\b/.test(normalizar(n).trim());
 const esGeraldine=n=>/^geraldine\b/.test(normalizar(n).trim());
 // Grupo estable: siempre en la lista
 const FIJOS=[["Charles",1],["Geraldine",1],["Trixie",0],["Gloria",0],["Anna G.",0],["Laura N.",0],["Ximena",0],["Evan",0]];
-const esFijo=n=>{const t=normalizar(n).trim();return esCharles(n)||esGeraldine(n)||/trixie|insaurralde/.test(t)||/^gloria\b/.test(t)||/^an+a g/.test(t)||/^laura n/.test(t)||/^ximena\b/.test(t)||/^evan\b/.test(t)||/^(essai|test|teste|testes|tri|titi|ti)\d*$|^(essai|test|gpt ?test|gptest)/.test(t)};
+const claveFijo=n=>{const t=normalizar(n).trim();if(esCharles(n))return "Charles";if(esGeraldine(n))return "Geraldine";if(/trixie|insaurralde/.test(t))return "Trixie";if(/^gloria\b/.test(t))return "Gloria";if(/^an+a g/.test(t))return "Anna G.";if(/^laura n/.test(t))return "Laura N.";if(/^ximena\b/.test(t))return "Ximena";if(/^evan\b/.test(t))return "Evan";return null};
+const esPrueba=n=>{const t=normalizar(n).trim();return /^(essai|test|teste|testes|tri|titi|ti)\d*$|^(essai|test|gpt ?test|gptest)/.test(t)};
+const esFijo=n=>!!claveFijo(n)||esPrueba(n);
+const inscriptos=new Set(data.map(x=>claveFijo(x.nombre_apellido)).filter(Boolean));
 const cap=w=>w?w.charAt(0).toUpperCase()+w.slice(1).toLowerCase():"";
 const otros=data.filter(x=>!esFijo(x.nombre_apellido)).map(x=>(x.nombre_apellido||"").trim().split(/\s+/));
 const cuenta={};otros.forEach(w=>{const k=normalizar(w[0]);cuenta[k]=(cuenta[k]||0)+1});
 const nombresOtros=otros.map(w=>cap(w[0])+(cuenta[normalizar(w[0])]>1&&w[1]?" "+w[1].charAt(0).toUpperCase()+".":""));
 const listeFinale=[...FIJOS,...nombresOtros.map(n=>[n,0])];
-count.textContent=listeFinale.length+" personas inscriptas";
-for(const [n,b] of listeFinale){const li=document.createElement("li");li.textContent=n;if(b)li.style.fontWeight="700";lista.appendChild(li)}}catch(e){status.textContent="";error.textContent=e.message}}
+count.textContent=listeFinale.length+" personas";
+for(const [n,b] of listeFinale){const li=document.createElement("li");li.textContent=n+(inscriptos.has(n)?" ★":"");if(b)li.style.fontWeight="700";lista.appendChild(li)}}catch(e){status.textContent="";error.textContent=e.message}}
 document.getElementById("ver").onclick=cargar;fecha.onchange=cargar;
 function chargerDateEtListe(){
   const q=new URLSearchParams(window.location.search);
