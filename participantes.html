@@ -56,8 +56,8 @@ const normalizar=n=>(n||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLo
 const esCharles=n=>/^charles\b/.test(normalizar(n).trim());
 const esGeraldine=n=>/^geraldine\b/.test(normalizar(n).trim());
 // Grupo estable: siempre en la lista
-const FIJOS=[["Charles",1],["Geraldine",1],["Trixie",0],["Gloria",0],["Anna G.",0],["Laura N.",0]];
-const esFijo=n=>{const t=normalizar(n).trim();return esCharles(n)||esGeraldine(n)||/trixie|insaurralde/.test(t)||/^gloria\b/.test(t)||/^an+a g/.test(t)||/^laura n/.test(t)};
+const FIJOS=[["Charles",1],["Geraldine",1],["Trixie",0],["Gloria",0],["Anna G.",0],["Laura N.",0],["Ximena",0],["Evan",0]];
+const esFijo=n=>{const t=normalizar(n).trim();return esCharles(n)||esGeraldine(n)||/trixie|insaurralde/.test(t)||/^gloria\b/.test(t)||/^an+a g/.test(t)||/^laura n/.test(t)||/^ximena\b/.test(t)||/^evan\b/.test(t)||/^(essai|test|teste|testes|tri|titi|ti)\d*$|^(essai|test|gpt ?test|gptest)/.test(t)};
 const cap=w=>w?w.charAt(0).toUpperCase()+w.slice(1).toLowerCase():"";
 const otros=data.filter(x=>!esFijo(x.nombre_apellido)).map(x=>(x.nombre_apellido||"").trim().split(/\s+/));
 const cuenta={};otros.forEach(w=>{const k=normalizar(w[0]);cuenta[k]=(cuenta[k]||0)+1});
