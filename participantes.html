@@ -33,6 +33,7 @@ label{font-weight:700}input,button{font:inherit;border-radius:12px;padding:11px 
 
 <div class="controls"><div><label for="fecha">Sábado</label><br><input id="fecha" type="date"></div><button id="ver">Ver inscriptos</button></div>
 <div id="status">Elegí un sábado.</div><div id="count"></div><ol id="lista"></ol><div id="error"></div>
+<p class="note">★ = se inscribió para este sábado.</p>
 <p class="note">Esta página muestra solamente nombres. DNI, fecha de nacimiento y datos de contacto no son públicos.</p>
 </main>
 <section class="galeria-che">
@@ -65,9 +66,9 @@ const cap=w=>w?w.charAt(0).toUpperCase()+w.slice(1).toLowerCase():"";
 const otros=data.filter(x=>!esFijo(x.nombre_apellido)).map(x=>(x.nombre_apellido||"").trim().split(/\s+/));
 const cuenta={};otros.forEach(w=>{const k=normalizar(w[0]);cuenta[k]=(cuenta[k]||0)+1});
 const nombresOtros=otros.map(w=>cap(w[0])+(cuenta[normalizar(w[0])]>1&&w[1]?" "+w[1].charAt(0).toUpperCase()+".":""));
-const listeFinale=[...FIJOS,...nombresOtros.map(n=>[n,0])];
+const listeFinale=[...FIJOS,...nombresOtros.map(n=>[n,0,1])];
 count.textContent=listeFinale.length+" personas";
-for(const [n,b] of listeFinale){const li=document.createElement("li");li.textContent=n+(inscriptos.has(n)?" ★":"");if(b)li.style.fontWeight="700";lista.appendChild(li)}}catch(e){status.textContent="";error.textContent=e.message}}
+for(const [n,b,ins] of listeFinale){const li=document.createElement("li");li.textContent=n+((ins||inscriptos.has(n))?" ★":"");if(b)li.style.fontWeight="700";lista.appendChild(li)}}catch(e){status.textContent="";error.textContent=e.message}}
 document.getElementById("ver").onclick=cargar;fecha.onchange=cargar;
 function chargerDateEtListe(){
   const q=new URLSearchParams(window.location.search);
