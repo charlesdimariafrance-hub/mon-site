@@ -60,10 +60,10 @@ begin
     if p.dni is null or p.fecha_nacimiento is null then
       raise exception 'Para el seguro necesitamos tu DNI: usá «Primera clase gratis».';
     end if;
-    if p_tipo = 'clase' and (p_nivel is null or p_nivel not in ('principiantes', 'intermedios')) then
+    if p_tipo in ('clase', 'prueba') and (p_nivel is null or p_nivel not in ('principiantes', 'intermedios')) then
       raise exception 'Elegí tu nivel.';
     end if;
-    if p_tipo <> 'clase' then p_nivel := null; end if;
+    if p_tipo = 'session' then p_nivel := null; end if;
     p_cantidad := 1;
   end if;
 

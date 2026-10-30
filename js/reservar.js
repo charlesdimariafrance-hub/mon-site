@@ -75,10 +75,10 @@
       '<input id="' + p + '-q" data-buscar placeholder="Empezá a escribir tu nombre…" autocomplete="off">' +
       '<ul class="rsv-results" hidden data-sin="' + esc(sinResultado) + '"></ul></div>';
   };
-  var nivel = function (p) {
+  var nivel = function (p, principiantes, intermedios) {
     return '<div class="rsv-full"><label for="' + p + '-nivel">Nivel</label><select id="' + p + '-nivel" name="nivel" required>' +
-      '<option value="">Elegí tu nivel</option><option value="principiantes">Principiantes · 14:30 a 16:00</option>' +
-      '<option value="intermedios">Intermedios · 14:30 a 18:00</option></select></div>';
+      '<option value="">Elegí tu nivel</option><option value="principiantes">Principiantes · ' + principiantes + '</option>' +
+      '<option value="intermedios">Intermedios · ' + intermedios + '</option></select></div>';
   };
   var sabados = function (p) {
     var a = ahoraBA(), lista = proximos(6), elegido = lista.filter(function (s) { return !cerradoHoy(s); })[0];
@@ -109,12 +109,12 @@
 
   var PANELES = {
     prueba: function () {
-      return "<h3>Primera clase gratis</h3><p class=\"rsv-where\">Sábado 14:30 · " + liceo + "</p>" +
-        '<form novalidate data-tipo="prueba"><div class="rsv-fields">' + datosCompletos("p") + sabados("p") + "</div>" + final("Reservar mi clase gratis") + "</form>" + privacidad;
+      return "<h3>Primera clase gratis</h3><p class=\"rsv-where\">Sábado 14:30 (principiantes) o 16:00 (intermedios) · " + liceo + "</p>" +
+        '<form novalidate data-tipo="prueba"><div class="rsv-fields">' + datosCompletos("p") + nivel("p", "14:30", "16:00") + sabados("p") + "</div>" + final("Reservar mi clase gratis") + "</form>" + privacidad;
     },
     clase: function () {
-      return "<h3>Reservar mi clase</h3><p class=\"rsv-where\">Sábado 14:30 · " + liceo + "</p>" +
-        '<form novalidate data-tipo="clase"><div class="rsv-fields">' + buscador("c", noEncontrado) + nivel("c") + sabados("c") + "</div>" + final("Reservar") + "</form>" +
+      return "<h3>Reservar mi clase</h3><p class=\"rsv-where\">Sábado · Principiantes 14:30 a 16:00 · Intermedios 14:30 a 18:00 · " + liceo + "</p>" +
+        '<form novalidate data-tipo="clase"><div class="rsv-fields">' + buscador("c", noEncontrado) + nivel("c", "14:30 a 16:00", "14:30 a 18:00") + sabados("c") + "</div>" + final("Reservar") + "</form>" +
         alias(ALIAS_CLASES, "Podés pagar la clase por transferencia:");
     },
     brunch: function () {
@@ -216,7 +216,7 @@
         nombreOk = elegida.nombre.split(" ")[0];
         envio = rpc("reservar", { p_persona: elegida.id, p_tipo: tipo, p_fecha: fecha, p_nivel: valor("nivel") || null, p_cantidad: +valor("cantidad") || 1 });
       } else {
-        if (faltan.length) { faltan[0].focus(); return mostrarError("Completá todos los datos."); }
+        if (faltan.length) { faltan[0].focus(); return mostrarError(faltan[0].name === "nivel" ? "Elegí tu nivel." : "Completá todos los datos."); }
         var nacimiento = null;
         if (tipo !== "brunch") {
           nacimiento = leerNacimiento(valor("nacimiento"));
@@ -226,7 +226,7 @@
         envio = valor("web") ? Promise.resolve() : rpc("inscribir", {
           p_nombre: valor("nombre"), p_apellido: valor("apellido"), p_dni: valor("dni") || null,
           p_fecha_nacimiento: nacimiento, p_contacto: valor("contacto"), p_tipo: tipo, p_fecha: fecha,
-          p_nivel: null, p_cantidad: +valor("cantidad") || 1
+          p_nivel: valor("nivel") || null, p_cantidad: +valor("cantidad") || 1
         });
       }
 
@@ -234,7 +234,7 @@
       envio.then(function () {
         var cuando = tipo === "brunch"
           ? "el " + legible(fecha) + ". Te confirmamos la fecha por WhatsApp o email."
-          : "el " + legible(fecha) + " a las 14:30.";
+          : "el " + legible(fecha) + (tipo === "prueba" && valor("nivel") === "intermedios" ? " a las 16:00." : " a las 14:30.");
         form.outerHTML = '<div class="rsv-ok" role="status"><strong>¡Listo, ' + esc(nombreOk) + "!</strong> Quedaste en la lista. Te esperamos " + cuando + "</div>";
       }).catch(function (err) {
         enviar.disabled = false; enviar.textContent = enviar.dataset.texto;

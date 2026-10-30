@@ -29,7 +29,7 @@ begin
   return query
     select p.nombre, p.apellido, p.dni, p.fecha_nacimiento, p.contacto,
            string_agg(case r.tipo
-                        when 'prueba'  then 'Primera clase'
+                        when 'prueba'  then 'Primera clase ' || case r.nivel when 'intermedios' then '16:00' else '14:30' end
                         when 'clase'   then 'Clase ' || coalesce(r.nivel, '')
                         when 'session' then 'SessionTradBA'
                         else 'Brunch & Bal' end, ', ' order by r.tipo),
