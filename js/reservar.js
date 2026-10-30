@@ -276,4 +276,17 @@
       if (panel.getBoundingClientRect().top > window.innerHeight * .7) panel.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   });
+
+  /* Enlace directo al Brunch & Bal (el que se comparte en Instagram): …/#brunch */
+  var abrirDesdeEnlace = function () {
+    if (location.hash !== "#brunch") return;
+    var btn = root.querySelector('[data-panel="brunch"]');
+    if (btn.getAttribute("aria-expanded") !== "true") btn.click();
+    var ir = function () { btn.scrollIntoView({ block: "start" }); };
+    ir();
+    // La página sigue cargando (video, mapa) y mueve el contenido: se repite al final
+    if (document.readyState !== "complete") window.addEventListener("load", function () { setTimeout(ir, 50); }, { once: true });
+  };
+  window.addEventListener("hashchange", abrirDesdeEnlace);
+  abrirDesdeEnlace();
 })();

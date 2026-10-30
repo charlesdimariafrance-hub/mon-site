@@ -27,20 +27,22 @@
 <section class="pg-sec"><div class="wrap pg-grid"><div class="pg-media"><img src="img/clase.jpg" alt="Alumnos de Che, on danse! bailando al aire libre" loading="lazy"></div><div><p class="pg-num">Próximo encuentro</p>
 <h2 class="h2">Domingo 25 de octubre</h2>
 <ul class="pg-facts"><li><strong>Horario</strong><span>10:00 a 14:00</span></li><li><strong>Lugar</strong><span>Área Mística, Nueva York 4677, Villa Devoto</span></li><li><strong>Para quién</strong><span>Para todos, sin experiencia previa</span></li></ul>
-<div class="pg-actions"><a class="btn btn--red" href="https://tally.so/r/dWEWAV" target="_blank" rel="noopener">Inscribirme</a><a class="btn btn--line" href="index.html#agenda">Ver la agenda</a></div></div></div></section>
+<div class="pg-actions"><a class="btn btn--red" href="index.html#brunch">Inscribirme</a><a class="btn btn--line" href="index.html#agenda">Ver la agenda</a></div></div></div></section>
 <section class="pg-sec pg-sec--one"><div class="wrap"><div class="pg-prose"><p class="pg-num">Qué es</p>
 <h2 class="h2">Brunch, música y danzas colectivas</h2>
 <p>Un domingo para compartir la mesa, escuchar música en vivo, aprender los primeros pasos y bailar todos juntos danzas tradicionales francesas. Es la mejor puerta de entrada a la comunidad de Che, on danse!</p>
 <p><strong>Cada Brunch &amp; Bal nos acerca a Francia.</strong> Lo que se recauda financia en parte el pasaje de avión de los alumnos que quieren ir a <a href="gennetines.html">Gennetines, el Grand Bal de l’Europe</a>, el gran festival de danzas tradicionales de Francia, en julio y agosto. Son los mismos alumnos quienes preparan los Brunch &amp; Bal, los Bistrot Bal y los demás encuentros, y quienes tendrán la alegría de usar ese fondo para viajar en 2027 o 2028.</p></div></div></section>
 <section class="pg-sec"><div class="wrap pg-grid pg-grid--flip"><div class="pg-media"><video src="img/brunch-historia.mp4" poster="img/brunch-historia.jpg" controls playsinline preload="none" style="width:100%;max-width:360px;aspect-ratio:9/16;background:#000;display:block"></video></div><div><p class="pg-num">Ayudanos a difundir</p>
 <h2 class="h2">Compartilo en tu historia</h2>
-<ol class="pg-list" style="list-style:decimal;padding-left:1.2rem;border:0"><li style="border:0"><strong>Copiá el enlace de inscripción:</strong> <span class="copyrow"><code>https://tally.so/r/dWEWAV</code><button type="button" class="copybtn" data-copy="https://tally.so/r/dWEWAV" onclick="var b=this;navigator.clipboard&&navigator.clipboard.writeText(b.dataset.copy).then(function(){b.textContent='¡Copiado!';setTimeout(function(){b.textContent='Copiar'},2000)})">Copiar</button></span></li><li style="border:0"><strong>Abrí <a href="https://www.instagram.com/reel/DeVyN1XB2EO/" target="_blank" rel="noopener" style="color:var(--red)">la publicación del Brunch &amp; Bal</a></strong> en Instagram y seguí el video.</li></ol></div></div></section>
+<ol class="pg-list" style="list-style:decimal;padding-left:1.2rem;border:0"><li style="border:0"><strong>Copiá el enlace de inscripción:</strong> <span class="copyrow"><code data-brunch-link>#brunch</code><button type="button" class="copybtn" data-brunch-link data-copy="#brunch" onclick="var b=this;navigator.clipboard&&navigator.clipboard.writeText(b.dataset.copy).then(function(){b.textContent='¡Copiado!';setTimeout(function(){b.textContent='Copiar'},2000)})">Copiar</button></span></li><li style="border:0"><strong>Abrí <a href="https://www.instagram.com/reel/DeVyN1XB2EO/" target="_blank" rel="noopener" style="color:var(--red)">la publicación del Brunch &amp; Bal</a></strong> en Instagram y seguí el video.</li></ol></div></div></section>
 
 <section class="pg-end"><div class="wrap">
   <h2 class="h2">Reservá tu lugar</h2>
   <p>Los lugares son limitados. Te confirmamos por email.</p>
-  <p style="margin-top:1.6rem"><a class="btn btn--red" href="https://tally.so/r/dWEWAV" target="_blank" rel="noopener">Inscribirme al Brunch &amp; Bal</a></p>
+  <p style="margin-top:1.6rem"><a class="btn btn--red" href="index.html#brunch">Inscribirme al Brunch &amp; Bal</a></p>
 </div></section>
 <footer class="footer"><div class="wrap footer__base">© 2026 Che, on danse! · <a href="mailto:cheondanse@gmail.com" style="color:inherit">cheondanse@gmail.com</a> · <a href="https://www.instagram.com/che.on.danse/" target="_blank" rel="noopener" style="color:inherit">@che.on.danse</a></div></footer>
+<script>/* Enlace para compartir: la dirección completa del sitio + #brunch */
+document.querySelectorAll("[data-brunch-link]").forEach(function (el) { var u = location.origin + "/#brunch"; if (el.classList.contains("copybtn")) el.dataset.copy = u; else el.textContent = u; });</script>
 </body>
 </html>

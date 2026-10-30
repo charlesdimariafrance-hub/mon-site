@@ -273,7 +273,7 @@
             <p>El video muestra todo, paso a paso. Lo que necesitás:</p>
             <ol>
               <li><strong>Copiá el enlace de inscripción</strong> antes de abrir Instagram:
-                <span class="copyrow"><code id="brunchLink">https://tally.so/r/dWEWAV</code><button type="button" class="copybtn" data-copy="https://tally.so/r/dWEWAV">Copiar</button></span></li>
+                <span class="copyrow"><code id="brunchLink" data-brunch-link>#brunch</code><button type="button" class="copybtn" data-brunch-link data-copy="#brunch">Copiar</button></span></li>
               <li><strong>Abrí <a href="https://www.instagram.com/reel/DeVyN1XB2EO/" target="_blank" rel="noopener">la publicación del Brunch &amp; Bal</a></strong> en Instagram y seguí el video.</li>
             </ol>
           </div>
@@ -439,5 +439,7 @@
 <script src="js/app.js"></script>
 <script>CheOnDanseCarte.init({ map: "cod-map", panel: "cod-panel", search: "cod-search", geojsonUrl: "data/danses-france.geojson", zoom: window.innerWidth < 700 ? 5 : 6 });</script>
 <script src="js/reservar.js"></script>
+<script>/* Enlace para compartir: la dirección completa del sitio + #brunch */
+document.querySelectorAll("[data-brunch-link]").forEach(function (el) { var u = location.origin + "/#brunch"; if (el.classList.contains("copybtn")) el.dataset.copy = u; else el.textContent = u; });</script>
 </body>
 </html>
