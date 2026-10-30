@@ -22,7 +22,7 @@ input, select { width: 100%; font: inherit; font-size: 16px; padding: 12px 14px;
 .count { font-weight: 600; margin: 4px 0 12px; }
 .err { color: var(--red); font-weight: 500; }
 .scroll { overflow-x: auto; }
-table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: .95rem; }
+table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: .95rem; }
 th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); }
 th { background: var(--mist); color: var(--ink); font-weight: 600; }
 td.small { font-size: .82rem; color: var(--muted); }
@@ -145,14 +145,15 @@ td.missing { color: var(--red); font-weight: 600; }
         $("note").textContent = "El Brunch & Bal no va en la lista del seguro del Liceo.";
       } else {
         $("count").textContent = personas(filas.length) + " a asegurar";
-        $("thead").innerHTML = "<tr><th>#</th><th>Nombre</th><th>Apellido</th><th>DNI</th><th>Fecha de nacimiento</th><th>Actividad</th></tr>";
+        $("thead").innerHTML = "<tr><th>#</th><th>Nombre</th><th>Apellido</th><th>DNI</th><th>Fecha de nacimiento</th><th>WhatsApp o email</th><th>Actividad</th></tr>";
         $("tbody").innerHTML = filas.map(function (f, i) {
           return "<tr><td>" + (i + 1) + "</td><td>" + esc(f.nombre) + "</td><td>" + esc(f.apellido) + "</td>" +
             (f.dni ? "<td>" + esc(f.dni) + "</td>" : '<td class="missing">falta</td>') +
             (f.fecha_nacimiento ? "<td>" + dmy(f.fecha_nacimiento) + "</td>" : '<td class="missing">falta</td>') +
+            "<td>" + esc(f.contacto) + "</td>" +
             '<td class="small">' + esc(f.actividad) + "</td></tr>";
         }).join("");
-        $("note").textContent = "El archivo para Mecubro tiene 4 columnas: Nombre, Apellido, DNI, Fecha de nacimiento. La columna «Actividad» es solo para vos.";
+        $("note").textContent = "El archivo para Mecubro tiene 4 columnas: Nombre, Apellido, DNI, Fecha de nacimiento. Las columnas «WhatsApp o email» y «Actividad» son solo para vos.";
       }
     }).catch(function (err) { $("listErr").textContent = err.message; $("listErr").hidden = false; });
   };
