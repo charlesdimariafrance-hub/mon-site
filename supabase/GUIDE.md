@@ -6,7 +6,7 @@ Vous allez copier-coller 4 fichiers dans Supabase, puis créer votre compte admi
 ## Avant de commencer
 
 1. Allez sur <https://supabase.com> et connectez-vous.
-2. Ouvrez le projet du site (son adresse commence par `pgeuoheiqyoewqpwungx`).
+2. Ouvrez le projet du site (son adresse commence par `bizuvwzgtmoosadxouqk`).
 
 ## Étapes 1 à 3 : créer les tables et les fonctions
 

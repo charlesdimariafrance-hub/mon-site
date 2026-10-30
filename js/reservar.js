@@ -4,7 +4,7 @@
 (function () {
   "use strict";
 
-  var SUPABASE_URL = "https://pgeuoheiqyoewqpwungx.supabase.co";
+  var SUPABASE_URL = "https://bizuvwzgtmoosadxouqk.supabase.co";
   var API_KEY = "sb_publishable_Y7jYW94niVw7EeyoXZlJVQ_hiBm0UX_";
   var WHATSAPP = "https://wa.me/5491127723816";
   var ALIAS_CLASES = "CHEONDANSE", ALIAS_BRUNCH = "LEPETITBAL";
