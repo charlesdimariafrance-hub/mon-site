@@ -115,15 +115,6 @@ em { font-style: italic; }
 
 /* Reserva */
 .booking { background: var(--ink); color: #DCE4EF; padding: clamp(64px, 9vw, 112px) 0; }
-.booking__grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.4fr); gap: clamp(32px, 6vw, 80px); align-items: start; }
-.booking__list { list-style: none; padding: 0; margin: 1.6rem 0; border-top: 1px solid rgba(255,255,255,.2); }
-.booking__list li { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.2); display: flex; justify-content: space-between; gap: 16px; }
-.booking__list strong { font-weight: 500; color: var(--paper); }
-.booking__alt { font-size: .92rem; }
-.booking__alt a { color: var(--sky); }
-.booking__form { background: var(--paper); border-radius: 2px; padding: clamp(12px, 2.5vw, 28px); min-height: 700px; }
-.booking__form iframe { border: 0; display: block; width: 100%; min-height: 700px; }
-@media (max-width: 880px) { .booking__grid { grid-template-columns: 1fr; } }
 
 /* Mapa de Francia */
 .atlas { padding: clamp(64px, 9vw, 120px) 0; background: var(--mist); }
@@ -284,11 +275,6 @@ em { font-style: italic; }
 .booking__eyebrow { font: 500 .8rem/1 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--sky); margin: 0 0 .9rem; }
 .booking__title { font: 400 clamp(2.2rem, 3.6vw, 3.1rem)/1.08 var(--serif); color: var(--paper); margin: 0 0 1.4rem; letter-spacing: -.01em; }
 .booking__title em { font-style: italic; color: var(--sky); padding: 0 .08em; }
-.booking__group { font: 500 .78rem/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--sky); margin: 2rem 0 0; }
-.booking__group + .booking__list { margin-top: .8rem; }
-.booking__list span { text-align: right; }
-.booking__note { font-size: .95rem; margin: .6rem 0 0; }
-.booking__note a { color: var(--sky); white-space: nowrap; }
 
 /* Debajo del mapa: Renacimiento y danzas adoptadas */
 .atlas__more { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 4vw, 48px); max-width: 1100px; margin: 28px auto 0; }
@@ -501,11 +487,6 @@ em { font-style: italic; }
 .dm__pop [class*="punto"], .dm__pop .estado::before { border-radius: 0; }
 .brand { white-space: nowrap; }
 @media (max-width: 420px) { .brand { font-size: 1.25rem; } }
-.booking__people { margin: 1.1rem 0 1.4rem; }
-.booking__people .btn { border-color: var(--ink); color: var(--ink); font-weight: 600; }
-.booking__people .btn:hover { background: var(--ink); color: var(--paper); }
-.booking__people .btn { border: 1px solid var(--paper); color: var(--paper); background: transparent; }
-.booking__people .btn:hover { background: var(--red); border-color: var(--red); color: #fff; }
 /* "Para músicos": visible pero discreto */
 .brand2 { border: 1px solid var(--red); border-left: 1px solid var(--red); padding: 6px 10px; margin-left: 2px; }
 .brand2:hover { background: var(--red); color: #fff; }
@@ -519,22 +500,71 @@ html, body { overflow-x: clip; max-width: 100%; }
   .agenda__steps code { word-break: break-all; overflow-wrap: anywhere; }
 }
 
-/* Indicación hacia el formulario: flecha a la derecha en compu, abajo en teléfono */
-.booking__pick { display: flex; align-items: center; gap: 14px; margin: 1.4rem 0; padding: 14px 18px; border: 1px solid #D9B26A; color: var(--paper); font-size: 1.05rem; line-height: 1.4; }
-.booking__pick strong { color: #D9B26A; white-space: nowrap; }
-.booking__arrow::before { content: "→"; font-size: 1.9rem; line-height: 1; color: #D9B26A; display: inline-block; animation: pickR 1.4s ease-in-out infinite; }
-@keyframes pickR { 50% { transform: translateX(6px); } }
-@keyframes pickD { 50% { transform: translateY(6px); } }
-@media (max-width: 880px) { .booking__arrow::before { content: "↓"; animation-name: pickD; } }
-@media (prefers-reduced-motion: reduce) { .booking__arrow::before { animation: none; } }
 
 /* Hero: segunda fila de botones (Elijo mi sábado · Playlist) */
 .hero__actions--more { margin-top: 12px; }
-.booking__form { position: relative; }
-.booking__anchor { position: absolute; left: 0; top: 520px; width: 1px; height: 1px; }
 .tile video { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
 .tile:hover video { transform: scale(1.04); }
 .tile.rot img, .tile.rot video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
 .tile.rot img.is-on, .tile.rot video.is-on { opacity: 1; }
 .tile.rot .tile__body { z-index: 2; }
 .tile.rot::after { z-index: 1; }
+
+/* Reservar: cuatro botones grandes y el formulario de cada uno (js/reservar.js) */
+.rsv [hidden] { display: none !important; }
+.rsv-lead { max-width: 60ch; margin: 0 0 2rem; }
+.rsv { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; scroll-margin-top: 90px; }
+@media (min-width: 761px) {
+  .rsv > [data-panel="prueba"] { order: 1; } .rsv > [data-panel="clase"] { order: 2; } #rsv-prueba, #rsv-clase { order: 3; }
+  .rsv > [data-panel="brunch"] { order: 4; } .rsv > [data-panel="session"] { order: 5; } #rsv-brunch, #rsv-session { order: 6; }
+}
+@media (max-width: 760px) { .rsv { grid-template-columns: 1fr; } }
+.rsv-choice { position: relative; display: flex; flex-direction: column; gap: 8px; min-height: 150px; padding: 22px; text-align: left; font: inherit; color: var(--paper); background: var(--ink-2); border: 1px solid rgba(255,255,255,.22); border-radius: 2px; cursor: pointer; transition: border-color .2s, background .2s; }
+.rsv-choice:hover { border-color: var(--sky); }
+.rsv-choice[aria-expanded="true"] { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.rsv-choice__num { font: 500 .75rem/1 var(--sans); letter-spacing: .18em; text-transform: uppercase; color: #D9B26A; }
+.rsv-choice[aria-expanded="true"] .rsv-choice__num { color: var(--red); }
+.rsv-choice__title { font: 400 1.7rem/1.1 var(--serif); padding-right: 90px; }
+.rsv-choice__meta { font-size: .98rem; line-height: 1.4; }
+.rsv-choice__meta strong { font-weight: 600; }
+.rsv-choice__tag { position: absolute; top: 18px; right: 18px; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; padding: 4px 8px; border: 1px solid currentColor; }
+.rsv-choice--free .rsv-choice__tag { background: var(--red); border-color: var(--red); color: var(--paper); }
+.rsv-panel { grid-column: 1 / -1; background: var(--paper); color: var(--text); padding: clamp(20px, 4vw, 40px); border-top: 4px solid var(--red); }
+.rsv-panel h3 { font: 400 1.6rem/1.15 var(--serif); color: var(--ink); margin: 0 0 .3rem; }
+.rsv-where { color: var(--muted); margin: 0 0 1.4rem; font-size: .95rem; }
+.rsv-where a { color: var(--red); }
+.rsv-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; max-width: 640px; margin-bottom: 14px; }
+@media (max-width: 560px) { .rsv-fields { grid-template-columns: 1fr; } }
+.rsv-full { grid-column: 1 / -1; }
+.rsv-panel label { display: block; font-weight: 600; font-size: .92rem; color: var(--ink); margin-bottom: 5px; }
+.rsv-hint { font-weight: 400; color: var(--muted); font-size: .85rem; }
+.rsv-panel input, .rsv-panel select { width: 100%; font: inherit; font-size: 16px; padding: 13px 14px; border: 1px solid var(--line); border-radius: 2px; background: var(--paper); color: var(--text); }
+.rsv-panel input:focus, .rsv-panel select:focus { outline: 2px solid var(--sky); border-color: var(--ink); }
+.rsv-panel input[aria-invalid="true"] { border-color: var(--red); }
+.rsv-seg { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 18px; max-width: 640px; }
+.rsv-seg button { flex: 1; min-width: 190px; padding: 12px 16px; font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--ink); border-radius: 2px; cursor: pointer; }
+.rsv-seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.rsv-results { list-style: none; padding: 0; margin: 8px 0 0; border: 1px solid var(--line); }
+.rsv-results button { display: block; width: 100%; padding: 14px 16px; font: inherit; font-size: 1.05rem; text-align: left; color: var(--text); background: none; border: 0; border-bottom: 1px solid var(--line); cursor: pointer; }
+.rsv-results li:last-child button { border-bottom: 0; }
+.rsv-results button:hover, .rsv-results button[aria-pressed="true"] { background: var(--sky-soft); }
+.rsv-results button[aria-pressed="true"]::after { content: "  ✓"; color: var(--red); font-weight: 700; }
+.rsv-results .rsv-none { padding: 14px 16px; color: var(--muted); font-size: .95rem; }
+.rsv-none a { color: var(--red); }
+.rsv-actions { margin-top: 8px; }
+.rsv-actions .btn { padding: 15px 26px; font-size: 1rem; }
+.rsv-actions .btn[disabled] { opacity: .6; cursor: wait; }
+.rsv-error { color: var(--red); font-weight: 500; margin: 12px 0 0; max-width: 640px; }
+.rsv-ok { max-width: 640px; margin-top: 18px; padding: 16px; background: #EAF6EE; border-left: 4px solid #1F9D55; }
+.rsv-wa { max-width: 640px; margin: 4px 0 14px; padding: 16px; background: #EFFBF3; border: 1px solid #25D366; }
+.rsv-wa a { display: inline-block; margin-top: 8px; padding: 12px 18px; background: #1F9D55; color: #fff; font-weight: 600; text-decoration: none; }
+.rsv-pay { max-width: 640px; margin-top: 24px; padding: 18px; background: var(--mist); }
+.rsv-pay p { margin: 0 0 10px; }
+.rsv-alias { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.rsv-alias code { font: 600 1.25rem/1 ui-monospace, Menlo, monospace; letter-spacing: .06em; padding: 12px 14px; color: var(--ink); background: var(--paper); border: 1px dashed var(--ink); }
+.rsv-alias button { padding: 12px 18px; font: 600 1rem var(--sans); color: var(--paper); background: var(--ink); border: 0; border-radius: 2px; cursor: pointer; }
+.rsv-alias small { display: block; width: 100%; color: var(--muted); font-size: .88rem; }
+.rsv-privacy { max-width: 640px; margin: 14px 0 0; font-size: .82rem; color: var(--muted); }
+.rsv-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.rsv-links { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 28px; font-size: .95rem; }
+.rsv-links a { color: var(--sky); }

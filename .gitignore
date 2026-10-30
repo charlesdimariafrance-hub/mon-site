@@ -1,0 +1,3 @@
+# Exports de Tally e importaciones: contienen DNI, no se suben
+*.csv
+supabase/04_*.sql

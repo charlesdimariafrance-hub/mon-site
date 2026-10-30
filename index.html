@@ -108,31 +108,44 @@
     </a>
   </section>
 
-  <!-- RESERVA -->
+  <!-- RESERVA: formulario propio (js/reservar.js + supabase/) -->
   <section class="booking" id="reservar">
-    <div class="wrap booking__grid">
-      <div class="booking__text">
-        <h2 class="booking__title">Reservá tu sábado<br><em>&amp;</em> tu domingo</h2>
-        <p>En el formulario elegís tu clase de prueba gratuita, el sábado al que venís o tu lugar en el próximo Brunch &amp; Bal. Te confirmamos por email.</p>
-        <p class="booking__pick"><span>Elegí una opción en el formulario: <strong>A, B o C</strong></span><span class="booking__arrow" aria-hidden="true"></span></p>
-        <p class="booking__group">Sábados · Ramsay 2131, CABA</p>
-        <ul class="booking__list">
-          <li><strong>Principiantes</strong><span>14:30 a 16:00</span></li>
-          <li><strong>Intermedios</strong><span>14:30 a 18:00</span></li>
-          <li><strong>Clase de prueba</strong><span>14:30 si empezás de cero<br>16:00 si ya bailás otras danzas</span></li>
-        </ul>
-        <p class="booking__note">En esta época del año los intermedios ensayamos las coreografías. <a href="coreografias/">Ver las coreografías</a></p>
-        <p class="booking__people"><a class="btn btn--line" href="participantes.html">Lista de los participantes del sábado →</a></p>
-        <p class="booking__group">Domingo · Brunch &amp; Bal</p>
-        <ul class="booking__list">
-          <li><strong>Domingo 25/10</strong><span>10:00 a 14:00</span></li>
-          <li><strong>Lugar</strong><span>Área Mística, Nueva York 4677, Villa Devoto</span></li>
-        </ul>
-        <p class="booking__alt">¿Preferís abrirlo aparte? <a href="https://tally.so/r/dWEWAV" target="_blank" rel="noopener">Abrir el formulario en otra pestaña</a></p>
+    <div class="wrap">
+      <h2 class="booking__title">Reservá tu sábado <em>&amp;</em> tu domingo</h2>
+      <p class="rsv-lead">Elegí una opción. Te pedimos reservar antes de venir: el Liceo necesita la lista de cada sábado para el seguro.</p>
+
+      <div class="rsv" id="elegir">
+        <button class="rsv-choice rsv-choice--free" type="button" aria-expanded="false" aria-controls="rsv-prueba" data-panel="prueba">
+          <span class="rsv-choice__tag">Gratis</span>
+          <span class="rsv-choice__num">1 · Nunca vine</span>
+          <span class="rsv-choice__title">Primera clase gratis</span>
+          <span class="rsv-choice__meta"><strong>Sábado 14:30</strong><br>Liceo Jean Mermoz · Ramsay 2131, Núñez</span>
+        </button>
+        <div class="rsv-panel" id="rsv-prueba" hidden></div>
+        <button class="rsv-choice" type="button" aria-expanded="false" aria-controls="rsv-clase" data-panel="clase">
+          <span class="rsv-choice__num">2 · Ya vine</span>
+          <span class="rsv-choice__title">Reservar mi clase</span>
+          <span class="rsv-choice__meta"><strong>Sábado 14:30</strong> · ya tienen mis datos<br>Liceo Jean Mermoz · Ramsay 2131, Núñez</span>
+        </button>
+        <div class="rsv-panel" id="rsv-clase" hidden></div>
+        <button class="rsv-choice" type="button" aria-expanded="false" aria-controls="rsv-brunch" data-panel="brunch">
+          <span class="rsv-choice__tag">Fecha a confirmar</span>
+          <span class="rsv-choice__num">3 · Domingo</span>
+          <span class="rsv-choice__title">Brunch &amp; Bal</span>
+          <span class="rsv-choice__meta"><strong>Domingo 10:00 a 14:00</strong><br>Área Mística · Nueva York 4677, Devoto</span>
+        </button>
+        <div class="rsv-panel" id="rsv-brunch" hidden></div>
+        <button class="rsv-choice" type="button" aria-expanded="false" aria-controls="rsv-session" data-panel="session">
+          <span class="rsv-choice__num">4 · Músicos</span>
+          <span class="rsv-choice__title">SessionTradBA</span>
+          <span class="rsv-choice__meta"><strong>Sábado 14:30 a 18:00</strong><br>Liceo Jean Mermoz · Ramsay 2131, Núñez</span>
+        </button>
+        <div class="rsv-panel" id="rsv-session" hidden></div>
       </div>
-      <div class="booking__form">
-        <span class="booking__anchor" id="elegir" aria-hidden="true"></span>
-        <iframe data-tally-src="https://tally.so/embed/dWEWAV?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1" loading="lazy" width="100%" height="900" title="Formulario de inscripción"></iframe>
+
+      <div class="rsv-links">
+        <a href="participantes.html">Lista de los participantes del sábado →</a>
+        <a href="coreografias/">Ver las coreografías</a>
       </div>
     </div>
   </section>
@@ -425,6 +438,6 @@
 <script src="js/carte-danses.js"></script>
 <script src="js/app.js"></script>
 <script>CheOnDanseCarte.init({ map: "cod-map", panel: "cod-panel", search: "cod-search", geojsonUrl: "data/danses-france.geojson", zoom: window.innerWidth < 700 ? 5 : 6 });</script>
-<script async src="https://tally.so/widgets/embed.js"></script>
+<script src="js/reservar.js"></script>
 </body>
 </html>

@@ -58,7 +58,7 @@ const esCharles=n=>/^charles\b/.test(normalizar(n).trim());
 const esGeraldine=n=>/^geraldine\b/.test(normalizar(n).trim());
 // Grupo estable: siempre en la lista
 const FIJOS=[["Charles",1],["Geraldine",1],["Trixie",0],["Gloria",0],["Anna G.",0],["Laura N.",0],["Ximena",0],["Evan",0]];
-const claveFijo=n=>{const t=normalizar(n).trim();if(esCharles(n))return "Charles";if(esGeraldine(n))return "Geraldine";if(/trixie|insaurralde/.test(t))return "Trixie";if(/^gloria\b/.test(t))return "Gloria";if(/^an+a g/.test(t))return "Anna G.";if(/^laura n/.test(t))return "Laura N.";if(/^ximena\b/.test(t))return "Ximena";if(/^evan\b/.test(t))return "Evan";return null};
+const claveFijo=n=>{const t=normalizar(n).trim();if(esCharles(n))return "Charles";if(esGeraldine(n))return "Geraldine";if(/trixie|insaurralde|^patricia i\b/.test(t))return "Trixie";if(/^gloria\b/.test(t))return "Gloria";if(/^an+a g/.test(t))return "Anna G.";if(/^laura n/.test(t))return "Laura N.";if(/^ximena\b/.test(t))return "Ximena";if(/^evan\b/.test(t))return "Evan";return null};
 const esPrueba=n=>{const t=normalizar(n).trim();return /^(essai|test|teste|testes|tri|titi|ti)\d*$|^(essai|test|gpt ?test|gptest)/.test(t)};
 const esFijo=n=>!!claveFijo(n)||esPrueba(n);
 const inscriptos=new Set(data.map(x=>claveFijo(x.nombre_apellido)).filter(Boolean));

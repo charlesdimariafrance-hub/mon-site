@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Che, on danse! · Lista para el seguro</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body { background: #FAF9F7; }
+main { max-width: 960px; margin: 0 auto; padding: 40px var(--gutter) 80px; }
+h1 { font: 400 clamp(1.9rem, 5vw, 2.6rem)/1.1 var(--serif); color: var(--ink); margin: 0 0 6px; }
+.sub { color: var(--muted); margin: 0 0 24px; }
+.card { background: var(--paper); border: 1px solid var(--line); padding: clamp(16px, 3vw, 28px); }
+label { display: block; font-weight: 600; font-size: .92rem; color: var(--ink); margin-bottom: 5px; }
+input, select { width: 100%; font: inherit; font-size: 16px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 2px; background: var(--paper); color: var(--text); }
+.login { max-width: 380px; display: grid; gap: 14px; }
+.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin-bottom: 18px; }
+.row > div { flex: 1 1 260px; }
+.who { font-size: .88rem; color: var(--muted); margin: 0 0 16px; }
+.who button { font: inherit; color: var(--red); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+.count { font-weight: 600; margin: 4px 0 12px; }
+.err { color: var(--red); font-weight: 500; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: .95rem; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+th { background: var(--mist); color: var(--ink); font-weight: 600; }
+td.small { font-size: .82rem; color: var(--muted); }
+td.missing { color: var(--red); font-weight: 600; }
+.note { font-size: .85rem; color: var(--muted); margin: 14px 0 0; }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Lista para el seguro</h1>
+  <p class="sub">Personas a asegurar en el Liceo Jean Mermoz, por sábado. También la lista de cada Brunch &amp; Bal.</p>
+
+  <div class="card">
+    <form class="login" id="login" hidden>
+      <div><label for="email">Email</label><input id="email" type="email" autocomplete="username" value="cheondanse@gmail.com" required></div>
+      <div><label for="pass">Contraseña</label><input id="pass" type="password" autocomplete="current-password" required></div>
+      <button class="btn btn--red" type="submit">Entrar</button>
+      <p class="err" id="loginErr" hidden></p>
+    </form>
+
+    <div id="panel" hidden>
+      <p class="who">Conectado como <span id="whoEmail"></span> · <button type="button" id="logout">salir</button></p>
+      <div class="row">
+        <div><label for="fecha">Fecha</label><select id="fecha"></select></div>
+        <button class="btn btn--red" type="button" id="xlsx">Descargar Excel</button>
+        <button class="btn btn--line" type="button" id="csv">Descargar CSV</button>
+      </div>
+      <p class="count" id="count"></p>
+      <p class="err" id="listErr" hidden></p>
+      <div class="scroll"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
+      <p class="note" id="note"></p>
+    </div>
+  </div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var SUPABASE_URL = "https://pgeuoheiqyoewqpwungx.supabase.co";
+  var API_KEY = "sb_publishable_Y7jYW94niVw7EeyoXZlJVQ_hiBm0UX_";
+  var DIAS = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+  var MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+  var aFecha = function (iso) { var d = iso.split("-"); return new Date(Date.UTC(+d[0], d[1] - 1, +d[2])); };
+  var legible = function (iso) { var d = aFecha(iso); return DIAS[d.getUTCDay()] + " " + d.getUTCDate() + " de " + MESES[d.getUTCMonth()] + " " + d.getUTCFullYear(); };
+  var dmy = function (iso) { return iso ? iso.split("-").reverse().join("/") : ""; };
+  var esDomingo = function (iso) { return aFecha(iso).getUTCDay() === 0; };
+  var personas = function (n) { return n + (n === 1 ? " persona" : " personas"); };
+  var hoyBA = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Argentina/Buenos_Aires" }).format(new Date());
+
+  /* Sesión: el token dura una hora; después se vuelve a pedir la contraseña */
+  var sesion = null;
+  try { sesion = JSON.parse(sessionStorage.getItem("cod-admin")); } catch (e) {}
+  var guardar = function (s) { sesion = s; try { s ? sessionStorage.setItem("cod-admin", JSON.stringify(s)) : sessionStorage.removeItem("cod-admin"); } catch (e) {} };
+
+  var pedir = function (path, body, token) {
+    var h = { "Content-Type": "application/json", apikey: API_KEY };
+    if (token) h.Authorization = "Bearer " + token;
+    return fetch(SUPABASE_URL + path, { method: "POST", headers: h, body: JSON.stringify(body) }).then(function (r) {
+      return r.json().catch(function () { return null; }).then(function (data) {
+        if (r.status === 401 || (data && /jwt/i.test(data.message || ""))) { guardar(null); mostrar(); throw new Error("La sesión venció. Volvé a entrar."); }
+        if (!r.ok) throw new Error((data && (data.message || data.error_description || data.msg)) || "Error " + r.status);
+        return data;
+      });
+    });
+  };
+  var rpc = function (fn, args) { return pedir("/rest/v1/rpc/" + fn, args || {}, sesion && sesion.token); };
+
+  var mostrar = function () {
+    $("login").hidden = !!sesion;
+    $("panel").hidden = !sesion;
+    if (sesion) { $("whoEmail").textContent = sesion.email; cargarFechas(); }
+  };
+
+  $("login").addEventListener("submit", function (e) {
+    e.preventDefault();
+    $("loginErr").hidden = true;
+    pedir("/auth/v1/token?grant_type=password", { email: $("email").value.trim(), password: $("pass").value }).then(function (d) {
+      guardar({ token: d.access_token, email: d.user && d.user.email });
+      $("pass").value = "";
+      mostrar();
+    }).catch(function (err) {
+      $("loginErr").textContent = /invalid/i.test(err.message) ? "Email o contraseña incorrectos." : err.message;
+      $("loginErr").hidden = false;
+    });
+  });
+  $("logout").addEventListener("click", function () { guardar(null); mostrar(); });
+
+  /* Fechas: las que tienen reservas, más el próximo sábado y domingo */
+  var proximo = function (dia) { var d = aFecha(hoyBA); while (d.getUTCDay() !== dia) d.setUTCDate(d.getUTCDate() + 1); return d.toISOString().slice(0, 10); };
+  var cargarFechas = function () {
+    rpc("admin_fechas").then(function (filas) {
+      var mapa = {};
+      filas.forEach(function (f) { mapa[f.fecha] = f.personas; });
+      [proximo(6), proximo(0)].forEach(function (f) { if (!(f in mapa)) mapa[f] = 0; });
+      var fechas = Object.keys(mapa).sort().reverse();
+      var porDefecto = fechas.filter(function (f) { return f >= hoyBA && !esDomingo(f); }).pop() || fechas[0];
+      $("fecha").innerHTML = fechas.map(function (f) {
+        return '<option value="' + f + '"' + (f === porDefecto ? " selected" : "") + ">" + legible(f) + (esDomingo(f) ? " · Brunch & Bal" : "") + " · " + personas(mapa[f]) + "</option>";
+      }).join("");
+      cargarLista();
+    }).catch(function (err) { $("listErr").textContent = err.message; $("listErr").hidden = false; });
+  };
+
+  var actual = { fecha: null, filas: [] };
+  var cargarLista = function () {
+    var fecha = $("fecha").value, brunch = esDomingo(fecha);
+    $("listErr").hidden = true;
+    rpc("admin_lista", { p_fecha: fecha }).then(function (filas) {
+      actual = { fecha: fecha, filas: filas, brunch: brunch };
+      if (brunch) {
+        var total = filas.reduce(function (s, f) { return s + (f.cantidad || 1); }, 0);
+        $("count").textContent = filas.length + (filas.length === 1 ? " reserva · " : " reservas · ") + personas(total) + " en total";
+        $("thead").innerHTML = "<tr><th>#</th><th>Nombre</th><th>Apellido</th><th>WhatsApp o email</th><th>Personas</th></tr>";
+        $("tbody").innerHTML = filas.map(function (f, i) {
+          return "<tr><td>" + (i + 1) + "</td><td>" + esc(f.nombre) + "</td><td>" + esc(f.apellido) + "</td><td>" + esc(f.contacto) + "</td><td>" + f.cantidad + "</td></tr>";
+        }).join("");
+        $("note").textContent = "El Brunch & Bal no va en la lista del seguro del Liceo.";
+      } else {
+        $("count").textContent = personas(filas.length) + " a asegurar";
+        $("thead").innerHTML = "<tr><th>#</th><th>Nombre</th><th>Apellido</th><th>DNI</th><th>Fecha de nacimiento</th><th>Actividad</th></tr>";
+        $("tbody").innerHTML = filas.map(function (f, i) {
+          return "<tr><td>" + (i + 1) + "</td><td>" + esc(f.nombre) + "</td><td>" + esc(f.apellido) + "</td>" +
+            (f.dni ? "<td>" + esc(f.dni) + "</td>" : '<td class="missing">falta</td>') +
+            (f.fecha_nacimiento ? "<td>" + dmy(f.fecha_nacimiento) + "</td>" : '<td class="missing">falta</td>') +
+            '<td class="small">' + esc(f.actividad) + "</td></tr>";
+        }).join("");
+        $("note").textContent = "El archivo para Mecubro tiene 4 columnas: Nombre, Apellido, DNI, Fecha de nacimiento. La columna «Actividad» es solo para vos.";
+      }
+    }).catch(function (err) { $("listErr").textContent = err.message; $("listErr").hidden = false; });
+  };
+  $("fecha").addEventListener("change", cargarLista);
+
+  var tabla = function () {
+    if (actual.brunch) return [["Nombre", "Apellido", "WhatsApp o email", "Personas"]].concat(actual.filas.map(function (f) { return [f.nombre, f.apellido, f.contacto || "", String(f.cantidad)]; }));
+    return [["Nombre", "Apellido", "DNI", "Fecha de nacimiento"]].concat(actual.filas.map(function (f) { return [f.nombre, f.apellido, f.dni || "", dmy(f.fecha_nacimiento)]; }));
+  };
+  var nombreArchivo = function (ext) { return (actual.brunch ? "brunch-bal-" : "seguro-liceo-") + actual.fecha + "." + ext; };
+  var descargar = function (nombre, datos, tipo) {
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([datos], { type: tipo }));
+    a.download = nombre;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+  };
+
+  /* CSV con punto y coma y BOM: Excel en español lo abre con los acentos bien */
+  $("csv").addEventListener("click", function () {
+    var csv = tabla().map(function (r) { return r.map(function (c) { return /[;"\n]/.test(c) ? '"' + c.replace(/"/g, '""') + '"' : c; }).join(";"); }).join("\r\n");
+    descargar(nombreArchivo("csv"), "﻿" + csv, "text/csv;charset=utf-8");
+  });
+
+  /* Excel (.xlsx) hecho a mano: un zip sin compresión con una hoja de texto */
+  var crcTabla = (function () { var t = [], c; for (var n = 0; n < 256; n++) { c = n; for (var k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+  var crc32 = function (b) { var c = 0xFFFFFFFF; for (var i = 0; i < b.length; i++) c = crcTabla[(c ^ b[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; };
+  var zip = function (archivos) {
+    var enc = new TextEncoder(), partes = [], central = [], offset = 0;
+    var u16 = function (v) { return [v & 255, (v >>> 8) & 255]; }, u32 = function (v) { return [v & 255, (v >>> 8) & 255, (v >>> 16) & 255, (v >>> 24) & 255]; };
+    archivos.forEach(function (f) {
+      var nombre = enc.encode(f[0]), datos = enc.encode(f[1]), crc = crc32(datos);
+      var comun = [].concat(u16(20), u16(0x0800), u16(0), u16(0), u16(0x21), u32(crc), u32(datos.length), u32(datos.length), u16(nombre.length), u16(0));
+      var local = new Uint8Array([].concat(u32(0x04034b50), comun));
+      partes.push(local, nombre, datos);
+      central.push(new Uint8Array([].concat(u32(0x02014b50), u16(20), comun, u16(0), u16(0), u16(0), u32(0), u32(offset))), nombre);
+      offset += local.length + nombre.length + datos.length;
+    });
+    var tam = central.reduce(function (s, p) { return s + p.length; }, 0);
+    var fin = new Uint8Array([].concat(u32(0x06054b50), u16(0), u16(0), u16(archivos.length), u16(archivos.length), u32(tam), u32(offset), u16(0)));
+    return new Blob(partes.concat(central, [fin]));
+  };
+  var xml = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+  $("xlsx").addEventListener("click", function () {
+    var filas = tabla(), col = function (i) { return String.fromCharCode(65 + i); };
+    var hoja = filas.map(function (r, i) {
+      return '<row r="' + (i + 1) + '">' + r.map(function (c, j) {
+        return '<c r="' + col(j) + (i + 1) + '" t="inlineStr"' + (i === 0 ? ' s="1"' : "") + "><is><t>" + xml(c) + "</t></is></c>";
+      }).join("") + "</row>";
+    }).join("");
+    var ns = 'xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"';
+    var blob = zip([
+      ["[Content_Types].xml", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>'],
+      ["_rels/.rels", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>'],
+      ["xl/workbook.xml", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook ' + ns + ' xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="' + (actual.brunch ? "Brunch" : "Seguro") + ' ' + dmy(actual.fecha).replace(/\//g, "-") + '" sheetId="1" r:id="rId1"/></sheets></workbook>'],
+      ["xl/_rels/workbook.xml.rels", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>'],
+      ["xl/styles.xml", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet ' + ns + '><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border/></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="2"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>'],
+      ["xl/worksheets/sheet1.xml", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet ' + ns + '><cols><col min="1" max="2" width="22" customWidth="1"/><col min="3" max="4" width="22" customWidth="1"/></cols><sheetData>' + hoja + "</sheetData></worksheet>"]
+    ]);
+    descargar(nombreArchivo("xlsx"), blob, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+  });
+
+  mostrar();
+})();
+</script>
+</body>
+</html>
