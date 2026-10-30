@@ -20,7 +20,9 @@ Pour **chacun** des fichiers suivants, dans cet ordre :
 
 1. Dans la colonne de gauche, cliquez sur **SQL Editor** (l'icône `>_`).
 2. Cliquez sur **+ New query** (ou « New SQL snippet »).
-3. Ouvrez le fichier, sélectionnez **tout** son contenu (Ctrl+A / Cmd+A), copiez-le et collez-le dans la grande zone de texte.
+3. Ouvrez le fichier. Le fichier 01 se colle en entier. Les fichiers 02 et 03 sont découpés en blocs
+   de 40 lignes maximum (chacun commence par une ligne « -- ===== Paso … · Bloque … ») :
+   collez et exécutez **un bloc à la fois**, dans l'ordre.
 4. Cliquez sur **Run** en bas à droite (ou Ctrl+Entrée / Cmd+Entrée).
 5. En bas doit s'afficher **« Success. No rows returned »**.
    - Si Supabase affiche un avertissement du type *« This query has destructive operations »*, c'est normal (le fichier remplace une ancienne fonction) : cliquez sur **Run this query**.

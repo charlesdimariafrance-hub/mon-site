@@ -1,6 +1,5 @@
--- Che, on danse! · Paso 2: funciones que usa el formulario del sitio
--- Se puede volver a ejecutar sin problema (reemplaza las funciones).
-
+-- ===== Paso 2 · Bloque A: búsqueda por nombre =====
+-- Che, on danse! · Funciones del formulario. Se puede volver a ejecutar.
 -- Minúsculas y sin acentos, para buscar «lucia» y encontrar «Lucía».
 create or replace function public.normalizar(t text) returns text
 language sql immutable as $$
@@ -9,8 +8,8 @@ language sql immutable as $$
     'AAAAAaaaaaEEEEeeeeIIIIiiiiOOOOOoooooUUUUuuuuNnCc'))), '\s+', ' ', 'g')
 $$;
 
--- Búsqueda por nombre: devuelve solo el nombre a mostrar (con el apellido
--- únicamente si hay otra persona con el mismo nombre). Nunca DNI ni contacto.
+-- Devuelve solo el nombre a mostrar (con el apellido únicamente si otra
+-- persona tiene el mismo nombre). Nunca DNI ni contacto.
 -- p_para = 'clase' solo lista a quienes ya dieron DNI y fecha de nacimiento.
 create or replace function public.buscar_personas(p_texto text, p_para text default 'clase')
 returns table (id uuid, etiqueta text)
@@ -29,12 +28,12 @@ language sql stable security definer set search_path = public as $$
   limit 15
 $$;
 
--- Reserva para una persona ya registrada.
-create or replace function public.reservar(
-  p_persona uuid, p_tipo text, p_fecha date,
+grant execute on function public.buscar_personas(text, text) to anon, authenticated;
+
+-- ===== Paso 2 · Bloque B: reservar (persona ya registrada) =====
+create or replace function public.reservar(p_persona uuid, p_tipo text, p_fecha date,
   p_nivel text default null, p_cantidad int default 1)
-returns json
-language plpgsql security definer set search_path = public as $$
+returns json language plpgsql security definer set search_path = public as $$
 declare
   ahora timestamp := now() at time zone 'America/Argentina/Buenos_Aires';
   hoy   date := (now() at time zone 'America/Argentina/Buenos_Aires')::date;
@@ -42,13 +41,8 @@ declare
 begin
   select * into p from personas where id = p_persona;
   if not found then raise exception 'No encontramos tu nombre.'; end if;
-  if p_tipo is null or p_tipo not in ('prueba', 'clase', 'brunch', 'session') then
-    raise exception 'Elegí una actividad.';
-  end if;
-  if p_fecha is null or p_fecha < hoy or p_fecha > hoy + 120 then
-    raise exception 'Elegí una fecha de las próximas semanas.';
-  end if;
-
+  if p_tipo is null or p_tipo not in ('prueba', 'clase', 'brunch', 'session') then raise exception 'Elegí una actividad.'; end if;
+  if p_fecha is null or p_fecha < hoy or p_fecha > hoy + 120 then raise exception 'Elegí una fecha de las próximas semanas.'; end if;
   if p_tipo = 'brunch' then
     if extract(isodow from p_fecha) <> 7 then raise exception 'El Brunch & Bal es un domingo.'; end if;
     p_nivel := null;
@@ -66,21 +60,21 @@ begin
     if p_tipo = 'session' then p_nivel := null; end if;
     p_cantidad := 1;
   end if;
-
   insert into reservas (persona_id, tipo, nivel, fecha, cantidad)
   values (p_persona, p_tipo, p_nivel, p_fecha, p_cantidad)
   on conflict (persona_id, tipo, fecha)
   do update set nivel = excluded.nivel, cantidad = excluded.cantidad, creado = now();
-
   return json_build_object('ok', true, 'nombre', p.nombre);
 end $$;
 
--- Primera vez: registra a la persona (o la reconoce por su DNI) y reserva.
-create or replace function public.inscribir(
-  p_nombre text, p_apellido text, p_dni text, p_fecha_nacimiento date, p_contacto text,
-  p_tipo text, p_fecha date, p_nivel text default null, p_cantidad int default 1)
-returns json
-language plpgsql security definer set search_path = public as $$
+grant execute on function public.reservar(uuid, text, date, text, int) to anon, authenticated;
+
+-- ===== Paso 2 · Bloque C: inscribir (primera vez) =====
+-- Registra a la persona (o la reconoce por su DNI) y reserva.
+create or replace function public.inscribir(p_nombre text, p_apellido text, p_dni text,
+  p_fecha_nacimiento date, p_contacto text, p_tipo text, p_fecha date,
+  p_nivel text default null, p_cantidad int default 1)
+returns json language plpgsql security definer set search_path = public as $$
 declare
   v_id       uuid;
   v_nombre   text := regexp_replace(trim(coalesce(p_nombre, '')), '\s+', ' ', 'g');
@@ -89,46 +83,33 @@ declare
   v_dni      text := nullif(upper(regexp_replace(coalesce(p_dni, ''), '[^0-9A-Za-z]', '', 'g')), '');
 begin
   if v_nombre = '' or v_apellido = '' then raise exception 'Completá tu nombre y tu apellido.'; end if;
-  if length(v_nombre) > 60 or length(v_apellido) > 60 or length(coalesce(v_contacto, '')) > 120 then
-    raise exception 'Algún dato es demasiado largo.';
-  end if;
+  if length(v_nombre) > 60 or length(v_apellido) > 60 or length(coalesce(v_contacto, '')) > 120 then raise exception 'Algún dato es demasiado largo.'; end if;
   if v_contacto is null then raise exception 'Dejanos tu WhatsApp o tu email.'; end if;
-  if p_tipo <> 'brunch' then
-    if v_dni is null or length(v_dni) not between 6 and 12 then raise exception 'Revisá tu DNI.'; end if;
-    if p_fecha_nacimiento is null or p_fecha_nacimiento < date '1915-01-01'
-       or p_fecha_nacimiento > current_date - 365 * 3 then
-      raise exception 'Revisá tu fecha de nacimiento.';
-    end if;
-  else
-    v_dni := null;
+  if p_tipo = 'brunch' then v_dni := null;
+  elsif v_dni is null or length(v_dni) not between 6 and 12 then raise exception 'Revisá tu DNI.';
+  elsif p_fecha_nacimiento is null or p_fecha_nacimiento < date '1915-01-01' or p_fecha_nacimiento > current_date - 365 * 3 then
+    raise exception 'Revisá tu fecha de nacimiento.';
   end if;
-
-  if v_dni is not null then
-    select id into v_id from personas where dni = v_dni;
-  end if;
+  if v_dni is not null then select id into v_id from personas where dni = v_dni; end if;
   if v_id is null then
     -- Quien vino al Brunch sin DNI y ahora viene a clase: se completa su ficha.
     select id into v_id from personas
-    where (v_dni is null or dni is null)
-      and normalizar(nombre) = normalizar(v_nombre) and normalizar(apellido) = normalizar(v_apellido)
+    where (v_dni is null or dni is null) and normalizar(nombre) = normalizar(v_nombre) and normalizar(apellido) = normalizar(v_apellido)
     order by dni nulls last limit 1;
   end if;
-
   if v_id is null then
     insert into personas (nombre, apellido, dni, fecha_nacimiento, contacto)
-    values (v_nombre, v_apellido, v_dni, p_fecha_nacimiento, v_contacto)
-    returning id into v_id;
+    values (v_nombre, v_apellido, v_dni, p_fecha_nacimiento, v_contacto) returning id into v_id;
   else
-    update personas set
-      dni = coalesce(dni, v_dni),
-      fecha_nacimiento = coalesce(fecha_nacimiento, p_fecha_nacimiento),
-      contacto = v_contacto
-    where id = v_id;
+    update personas set dni = coalesce(dni, v_dni), fecha_nacimiento = coalesce(fecha_nacimiento, p_fecha_nacimiento),
+      contacto = v_contacto where id = v_id;
   end if;
-
   return reservar(v_id, p_tipo, p_fecha, p_nivel, p_cantidad);
 end $$;
 
+grant execute on function public.inscribir(text, text, text, date, text, text, date, text, int) to anon, authenticated;
+
+-- ===== Paso 2 · Bloque D: lista pública de participantes =====
 -- Para participantes.html: solo nombre e inicial del apellido.
 drop function if exists public.lista_inscriptos(date);
 drop function if exists public.lista_inscriptos(text);
@@ -140,9 +121,4 @@ language sql stable security definer set search_path = public as $$
   where r.fecha = p_fecha and r.tipo <> 'brunch'
 $$;
 
-grant execute on function
-  public.buscar_personas(text, text),
-  public.reservar(uuid, text, date, text, int),
-  public.inscribir(text, text, text, date, text, text, date, text, int),
-  public.lista_inscriptos(date)
-to anon, authenticated;
+grant execute on function public.lista_inscriptos(date) to anon, authenticated;

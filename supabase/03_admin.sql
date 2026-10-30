@@ -1,6 +1,5 @@
--- Che, on danse! · Paso 3: funciones de la página admin.html
+-- ===== Paso 3 · Bloque A: acceso y fechas de la página admin =====
 -- Solo responden a una cuenta conectada cuyo email está en la tabla admins.
-
 create or replace function public.es_admin() returns boolean
 language sql stable security definer set search_path = public as $$
   select exists (select 1 from admins where email = lower(coalesce(auth.jwt() ->> 'email', '')))
@@ -19,7 +18,10 @@ begin
     order by r.fecha desc;
 end $$;
 
--- Lista de un sábado (seguro) o de un domingo (Brunch & Bal).
+revoke execute on function public.es_admin(), public.admin_fechas() from public, anon;
+grant execute on function public.es_admin(), public.admin_fechas() to authenticated;
+
+-- ===== Paso 3 · Bloque B: lista de un sábado (seguro) o de un domingo (Brunch) =====
 create or replace function public.admin_lista(p_fecha date)
 returns table (nombre text, apellido text, dni text, fecha_nacimiento date,
                contacto text, actividad text, cantidad int)
@@ -40,5 +42,5 @@ begin
     order by public.normalizar(p.apellido), public.normalizar(p.nombre);
 end $$;
 
-revoke execute on function public.es_admin(), public.admin_fechas(), public.admin_lista(date) from public, anon;
-grant execute on function public.es_admin(), public.admin_fechas(), public.admin_lista(date) to authenticated;
+revoke execute on function public.admin_lista(date) from public, anon;
+grant execute on function public.admin_lista(date) to authenticated;
