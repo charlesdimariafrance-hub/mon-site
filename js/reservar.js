@@ -5,7 +5,7 @@
   "use strict";
 
   var SUPABASE_URL = "https://bizuvwzgtmoosadxouqk.supabase.co";
-  var API_KEY = "sb_publishable_Y7jYW94niVw7EeyoXZlJVQ_hiBm0UX_";
+  var API_KEY = "sb_publishable_jksOvhfLGclbESfh1GSmLg_SupXXqXH";
   var WHATSAPP = "https://wa.me/5491127723816";
   var ALIAS_CLASES = "CHEONDANSE", ALIAS_BRUNCH = "LEPETITBAL";
   var HORA_CIERRE = 13;   // el sábado, después de esta hora se reserva por WhatsApp
