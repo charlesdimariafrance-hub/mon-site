@@ -59,6 +59,8 @@
       campo(p + "-apellido", "Apellido", 'name="apellido" autocomplete="family-name" required') +
       campo(p + "-dni", 'DNI <span class="rsv-hint">· para el seguro</span>', 'name="dni" inputmode="numeric" placeholder="30123456" required') +
       campo(p + "-nac", 'Fecha de nacimiento <span class="rsv-hint">· dd/mm/aaaa</span>', 'name="nacimiento" inputmode="numeric" placeholder="25/03/1990" maxlength="10" required') +
+      '<div><label for="' + p + '-sexo">Sexo <span class="rsv-hint">(como figura en tu DNI)</span></label><select id="' + p + '-sexo" name="sexo" required>' +
+      '<option value="">Elegí</option><option value="F">F</option><option value="M">M</option></select></div>' +
       campo(p + "-contacto", "WhatsApp o email", 'name="contacto" autocomplete="email" placeholder="11 2345 6789 o nombre@mail.com" required', true);
   };
   var datosBrunch = function (p) {
@@ -216,7 +218,7 @@
         nombreOk = elegida.nombre.split(" ")[0];
         envio = rpc("reservar", { p_persona: elegida.id, p_tipo: tipo, p_fecha: fecha, p_nivel: valor("nivel") || null, p_cantidad: +valor("cantidad") || 1 });
       } else {
-        if (faltan.length) { faltan[0].focus(); return mostrarError(faltan[0].name === "nivel" ? "Elegí tu nivel." : "Completá todos los datos."); }
+        if (faltan.length) { faltan[0].focus(); return mostrarError(faltan[0].name === "nivel" ? "Elegí tu nivel." : faltan[0].name === "sexo" ? "Elegí tu sexo (como figura en tu DNI)." : "Completá todos los datos."); }
         var nacimiento = null;
         if (tipo !== "brunch") {
           nacimiento = leerNacimiento(valor("nacimiento"));
@@ -226,7 +228,7 @@
         envio = valor("web") ? Promise.resolve() : rpc("inscribir", {
           p_nombre: valor("nombre"), p_apellido: valor("apellido"), p_dni: valor("dni") || null,
           p_fecha_nacimiento: nacimiento, p_contacto: valor("contacto"), p_tipo: tipo, p_fecha: fecha,
-          p_nivel: valor("nivel") || null, p_cantidad: +valor("cantidad") || 1
+          p_nivel: valor("nivel") || null, p_cantidad: +valor("cantidad") || 1, p_sexo: valor("sexo") || null
         });
       }
 

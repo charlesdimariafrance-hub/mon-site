@@ -22,11 +22,12 @@ input, select { width: 100%; font: inherit; font-size: 16px; padding: 12px 14px;
 .count { font-weight: 600; margin: 4px 0 12px; }
 .err { color: var(--red); font-weight: 500; }
 .scroll { overflow-x: auto; }
-table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: .95rem; }
+table { border-collapse: collapse; width: 100%; min-width: 780px; font-size: .95rem; }
 th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); }
 th { background: var(--mist); color: var(--ink); font-weight: 600; }
 td.small { font-size: .82rem; color: var(--muted); }
 td.missing { color: var(--red); font-weight: 600; }
+tr.incompleta td { color: var(--red); background: #FDF1F1; }
 .note { font-size: .85rem; color: var(--muted); margin: 14px 0 0; }
 [hidden] { display: none !important; }
 </style>
@@ -144,24 +145,46 @@ td.missing { color: var(--red); font-weight: 600; }
         }).join("");
         $("note").textContent = "El Brunch & Bal no va en la lista del seguro del Liceo.";
       } else {
-        $("count").textContent = personas(filas.length) + " a asegurar";
-        $("thead").innerHTML = "<tr><th>#</th><th>Nombre</th><th>Apellido</th><th>DNI</th><th>Fecha de nacimiento</th><th>WhatsApp o email</th><th>Actividad</th></tr>";
+        var faltan = incompletas().length;
+        $("count").textContent = personas(filas.length) + " a asegurar" + (faltan ? " · " + faltan + " con datos faltantes (en rojo)" : "");
+        $("thead").innerHTML = "<tr><th>#</th><th>Nombre</th><th>Apellido</th><th>DNI</th><th>Fecha de nacimiento</th><th>Sexo</th><th>WhatsApp o email</th><th>Actividad</th></tr>";
         $("tbody").innerHTML = filas.map(function (f, i) {
-          return "<tr><td>" + (i + 1) + "</td><td>" + esc(f.nombre) + "</td><td>" + esc(f.apellido) + "</td>" +
-            (f.dni ? "<td>" + esc(f.dni) + "</td>" : '<td class="missing">falta</td>') +
-            (f.fecha_nacimiento ? "<td>" + dmy(f.fecha_nacimiento) + "</td>" : '<td class="missing">falta</td>') +
+          var falta = '<td class="missing">falta</td>';
+          return "<tr" + (incompleta(f) ? ' class="incompleta"' : "") + "><td>" + (i + 1) + "</td><td>" + esc(f.nombre) + "</td><td>" + esc(f.apellido) + "</td>" +
+            (f.dni ? "<td>" + esc(f.dni) + "</td>" : falta) +
+            (f.fecha_nacimiento ? "<td>" + dmy(f.fecha_nacimiento) + "</td>" : falta) +
+            (f.sexo ? "<td>" + esc(f.sexo) + "</td>" : falta) +
             "<td>" + esc(f.contacto) + "</td>" +
             '<td class="small">' + esc(f.actividad) + "</td></tr>";
         }).join("");
-        $("note").textContent = "El archivo para Mecubro tiene 4 columnas: Nombre, Apellido, DNI, Fecha de nacimiento. Las columnas «WhatsApp o email» y «Actividad» son solo para vos.";
+        $("note").textContent = (faltan ? "Las filas en rojo no tienen DNI, fecha de nacimiento o sexo: completalos en Supabase › Table Editor › personas y volvé a cargar la página. " : "") +
+          "El Excel para Mecubro tiene sus 6 columnas: nombre, apellido, tipo_documento, documento, fecha_nacimiento, sexo. «WhatsApp o email» y «Actividad» son solo para vos.";
       }
     }).catch(function (err) { $("listErr").textContent = err.message; $("listErr").hidden = false; });
   };
   $("fecha").addEventListener("change", cargarLista);
 
+  var incompleta = function (f) { return !f.dni || !f.fecha_nacimiento || !f.sexo; };
+  var incompletas = function () { return actual.brunch ? [] : actual.filas.filter(incompleta); };
+
+  /* Modelo de Mecubro (importación masiva): estos títulos, en este orden, sin filas de ejemplo.
+     Una celda es texto, { n: número } (formato "0") o { fecha: "aaaa-mm-dd" } (dd"/"mm"/"yyyy, como el modelo). */
+  var MECUBRO = ["nombre", "apellido", "tipo_documento", "documento", "fecha_nacimiento", "sexo"];
+  var HOJA_MECUBRO = "mecubro-importador-ejemplo-pers";   // nombre de la hoja del modelo
   var tabla = function () {
     if (actual.brunch) return [["Nombre", "Apellido", "WhatsApp o email", "Personas"]].concat(actual.filas.map(function (f) { return [f.nombre, f.apellido, f.contacto || "", String(f.cantidad)]; }));
-    return [["Nombre", "Apellido", "DNI", "Fecha de nacimiento"]].concat(actual.filas.map(function (f) { return [f.nombre, f.apellido, f.dni || "", dmy(f.fecha_nacimiento)]; }));
+    return [MECUBRO].concat(actual.filas.map(function (f) {
+      var doc = f.dni || "";
+      return [f.nombre, f.apellido, /^\d{7,8}$/.test(doc) ? "DNI" : "OTRO",
+        /^\d+$/.test(doc) ? { n: +doc } : doc,   // un pasaporte con letras queda como texto
+        f.fecha_nacimiento ? { fecha: f.fecha_nacimiento } : "", f.sexo || ""];
+    }));
+  };
+  var texto = function (c) { return c.n != null ? String(c.n) : c.fecha ? dmy(c.fecha) : String(c); };
+  /* Antes de descargar: avisar si a alguien le falta un dato que Mecubro necesita */
+  var seguir = function () {
+    var n = incompletas().length;
+    return !n || confirm(personas(n) + " sin DNI, fecha de nacimiento o sexo (en rojo). Mecubro puede rechazar el archivo.\n¿Descargar igual?");
   };
   var nombreArchivo = function (ext) { return (actual.brunch ? "brunch-bal-" : "seguro-liceo-") + actual.fecha + "." + ext; };
   var descargar = function (nombre, datos, tipo) {
@@ -174,11 +197,12 @@ td.missing { color: var(--red); font-weight: 600; }
 
   /* CSV con punto y coma y BOM: Excel en español lo abre con los acentos bien */
   $("csv").addEventListener("click", function () {
-    var csv = tabla().map(function (r) { return r.map(function (c) { return /[;"\n]/.test(c) ? '"' + c.replace(/"/g, '""') + '"' : c; }).join(";"); }).join("\r\n");
+    if (!seguir()) return;
+    var csv = tabla().map(function (r) { return r.map(function (c) { c = texto(c); return /[;"\n]/.test(c) ? '"' + c.replace(/"/g, '""') + '"' : c; }).join(";"); }).join("\r\n");
     descargar(nombreArchivo("csv"), "﻿" + csv, "text/csv;charset=utf-8");
   });
 
-  /* Excel (.xlsx) hecho a mano: un zip sin compresión con una hoja de texto */
+  /* Excel (.xlsx) hecho a mano: un zip sin compresión con una sola hoja */
   var crcTabla = (function () { var t = [], c; for (var n = 0; n < 256; n++) { c = n; for (var k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
   var crc32 = function (b) { var c = 0xFFFFFFFF; for (var i = 0; i < b.length; i++) c = crcTabla[(c ^ b[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; };
   var zip = function (archivos) {
@@ -198,20 +222,25 @@ td.missing { color: var(--red); font-weight: 600; }
   };
   var xml = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
   $("xlsx").addEventListener("click", function () {
+    if (!seguir()) return;
     var filas = tabla(), col = function (i) { return String.fromCharCode(65 + i); };
+    var serial = function (iso) { var d = iso.split("-"); return (Date.UTC(+d[0], d[1] - 1, +d[2]) - Date.UTC(1899, 11, 30)) / 864e5; };
     var hoja = filas.map(function (r, i) {
       return '<row r="' + (i + 1) + '">' + r.map(function (c, j) {
-        return '<c r="' + col(j) + (i + 1) + '" t="inlineStr"' + (i === 0 ? ' s="1"' : "") + "><is><t>" + xml(c) + "</t></is></c>";
+        var ref = col(j) + (i + 1);
+        if (c.n != null) return '<c r="' + ref + '" s="1"><v>' + c.n + "</v></c>";
+        if (c.fecha) return '<c r="' + ref + '" s="2"><v>' + serial(c.fecha) + "</v></c>";
+        return c === "" ? "" : '<c r="' + ref + '" t="inlineStr"><is><t>' + xml(c) + "</t></is></c>";
       }).join("") + "</row>";
     }).join("");
     var ns = 'xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"';
     var blob = zip([
       ["[Content_Types].xml", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>'],
       ["_rels/.rels", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>'],
-      ["xl/workbook.xml", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook ' + ns + ' xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="' + (actual.brunch ? "Brunch" : "Seguro") + ' ' + dmy(actual.fecha).replace(/\//g, "-") + '" sheetId="1" r:id="rId1"/></sheets></workbook>'],
+      ["xl/workbook.xml", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook ' + ns + ' xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="' + (actual.brunch ? "Brunch " + dmy(actual.fecha).replace(/\//g, "-") : HOJA_MECUBRO) + '" sheetId="1" r:id="rId1"/></sheets></workbook>'],
       ["xl/_rels/workbook.xml.rels", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>'],
-      ["xl/styles.xml", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet ' + ns + '><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border/></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="2"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>'],
-      ["xl/worksheets/sheet1.xml", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet ' + ns + '><cols><col min="1" max="2" width="22" customWidth="1"/><col min="3" max="4" width="22" customWidth="1"/></cols><sheetData>' + hoja + "</sheetData></worksheet>"]
+      ["xl/styles.xml", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet ' + ns + '><numFmts count="1"><numFmt numFmtId="164" formatCode="dd&quot;/&quot;mm&quot;/&quot;yyyy"/></numFmts><fonts count="1"><font><sz val="11"/><name val="Calibri"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border/></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="3"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="1" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="164" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>'],
+      ["xl/worksheets/sheet1.xml", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet ' + ns + '><cols><col min="1" max="4" width="12.63" customWidth="1"/><col min="5" max="5" width="14" customWidth="1"/><col min="6" max="6" width="12.63" customWidth="1"/></cols><sheetData>' + hoja + "</sheetData></worksheet>"]
     ]);
     descargar(nombreArchivo("xlsx"), blob, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
   });

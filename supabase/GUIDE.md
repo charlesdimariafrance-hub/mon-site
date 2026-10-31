@@ -46,6 +46,8 @@ il n'est **pas** dans le dépôt du site. Ne le partagez pas.
    - un apellido « ? » veut dire qu'il manquait dans Tally : remplacez-le par le vrai ;
    - vérifiez que chaque prénom est bien dans « nombre » et chaque nom de famille dans « apellido »
      (Tally n'avait qu'un seul champ, le dernier mot a été pris comme apellido).
+   - colonne **sexo** : tapez `F` ou `M` (comme sur le DNI). Mecubro l'exige ; les personnes inscrites
+     avant ce champ apparaissent en rouge sur `admin.html` tant qu'il est vide.
 
 ## Étape 6 : créer votre compte admin
 

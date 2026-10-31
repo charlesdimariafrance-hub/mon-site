@@ -22,14 +22,15 @@ revoke execute on function public.es_admin(), public.admin_fechas() from public,
 grant execute on function public.es_admin(), public.admin_fechas() to authenticated;
 
 -- ===== Paso 3 · Bloque B: lista de un sábado (seguro) o de un domingo (Brunch) =====
-create or replace function public.admin_lista(p_fecha date)
-returns table (nombre text, apellido text, dni text, fecha_nacimiento date,
+drop function if exists public.admin_lista(date);
+create function public.admin_lista(p_fecha date)
+returns table (nombre text, apellido text, dni text, fecha_nacimiento date, sexo text,
                contacto text, actividad text, cantidad int)
 language plpgsql stable security definer set search_path = public as $$
 begin
   if not es_admin() then raise exception 'No autorizado.'; end if;
   return query
-    select p.nombre, p.apellido, p.dni, p.fecha_nacimiento, p.contacto,
+    select p.nombre, p.apellido, p.dni, p.fecha_nacimiento, p.sexo, p.contacto,
            string_agg(case r.tipo
                         when 'prueba'  then 'Primera clase ' || case r.nivel when 'intermedios' then '16:00' else '14:30' end
                         when 'clase'   then 'Clase ' || coalesce(r.nivel, '')

@@ -37,3 +37,6 @@ alter table public.personas enable row level security;
 alter table public.reservas enable row level security;
 alter table public.admins   enable row level security;
 revoke all on public.personas, public.reservas, public.admins from anon, authenticated;
+
+-- Sexo como figura en el DNI (lo pide Mecubro). Vacío para quienes se inscribieron antes.
+alter table public.personas add column if not exists sexo text check (sexo in ('F', 'M'));
