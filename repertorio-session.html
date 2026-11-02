@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Repertorio Session Trad · Che, on danse!</title>
+<meta name="description" content="Partituras interactivas del repertorio de Session Trad BA: escuchá, bajá la velocidad y repetí un pasaje.">
+<meta name="theme-color" content="#18233A">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="paginas.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/abcjs-audio.css">
+<style>
+.rt-index{display:flex;flex-wrap:wrap;gap:8px;margin:1.2rem 0 0}
+.rt-index a{border:1px solid currentColor;padding:6px 12px;font-size:.9rem;text-decoration:none;color:inherit}
+.rt-tune{border-top:1px solid rgba(24,35,58,.15);padding:2.4rem 0}
+.rt-tune h2{margin:0 0 .3rem}
+.rt-meta{font-size:.92rem;opacity:.8;margin:0 0 1rem}
+.rt-meta a{color:inherit}
+.rt-score{background:#fff;border:1px solid rgba(24,35,58,.12);padding:8px 4px;overflow-x:auto}
+.rt-score svg{max-width:100%}
+.rt-score .abcjs-note_selected,.rt-score .abcjs-note_selected *{fill:#c81e2d!important;stroke:#c81e2d}
+.rt-cursor{stroke:#c81e2d;stroke-width:2;opacity:.55}
+.rt-ctrl{margin-top:10px}
+.rt-ctrl .abcjs-inline-audio{background:#18233A;border-radius:0}
+.rt-ab{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:8px;font-size:.9rem}
+.rt-ab button{border:1px solid #18233A;background:#fff;color:#18233A;padding:6px 12px;font:inherit;cursor:pointer;min-height:40px}
+.rt-ab button.is-on{background:#c81e2d;border-color:#c81e2d;color:#fff}
+.rt-ab span{opacity:.8}
+.rt-note{font-size:.88rem;background:#f7f3ea;border-left:3px solid #c81e2d;padding:8px 12px;margin-top:12px}
+.rt-help{font-size:.9rem;opacity:.85}
+.rt-soon li{margin:.3rem 0}
+</style>
+</head>
+<body>
+<div class="pg-top"><div class="wrap">
+  <a class="pg-brand" href="index.html">Che, on danse!</a>
+  <a class="pg-back" href="session-trad.html">← Session Trad BA</a>
+</div></div>
+<header class="pg-hero pg-hero--plain">
+  <div class="wrap">
+    <p class="pg-kicker">Session Trad BA · Para ensayar</p>
+    <h1>Repertorio con partitura</h1>
+    <p>Cada pieza con su partitura que se ilumina mientras suena. Podés bajar la velocidad, repetir la pieza entera o solo un pasaje (A → B).</p>
+    <nav class="rt-index" aria-label="Piezas">
+      <a href="#crouzado">Lo Crouzado</a>
+      <a href="#plaimpied">Bourrée de Plaimpied</a>
+      <a href="#poteries">Grandes Poteries</a>
+      <a href="#pourlet">Gavotte Pourlet</a>
+      <a href="#proximamente">Próximamente</a>
+    </nav>
+  </div>
+</header>
+
+<section class="pg-sec pg-sec--one"><div class="wrap">
+<p class="rt-help"><strong>Cómo se usa:</strong> ▶ para escuchar · el % cambia la velocidad · ⟳ repite la pieza · tocá una nota para empezar desde ahí · <strong>A</strong> y <strong>B</strong> marcan un pasaje para repetirlo en bucle.</p>
+
+<article class="rt-tune" id="crouzado" data-tune="crouzado">
+  <h2 class="h2">Lo Crouzado</h2>
+  <p class="rt-meta">Bourrée en 3 tiempos · Auvernia / Macizo Central · Dominio público<br>Según la transcripción de Victor Laroussinie (Cabrettes et Cabrettaïres, <a href="https://www.cabrettesetcabrettaires.com" target="_blank" rel="noopener">cabrettesetcabrettaires.com</a>)</p>
+  <div class="rt-score"></div><div class="rt-ctrl"></div>
+  <p class="rt-note">Partitura reescrita a mano a partir del PDF original, con los adornos (notas de gracia). El tempo de escucha es aproximado.</p>
+</article>
+
+<article class="rt-tune" id="plaimpied" data-tune="plaimpied">
+  <h2 class="h2">Bourrée à 3 de Plaimpied</h2>
+  <p class="rt-meta">Bourrée en 3 tiempos · Berry · Tradicional<br>Transcripción: Claire Goujon · tabledición: Catherine G. · fuente: Le Canard Folk · <a href="http://folkadanse.free.fr/repertoi.php?tri=Categorie" target="_blank" rel="noopener">folkadanse.free.fr</a> · <a href="fd/corgeron/boplaimpied.pdf" target="_blank" rel="noopener">PDF original (con tablatura de acordeón)</a></p>
+  <div class="rt-score"></div><div class="rt-ctrl"></div>
+  <p class="rt-note">Melodía comprobada con el PDF y con el MIDI de folkadanse. En el baile la pieza vuelve al comienzo (𝄋) y se repite.</p>
+</article>
+
+<article class="rt-tune" id="poteries" data-tune="poteries">
+  <h2 class="h2">Bourrée des Grandes Poteries</h2>
+  <p class="rt-meta">Bourrée en 3 tiempos · Berry · Tradicional<br>Transcripción: Claire Goujon · <a href="http://folkadanse.free.fr/repertoi.php?tri=Categorie" target="_blank" rel="noopener">folkadanse.free.fr</a> · <a href="fd/corgeron/bogrande.pdf" target="_blank" rel="noopener">PDF original (con tablatura de acordeón)</a></p>
+  <div class="rt-score"></div><div class="rt-ctrl"></div>
+  <p class="rt-note">Melodía comprobada con el PDF y con el MIDI de folkadanse. En el baile la pieza vuelve al comienzo (𝄋) y se repite.</p>
+</article>
+
+<article class="rt-tune" id="pourlet">
+  <h2 class="h2">Gavotte Pourlet <span style="font-weight:400">· Gavotenn bro Pourlet</span></h2>
+  <p class="rt-meta">Gavota · Bretaña (país Pourlet) · Tradicional<br>Arreglo de André Le Meut / Jean-Yves Herledan, publicado en <a href="https://partitions.bzh" target="_blank" rel="noopener">partitions.bzh</a> (buscar «Gavotenn bro pourlet»)</p>
+  <p class="rt-note">Partitura interactiva en preparación: la versión que tenemos es un arreglo con derechos y en una imagen difícil de leer. Vamos a escribir una versión simple de la melodía, revisada con Charles, antes de publicarla acá.</p>
+</article>
+
+<article class="rt-tune" id="proximamente">
+  <h2 class="h2">Próximamente</h2>
+  <ul class="rt-soon">
+    <li><strong>J'ay un oiseau qui vole</strong> · branle simple (fuente: Weckerlin, <em>L'Ancienne Chanson populaire en France</em>, 1887 — a confirmar)</li>
+    <li><strong>Ceste beauté suprême</strong> · branle doble (fuente a confirmar)</li>
+    <li><strong>J'estois bien malheureuse</strong> (fuente a confirmar)</li>
+  </ul>
+  <p class="rt-help">Se agregan cuando tengamos una fuente confiable de cada melodía.</p>
+</article>
+</div></section>
+
+<footer class="footer"><div class="wrap footer__base">© 2026 Che, on danse! · <a href="session-trad.html" style="color:inherit">Session Trad BA</a> · <a href="mailto:sessiontradba@gmail.com" style="color:inherit">sessiontradba@gmail.com</a></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
+<script>
+var TUNES = {
+crouzado: [
+"X:1","T:Lo Crouzado","M:3/4","L:1/8","Q:1/4=170","K:C","%%MIDI program 21",
+"|: g4 ef | g4 ef | g2 f2 e2 | d6 | d2 e2 f2 | g3 a g2 | f2 {g}e2 {f}d2 |1 e4 c2 :|2 c4 c2 ||",
+"|: de f2 g2 | d4 g2 | ag f2 {g}e2 | d2 e2 c2 | de f2 g2 | d4 g2 | ag f2 {g}e2 |1 d4 c2 :|2 d4 G2 ||",
+"|: c2 de fe | d4 e2 | c2 de dc | B2 {d}G2 G2 | c2 de fe | d4 e2 | c2 de dB |1 c4 G2 :|2 c6 |]"
+].join("\n"),
+plaimpied: [
+"X:2","T:Bourrée à 3 de Plaimpied","M:3/8","L:1/16","Q:3/8=72","K:G","%%MIDI program 21",
+"z4 d2 |: !segno!dc B2 c2 | d4 AB | c2 A2 Ac | B2 G2 d2 | dc B2 c2 | d4 AB | c2 A2 F2 |1 G4 d2 :|2 G4 G2 ||",
+"|: B2 A2 G2 | F4 AB | c2 A2 Ac | B2 G2 G2 | B2 A2 G2 | F4 AB | c2 A2 F2 |1 G4 G2 :|2 G4 d2 |]"
+].join("\n"),
+poteries: [
+"X:3","T:Bourrée des Grandes Poteries","M:3/8","L:1/16","Q:3/8=80","K:G","%%MIDI program 21",
+"z4 Bc |: !segno!d2 B2 d2 | d4 Bc | d2 B2 d2 | d4 AB | c2 A2 A2 | A4 GA | B2 G2 G2 |1 G4 Bc :|2 G2 F2 E2 ||",
+"|: D4 E2 | D4 E2 | D2 G2 A2 | B4 B2 | A2 G2 A2 | G2 F2 E2 |1 D2 G2 A2 | B4 E2 :|2 D2 B2 A2 | G4 Bc |]"
+].join("\n")
+};
+
+var controllers = [];
+function fmt(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");}
+
+document.querySelectorAll("[data-tune]").forEach(function (art) {
+  var key = art.dataset.tune, scoreEl = art.querySelector(".rt-score"), ctrlEl = art.querySelector(".rt-ctrl");
+  var A = null, B = null, lastT = 0, cursorLine = null;
+  var ab = document.createElement("div"); ab.className = "rt-ab";
+  ab.innerHTML = '<button type="button" data-a>A</button><button type="button" data-b>B</button><button type="button" data-x>Quitar A–B</button><span aria-live="polite"></span>';
+  ctrlEl.after(ab);
+  var info = ab.querySelector("span"), bA = ab.querySelector("[data-a]"), bB = ab.querySelector("[data-b]");
+  function showAB(){ bA.classList.toggle("is-on", A!==null); bB.classList.toggle("is-on", B!==null);
+    info.textContent = A===null ? "Tocá A al comienzo del pasaje" : (B===null ? "A en "+fmt(A)+" · tocá B al final" : "Repite "+fmt(A)+" → "+fmt(B)); }
+  showAB();
+
+  var visual = ABCJS.renderAbc(scoreEl, TUNES[key], { responsive: "resize", add_classes: true, staffwidth: 740, paddingleft: 4, paddingright: 4,
+    clickListener: function (el) { if (el && typeof el.currentTrackMilliseconds !== "undefined") { var ms = Array.isArray(el.currentTrackMilliseconds) ? el.currentTrackMilliseconds[0] : el.currentTrackMilliseconds; synthControl.seek(ms/1000, "seconds"); } } })[0];
+
+  var cursor = {
+    onStart: function () { var svg = scoreEl.querySelector("svg"); cursorLine = document.createElementNS("http://www.w3.org/2000/svg", "line"); cursorLine.setAttribute("class", "rt-cursor"); svg.appendChild(cursorLine); },
+    onEvent: function (ev) {
+      if (!ev || ev.measureStart && ev.left === null) return;
+      lastT = ev.milliseconds / 1000;
+      if (A !== null && B !== null && lastT >= B) { synthControl.seek(A, "seconds"); return; }
+      scoreEl.querySelectorAll(".abcjs-note_selected").forEach(function (e) { e.classList.remove("abcjs-note_selected"); });
+      (ev.elements || []).forEach(function (g) { g.forEach(function (e) { e.classList.add("abcjs-note_selected"); }); });
+      if (cursorLine) { cursorLine.setAttribute("x1", ev.left - 2); cursorLine.setAttribute("x2", ev.left - 2); cursorLine.setAttribute("y1", ev.top); cursorLine.setAttribute("y2", ev.top + ev.height); }
+    },
+    onFinished: function () { scoreEl.querySelectorAll(".abcjs-note_selected").forEach(function (e) { e.classList.remove("abcjs-note_selected"); }); if (cursorLine) { cursorLine.remove(); cursorLine = null; } if (A !== null && B !== null) { synthControl.seek(A, "seconds"); synthControl.play(); } }
+  };
+
+  var synthControl = new ABCJS.synth.SynthController();
+  synthControl.load(ctrlEl, cursor, { displayLoop: true, displayRestart: true, displayPlay: true, displayProgress: true, displayWarp: true });
+  synthControl.setTune(visual, false, { program: 21, chordsOff: true }).catch(function () { ctrlEl.innerHTML = '<p class="rt-note">No se pudo cargar el sonido en este navegador.</p>'; });
+  controllers.push(synthControl);
+
+  ctrlEl.addEventListener("click", function (e) { if (e.target.closest(".abcjs-midi-start")) controllers.forEach(function (c) { if (c !== synthControl && c.isStarted) c.pause(); }); }, true);
+  bA.onclick = function () { A = lastT; if (B !== null && B <= A) B = null; showAB(); };
+  bB.onclick = function () { if (A === null) { A = 0; } if (lastT > A) B = lastT; showAB(); };
+  ab.querySelector("[data-x]").onclick = function () { A = B = null; showAB(); };
+});
+</script>
+</body>
+</html>
