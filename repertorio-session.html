@@ -129,7 +129,7 @@ document.querySelectorAll("[data-tune]").forEach(function (art) {
     info.textContent = A===null ? "Tocá A al comienzo del pasaje" : (B===null ? "A en "+fmt(A)+" · tocá B al final" : "Repite "+fmt(A)+" → "+fmt(B)); }
   showAB();
 
-  var visual = ABCJS.renderAbc(scoreEl, TUNES[key], { add_classes: true, responsive: "resize", staffwidth: innerWidth < 600 ? 520 : 740, paddingleft: 4, paddingright: 4, wrap: { minSpacing: 1.6, maxSpacing: 2.8, preferredMeasuresPerLine: innerWidth < 600 ? 3 : 4 },
+  var visual = ABCJS.renderAbc(scoreEl, TUNES[key], { add_classes: true, responsive: "resize", staffwidth: innerWidth < 600 ? 560 : 980, paddingleft: 4, paddingright: 4, wrap: { minSpacing: 1.2, maxSpacing: 2.6, preferredMeasuresPerLine: innerWidth < 600 ? 3 : 4 },
     clickListener: function (el) { if (el && typeof el.currentTrackMilliseconds !== "undefined") { var ms = Array.isArray(el.currentTrackMilliseconds) ? el.currentTrackMilliseconds[0] : el.currentTrackMilliseconds; synthControl.seek(ms/1000, "seconds"); } } })[0];
 
   var cursor = {
