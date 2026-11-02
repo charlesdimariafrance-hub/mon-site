@@ -98,18 +98,18 @@
 <script>
 var TUNES = {
 crouzado: [
-"X:1","T:Lo Crouzado","M:3/4","L:1/8","Q:1/4=170","K:C","%%MIDI program 21",
+"X:1","M:3/4","L:1/8","Q:1/4=170","K:C","%%MIDI program 21",
 "|: g4 ef | g4 ef | g2 f2 e2 | d6 | d2 e2 f2 | g3 a g2 | f2 {g}e2 {f}d2 |1 e4 c2 :|2 c4 c2 ||",
 "|: de f2 g2 | d4 g2 | ag f2 {g}e2 | d2 e2 c2 | de f2 g2 | d4 g2 | ag f2 {g}e2 |1 d4 c2 :|2 d4 G2 ||",
 "|: c2 de fe | d4 e2 | c2 de dc | B2 {d}G2 G2 | c2 de fe | d4 e2 | c2 de dB |1 c4 G2 :|2 c6 |]"
 ].join("\n"),
 plaimpied: [
-"X:2","T:Bourrée à 3 de Plaimpied","M:3/8","L:1/16","Q:3/8=72","K:G","%%MIDI program 21",
+"X:2","M:3/8","L:1/16","Q:3/8=72","K:G","%%MIDI program 21",
 "z4 d2 |: !segno!dc B2 c2 | d4 AB | c2 A2 Ac | B2 G2 d2 | dc B2 c2 | d4 AB | c2 A2 F2 |1 G4 d2 :|2 G4 G2 ||",
 "|: B2 A2 G2 | F4 AB | c2 A2 Ac | B2 G2 G2 | B2 A2 G2 | F4 AB | c2 A2 F2 |1 G4 G2 :|2 G4 d2 |]"
 ].join("\n"),
 poteries: [
-"X:3","T:Bourrée des Grandes Poteries","M:3/8","L:1/16","Q:3/8=80","K:G","%%MIDI program 21",
+"X:3","M:3/8","L:1/16","Q:3/8=80","K:G","%%MIDI program 21",
 "z4 Bc |: !segno!d2 B2 d2 | d4 Bc | d2 B2 d2 | d4 AB | c2 A2 A2 | A4 GA | B2 G2 G2 |1 G4 Bc :|2 G2 F2 E2 ||",
 "|: D4 E2 | D4 E2 | D2 G2 A2 | B4 B2 | A2 G2 A2 | G2 F2 E2 |1 D2 G2 A2 | B4 E2 :|2 D2 B2 A2 | G4 Bc |]"
 ].join("\n")
@@ -129,7 +129,7 @@ document.querySelectorAll("[data-tune]").forEach(function (art) {
     info.textContent = A===null ? "Tocá A al comienzo del pasaje" : (B===null ? "A en "+fmt(A)+" · tocá B al final" : "Repite "+fmt(A)+" → "+fmt(B)); }
   showAB();
 
-  var visual = ABCJS.renderAbc(scoreEl, TUNES[key], { responsive: "resize", add_classes: true, staffwidth: 740, paddingleft: 4, paddingright: 4,
+  var visual = ABCJS.renderAbc(scoreEl, TUNES[key], { add_classes: true, staffwidth: Math.max(300, Math.min(760, scoreEl.clientWidth - 16)), paddingleft: 4, paddingright: 4, wrap: { minSpacing: 1.6, maxSpacing: 2.6, preferredMeasuresPerLine: scoreEl.clientWidth < 560 ? 3 : 4 },
     clickListener: function (el) { if (el && typeof el.currentTrackMilliseconds !== "undefined") { var ms = Array.isArray(el.currentTrackMilliseconds) ? el.currentTrackMilliseconds[0] : el.currentTrackMilliseconds; synthControl.seek(ms/1000, "seconds"); } } })[0];
 
   var cursor = {
