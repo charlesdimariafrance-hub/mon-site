@@ -46,10 +46,14 @@ body.editing .va-edit{display:block}
 .va-edit textarea{width:100%;min-height:80px;font:inherit;padding:8px}
 .va-edit input[type=text],.va-edit input[type=number]{font:inherit;padding:6px;margin:2px 4px 2px 0}
 .va-notes-view{white-space:pre-wrap}
+.va-page .wrap{max-width:none;width:100%;padding-left:clamp(14px,3vw,48px);padding-right:clamp(14px,3vw,48px)}
+.va-video{max-width:1100px}
+.va-big img{max-width:1200px}
+@media(max-width:640px){.va-card{padding:12px}.va-row button,.va-top button,.va-top .btn{padding:8px 10px;font-size:.92rem}.va-row input[type=range]{width:110px}.va-head h2{font-size:1.25rem}.va-row label{flex-wrap:wrap}}
 .va-big{margin:10px 0}.va-big img{width:100%;max-width:900px;display:block;border:1px solid rgba(24,35,58,.15);background:#fff}.va-big figcaption{font-size:.88rem;opacity:.8;margin-top:4px}
 </style>
 </head>
-<body>
+<body class="va-page">
 <div class="pg-top"><div class="wrap">
   <a class="pg-brand" href="index.html">Che, on danse!</a>
   <a class="pg-back" href="session-trad.html">← Session Trad BA</a>
@@ -66,6 +70,7 @@ body.editing .va-edit{display:block}
   <button type="button" id="allLong">▶ Todo seguido (versión larga · 14:52)</button>
   <button type="button" id="allShort">▶ Todo seguido (versión corta · 13:38)</button>
   <button type="button" id="stopAll">■ Parar</button>
+  <a class="btn btn--line" href="partituras-pdf/todas-las-partituras.zip" download>⬇ Todas las partituras (ZIP)</a>
   <button type="button" id="editBtn">✎ Modo edición</button>
 </div>
 <div class="va-top va-edit" style="display:none" id="editBar">
@@ -85,29 +90,29 @@ body.editing .va-edit{display:block}
 var YT_ID = "Xa7iGceWXR4";
 /* Tiempos de la fuente (s), según 02_reglages_prepares.json */
 var DANCES = [
-  { n: 1, name: "Lo Cruzado", src: [0, 120], yt: [0, 126], files: [["1-lo-cruzado", "Audio"]],
+  { n: 1, name: "Lo Cruzado", src: [0, 120], yt: [0, 126], kin: [["Diagrama cinético · Lo crouzado", "coreografias/#figura-2"]], files: [["1-lo-cruzado", "Audio"]],
     scores: [["crouzado", "Lo Crouzado"]],
     pdf: [["Fuente: Cabrettes et Cabrettaïres", "https://www.cabrettesetcabrettaires.com"]],
     videos: [["Jean Bernard Loubeyre · Au bon temps, Aurillac 2019 · la volante", "petpQwMaeq8"], ["Lo crouzado · Tonin Troupel (música)", "jXbRiDwvXeM"], ["Lo Crouzado · Jean Ségurel (música)", "p3WJ3aqLlxo"], ["Bourrée 3T Lo crouzado, explicación · Le Grand Bal", "1X5mF48aFKs"], ["Bourrée 3T Lo crouzado completa · Le Grand Bal", "vqLY0Pjm1Ss"]] },
   { n: 2, name: "Le Congo", src: [120, 256], yt: [126, 264], files: [["2-le-congo", "Audio"]],
     scores: [["blaireau", "Rondeau du Blaireau (la música del Congo)"]],
     pdf: [["Partitura, MIDI y MP3 originales (Atelier Musique Trad)", "https://atelier.les-aspes.fr/Rondeau_du_Blaireau/"]],
-    kinetic: ["Diagrama cinético del Congo de Captieux", "coreografias/congo/"],
+    kin: [["Diagrama cinético · Congo de Captieux", "coreografias/congo/"]],
     imgs: ["img/lector/d2-1.jpg", "img/lector/d2-2.jpg"],
-    videos: [["Congo de Captieux · Michael Shade", "ZHovppdfZBk"], ["Suite de congos · Le Bal Brotto Lopez", "9aC_wmqfHpw"]] },
-  { n: 3, name: "Gavotte Pourlet", src: [256, 412], yt: [264, 409], ytNote: "Fin del video: 6:49 según el export (dicho en voz: 6:59, a confirmar).", files: [["3-gavotte-pourlet", "Audio"]],
+    videos: [["Le Rondeau du blaireau · La Lampe à Folk", "bmSTkIxJqyk"], ["Lo rondeu", "qcL7QFn0Ncc"], ["Congo de Captieux · Michael Shade", "ZHovppdfZBk"], ["Suite de congos · Le Bal Brotto Lopez", "9aC_wmqfHpw"]] },
+  { n: 3, name: "Gavotte Pourlet", src: [256, 412], yt: [264, 409], kin: [["Diagrama cinético · Gavotte Pourlet", "coreografias/#figura-4"]], ytNote: "Fin del video: 6:49 según el export (dicho en voz: 6:59, a confirmar).", files: [["3-gavotte-pourlet", "Audio"]],
     scores: [],
     big: [["https://www.celticscores.com/file/339_Gavotenn_bro_pourlet_1_2.jpg", "Gavotenn bro Pourlet — página 1/2 (Ar Soner, arreglo A. Le Meut / J.-Y. Herledan)"], ["https://www.celticscores.com/file/340_Gavotenn_bro_pourlet_2_2.jpg", "Gavotenn bro Pourlet — página 2/2"]],
     pdf: [["Partitura original (Breizh Partitions)", "https://www.celticscores.com/sheet-music/175_Gavotenn_bro_pourlet"]],
-    imgs: ["img/lector/d4-1.jpg", "img/villa/gavotte-pasos-1.jpg", "img/villa/gavotte-pasos-2.jpg"],
+    imgs: ["img/villa/gavotte-pasos-1.jpg", "img/villa/gavotte-pasos-2.jpg"],
     videos: [["Gavotte Pourlet, Moréac · Tradi'Deiz 2023", "f1mKLurPRcQ"], ["Gavotte bro Pourlet · Bagad Brieg", "kMQkshBFkkw"], ["Gavotte Pourlet, Tradi'Deiz 2018 · Bleunioù Sivi (baile)", "LeHd4aQxCVY"]] },
-  { n: 4, name: "Bourrée des Grandes Poteries", src: [412, 580], yt: [452, 587], ytNote: "La parte larga empieza en 7:32 del video; la parte corta está en el video «Poteries court».", files: [["4-grandes-poteries", "Audio"]],
+  { n: 4, name: "Bourrée des Grandes Poteries", kin: [["Diagrama cinético · Poteries, parte corta", "coreografias/#figura-5"], ["Diagrama cinético · Poteries, parte larga", "coreografias/#figura-6"]], src: [412, 580], yt: [452, 587], ytNote: "La parte larga empieza en 7:32 del video; la parte corta está en el video «Poteries court».", files: [["4-grandes-poteries", "Audio"]],
     marks: [["Fin de la sección corta", 444 - 412]],
     scores: [["poteries", "Bourrée des Grandes Poteries"]],
     pdf: [["PDF original con tablatura (folkadanse)", "fd/corgeron/bogrande.pdf"]],
     videos: [["Poteries — parte corta (video)", "CpuybMtXCqM"], ["Les grandes poteries · Icoranda", "3bhI3WbpeQ8"], ["Bourrée des grandes poteries · Sonneurs de la Vallée Noire", "-VnW_zRrmdw"]] },
   { n: 5, name: "Bourrée de Plaimpied", src: [580, 719], yt: [587, 709], files: [["5-plaimpied-larga", "Versión larga (fundido 714–719 s)"], ["5-plaimpied-corta", "Versión corta (fundido hasta 645 s)"]],
-    videos: [["La bourrée, c'est quoi ?", "TPeX24mJRoA"], ["Bourrée de Sarzay (la Limousine)", "EfvB8oKsMkY"], ["Stage de bourrées con Yvon Guilcher — B jeunes", "I7OCNC30pgc"]],
+    videos: [["La bourrée, c'est quoi ? (desde 1:06)", "TPeX24mJRoA", 66], ["Bourrée de Sarzay (la Limousine)", "EfvB8oKsMkY"], ["Stage de bourrées con Yvon Guilcher — B jeunes", "I7OCNC30pgc"]],
     scores: [["plaimpied", "Bourrée à 3 de Plaimpied"]],
     pdf: [["PDF original con tablatura (folkadanse)", "fd/corgeron/boplaimpied.pdf"]], kineticTodo: true },
   { n: 6, name: "Branle simple + branle double", src: [772, 945.397551], yt: [709, 883], files: [["6-branle", "Audio"]],
@@ -213,7 +218,7 @@ function build(d) {
   }
   function renderVidList() {
     vlist.innerHTML = "";
-    var items = [["Video de Villa Adelina (" + fmt(d.yt[0]) + "–" + fmt(d.yt[1]) + ")", YT_ID, d.yt[0], d.yt[1]]].concat((d.videos || []).map(function (v) { return [v[0], v[1], 0, 0]; })).concat(data.videos.map(function (v) { return [v.title, ytId(v.url), +v.start || 0, +v.end || 0, v]; }));
+    var items = [["Video de Villa Adelina (" + fmt(d.yt[0]) + "–" + fmt(d.yt[1]) + ")", YT_ID, d.yt[0], d.yt[1]]].concat((d.videos || []).map(function (v) { return [v[0], v[1], v[2] || 0, v[3] || 0]; })).concat(data.videos.map(function (v) { return [v.title, ytId(v.url), +v.start || 0, +v.end || 0, v]; }));
     items.forEach(function (it) { if (!it[1]) return; var b = el("button", "", esc(it[0])); b.onclick = function () { loadVid(it[1], it[2], it[3]); }; vlist.append(b);
       if (it[4]) { var x = el("button", "va-edit", "✕"); x.style.display = document.body.classList.contains("editing") ? "inline-block" : "none"; x.className = "va-edit-x"; x.onclick = function () { data.videos.splice(data.videos.indexOf(it[4]), 1); save(); renderVidList(); }; vlist.append(x); } });
   }
@@ -237,16 +242,18 @@ function build(d) {
         var ctrl = new ABCJS.synth.SynthController(); ctrl.load(ctl, curs, { displayLoop: true, displayRestart: true, displayPlay: true, displayProgress: true, displayWarp: true }); ctrl.setTune(vis, false, { program: 21, chordsOff: true });
         var msrc = { stop: function () { try { if (ctrl.isStarted) ctrl.pause(); } catch (e) {} } }; SOURCES.push(msrc);
         ctl.addEventListener("click", function (e) { if (e.target.closest(".abcjs-midi-start")) stopOthers(msrc); }, true);
+        var pd = el("a", "", "⬇ Descargar la partitura (PDF)"); pd.href = "partituras-pdf/" + s[0] + ".pdf"; pd.download = ""; dl.append(pd, document.createTextNode(" · "));
         var a = el("a", "", "⬇ Descargar el MIDI"); a.href = ABCJS.synth.getMidiFile(TUNES[s[0]], { midiOutputType: "encoded" })[0]; a.download = d.n + "-" + s[0] + ".mid"; dl.append(a);
       }); };
   } else if (!d.big) secS.append(el("p", "va-help", "Partitura: todavía no la tenemos."));
+  if (d.big) { var dlb = el("p", "va-help"); d.big.forEach(function (b, i) { var a = el("a", "", "⬇ Descargar página " + (i + 1)); a.href = b[0]; a.download = ""; a.target = "_blank"; dlb.append(a, document.createTextNode("  ")); }); secS.append(dlb); }
   (d.big || []).forEach(function (b) { var f = el("figure", "va-big"); f.innerHTML = '<a href="' + esc(b[2] || b[0]) + '" target="_blank" rel="noopener"><img src="' + esc(b[0]) + '" alt="' + esc(b[1]) + '" loading="lazy"></a><figcaption>' + esc(b[1]) + (b[2] ? ' · <a href="' + esc(b[2]) + '" target="_blank" rel="noopener">ver en Gallica (BnF)</a>' : "") + "</figcaption>"; secS.append(f); });
   if (d.pdf) { var ul = el("ul", "va-links"); d.pdf.forEach(function (p) { ul.append(el("li", "", '<a href="' + esc(p[1]) + '" target="_blank" rel="noopener">' + esc(p[0]) + "</a>")); }); secS.append(ul); }
   card.append(secS);
 
   /* diagramas, dibujos y notas */
   var secD = el("div", "va-sec"); secD.append(el("h3", "", "Diagrama, dibujos y notas"));
-  if (d.kinetic) secD.append(el("p", "", '<a class="btn btn--line" href="' + esc(d.kinetic[1]) + '">' + esc(d.kinetic[0]) + " →</a>"));
+  if (d.kin) { var kr = el("div", "va-row"); d.kin.forEach(function (k) { kr.append(el("a", "btn btn--line", esc(k[0]) + " →")); kr.lastChild.href = k[1]; }); secD.append(kr); }
   else secD.append(el("p", "va-help", d.kineticTodo ? "Diagrama cinético: a completar." : "Diagrama cinético: todavía no está en el sitio."));
   var imgs = el("div", "va-imgs"); secD.append(imgs);
   function renderImgs() { imgs.innerHTML = ""; (d.imgs || []).concat(data.images.map(function (x) { return x.src; })).forEach(function (u, i) { var f = el("figure"); var im = el("img"); im.src = u; im.alt = "Dibujo de pasos — " + d.name; im.loading = "lazy"; f.append(im); var k = i - (d.imgs || []).length; if (k >= 0) { var x = el("button", "va-edit", "✕"); x.style.display = document.body.classList.contains("editing") ? "block" : "none"; x.className = "va-edit-x"; x.onclick = function () { data.images.splice(k, 1); save(); renderImgs(); }; f.append(x); } imgs.append(f); }); }
