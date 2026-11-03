@@ -1,0 +1,182 @@
+{
+  "version": 1,
+  "duration": 945.397551,
+  "tracks": [
+    {
+      "name": "Lo Cruzado",
+      "start": 0,
+      "end": 120,
+      "youtube": "https://youtu.be/Xa7iGceWXR4",
+      "youtubeEnd": 126,
+      "youtubeStart": 0,
+      "resources": {
+        "scores": [],
+        "midi": null,
+        "kineticDiagram": null,
+        "kineticStatus": "existant chez Claude, à joindre",
+        "notes": "",
+        "stepDiagrams": [],
+        "weightTransferDiagrams": [],
+        "additionalVideos": []
+      }
+    },
+    {
+      "name": "Le Congo",
+      "start": 120,
+      "end": 256,
+      "youtube": "https://youtu.be/Xa7iGceWXR4",
+      "youtubeStart": 126,
+      "youtubeEnd": 264,
+      "resources": {
+        "scores": [],
+        "midi": null,
+        "kineticDiagram": null,
+        "kineticStatus": "existant chez Claude, à joindre",
+        "notes": "",
+        "stepDiagrams": [],
+        "weightTransferDiagrams": [],
+        "additionalVideos": []
+      }
+    },
+    {
+      "name": "Gavotte Pourlet",
+      "start": 256,
+      "end": 412,
+      "youtube": "https://youtu.be/Xa7iGceWXR4",
+      "youtubeStart": 264,
+      "youtubeEnd": 409,
+      "resources": {
+        "scores": [],
+        "midi": null,
+        "kineticDiagram": null,
+        "kineticStatus": "existant chez Claude, à joindre",
+        "notes": "",
+        "stepDiagrams": [],
+        "weightTransferDiagrams": [],
+        "additionalVideos": []
+      }
+    },
+    {
+      "name": "Bourrée des Grandes Poteries",
+      "start": 412,
+      "end": 580,
+      "youtube": "https://youtu.be/Xa7iGceWXR4",
+      "youtubeStart": 409,
+      "youtubeEnd": 587,
+      "resources": {
+        "scores": [],
+        "midi": null,
+        "kineticDiagram": null,
+        "kineticStatus": "existant chez Claude, à joindre",
+        "notes": "",
+        "stepDiagrams": [],
+        "weightTransferDiagrams": [],
+        "additionalVideos": []
+      }
+    },
+    {
+      "name": "Bourrée de Plaimpied",
+      "start": 580,
+      "end": 719,
+      "youtube": "https://youtu.be/Xa7iGceWXR4",
+      "youtubeStart": 587,
+      "youtubeEnd": 709,
+      "variants": [
+        {
+          "name": "Longue",
+          "end": 719,
+          "fadeOutStart": 714,
+          "fadeOutDuration": 5
+        },
+        {
+          "name": "Courte",
+          "end": 635,
+          "fadeOutDuration": null,
+          "note": "Fin à 635 s ; durée du fondu court non définie."
+        }
+      ],
+      "resources": {
+        "scores": [],
+        "midi": null,
+        "kineticDiagram": null,
+        "kineticStatus": "à compléter",
+        "notes": "",
+        "stepDiagrams": [],
+        "weightTransferDiagrams": [],
+        "additionalVideos": []
+      }
+    },
+    {
+      "name": "Branle simple + branle double",
+      "start": 772,
+      "end": 945.397551,
+      "youtube": "https://youtu.be/Xa7iGceWXR4",
+      "youtubeStart": 709,
+      "youtubeEnd": 883,
+      "resources": {
+        "scores": [],
+        "midi": null,
+        "kineticDiagram": null,
+        "kineticStatus": "à compléter",
+        "notes": "",
+        "stepDiagrams": [],
+        "weightTransferDiagrams": [],
+        "additionalVideos": []
+      }
+    }
+  ],
+  "notes": "Repères issus de la séance du 2 novembre 2026. Les temps audio et vidéo sont indépendants. Voir les écarts à confirmer dans les consignes.",
+  "markers": [
+    {
+      "name": "Grandes Poteries : fin de section courte",
+      "time": 444
+    },
+    {
+      "name": "Bourrée de Plaimpied : fin alternative courte",
+      "time": 635
+    },
+    {
+      "name": "Branle simple rapide — annonce du branle double",
+      "time": 881
+    },
+    {
+      "name": "Début du branle double",
+      "time": 892
+    }
+  ],
+  "selection": {
+    "start": 0,
+    "end": 945.397551
+  },
+  "zoom": 90,
+  "volume": 100,
+  "speed": 100,
+  "review_required": [
+    {
+      "field": "tracks[2].youtubeEnd / tracks[3].youtubeStart",
+      "exported": 409,
+      "spoken_time": "06:59",
+      "converted_seconds": 419
+    }
+  ],
+  "edits": {
+    "long": {
+      "removeSourceRange": [
+        719,
+        772
+      ],
+      "removedSeconds": 53,
+      "duration": 892.397551
+    },
+    "short": {
+      "removeSourceRange": [
+        635,
+        772
+      ],
+      "removedSeconds": 137,
+      "duration": 808.397551
+    }
+  },
+  "waveformRequirement": "Recalculer depuis le signal audio final de chaque version et synchroniser avec le temps réel de lecture.",
+  "kineticDiagramSource": "https://cheondanse.com — indiqué par Charles ; ressources précises à retrouver dans le projet Claude."
+}
