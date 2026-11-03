@@ -46,6 +46,10 @@ body.editing .va-edit{display:block}
 .va-edit textarea{width:100%;min-height:80px;font:inherit;padding:8px}
 .va-edit input[type=text],.va-edit input[type=number]{font:inherit;padding:6px;margin:2px 4px 2px 0}
 .va-notes-view{white-space:pre-wrap}
+.va-tl{background:#fff;border:2px solid #18233A;padding:16px;margin:0 0 22px}
+.va-tlwave{display:block;width:100%;height:150px;background:#f7f3ea;cursor:pointer;touch-action:none;margin:8px 0}
+.va-dl .btn{padding:8px 12px}
+.va-lyr{white-space:pre-wrap;background:#f7f3ea;padding:10px 14px;font-size:.98rem;line-height:1.5;columns:2 320px}
 .va-page .wrap{max-width:none;width:100%;padding-left:clamp(14px,3vw,48px);padding-right:clamp(14px,3vw,48px)}
 .va-video{max-width:1100px}
 .va-big img{max-width:1200px}
@@ -67,8 +71,6 @@ body.editing .va-edit{display:block}
 </header>
 <section class="pg-sec pg-sec--one"><div class="wrap">
 <div class="va-top">
-  <button type="button" id="allLong">▶ Todo seguido (versión larga · 14:52)</button>
-  <button type="button" id="allShort">▶ Todo seguido (versión corta · 13:38)</button>
   <button type="button" id="stopAll">■ Parar</button>
   <a class="btn btn--line" href="partituras-pdf/todas-las-partituras.zip" download>⬇ Todas las partituras (ZIP)</a>
   <button type="button" id="editBtn">✎ Modo edición</button>
@@ -80,6 +82,21 @@ body.editing .va-edit{display:block}
   <span class="va-help">Lo que agregás (notas, imágenes, videos) se guarda en este navegador. Exportá el JSON y mandámelo para publicarlo en el sitio.</span>
 </div>
 <p class="va-help"><strong>Cómo se usa:</strong> tocá la onda para ir a un momento · <strong>A</strong> y <strong>B</strong> marcan un pasaje que se repite · al empezar algo nuevo (audio, video o MIDI) lo demás se detiene.</p>
+<section class="va-tl" id="linea">
+  <h2 class="h2" style="margin:0 0 6px">Todas las músicas seguidas</h2>
+  <div class="va-tabs" id="tlVer"><button type="button" class="is-on" data-v="larga">Versión larga (14:52)</button><button type="button" data-v="corta">Versión corta (13:38)</button></div>
+  <canvas id="tlWave" class="va-tlwave" width="2400" height="220"></canvas>
+  <div class="va-row" id="tlSongs"></div>
+  <div class="va-row"><button type="button" class="va-play" id="tlPlay">▶ Escuchar</button><button type="button" id="tlStop">■ Al inicio</button><span class="va-time" id="tlTime">0:00 / –</span>
+    <label><input type="checkbox" id="tlSel"> Seleccionar con el dedo</label><label><input type="checkbox" id="tlLoop" checked> Repetir la selección</label><button type="button" id="tlClear">Quitar selección</button><span class="va-help" id="tlInfo"></span></div>
+  <div class="va-row"><label>Velocidad <button type="button" id="tlSlow">−</button><input type="range" id="tlSp" min="50" max="150" step="5" value="100"><button type="button" id="tlFast">+</button><span class="va-val" id="tlSpV">100%</span></label>
+    <label>Volumen <input type="range" id="tlVo" min="0" max="100" step="5" value="100"><span class="va-val" id="tlVoV">100%</span></label></div>
+  <div class="va-row va-dl"><strong>Descargar:</strong>
+    <a class="btn btn--line" href="audio/villa-adelina/villa-adelina-1-4.mp3" download>⬇ Las 4 primeras (1–4)</a>
+    <a class="btn btn--line" href="audio/villa-adelina/6-branle.mp3" download>⬇ El branle</a>
+    <a class="btn btn--line" href="audio/villa-adelina/villa-adelina-completo-larga.mp3" download>⬇ Todo (versión larga)</a>
+    <a class="btn btn--line" href="audio/villa-adelina/villa-adelina-completo-corta.mp3" download>⬇ Todo (versión corta)</a></div>
+</section>
 <div class="va-list" id="list"></div>
 </div></section>
 <footer class="footer"><div class="wrap footer__base">© 2026 Che, on danse! · <a href="session-trad.html" style="color:inherit">Session Trad BA</a> · <a href="repertorio-session.html" style="color:inherit">Partituras interactivas</a></div></footer>
@@ -111,11 +128,11 @@ var DANCES = [
     scores: [["poteries", "Bourrée des Grandes Poteries"]],
     pdf: [["PDF original con tablatura (folkadanse)", "fd/corgeron/bogrande.pdf"]],
     videos: [["Poteries — parte corta (video)", "CpuybMtXCqM"], ["Les grandes poteries · Icoranda", "3bhI3WbpeQ8"], ["Bourrée des grandes poteries · Sonneurs de la Vallée Noire", "-VnW_zRrmdw"]] },
-  { n: 5, name: "Bourrée de Plaimpied", src: [580, 719], yt: [587, 709], files: [["5-plaimpied-larga", "Versión larga (fundido 714–719 s)"], ["5-plaimpied-corta", "Versión corta (fundido hasta 645 s)"]],
+  { n: 5, name: "Bourrée de Plaimpied", lyrTitle: "Letra · Les gars de Plaimpied", lyr: "Couplet 1\nOh ! les gars de Plaimpied, prenez garde, prenez garde,\nOh ! les gars de Plaimpied, prenez garde de tomber.\nOh ! les gars de Plaimpied, prenez garde, prenez garde,\nOh ! les gars de Plaimpied, prenez garde de tomber.\n\nCar si vous tombez, le monde vous regarde,\nCar si vous tombez, tout le monde rirait.\nCar si vous tombez, le monde vous regarde,\nCar si vous tombez, tout le monde rirait.\n\nCouplet 2\nOh ! les gars de vingt ans, en dansant levez la tête,\nOh ! les gars de vingt ans, levez la tête en dansant.\nOh ! les gars de vingt ans, en dansant levez la tête,\nOh ! les gars de vingt ans, levez la tête en dansant.\n\nSi vous la baissez, vous ne verrez pas les filles,\nSi vous la baissez, vous ne verrez que vos souliers.\nSi vous la baissez, vous ne verrez pas les filles,\nSi vous la baissez, vous ne verrez que vos souliers.", src: [580, 719], yt: [587, 709], files: [["5-plaimpied-larga", "Versión larga (fundido 714–719 s)"], ["5-plaimpied-corta", "Versión corta (fundido hasta 645 s)"]],
     videos: [["La bourrée, c'est quoi ? (desde 1:06)", "TPeX24mJRoA", 66], ["Bourrée de Sarzay (la Limousine)", "EfvB8oKsMkY"], ["Stage de bourrées con Yvon Guilcher — B jeunes", "I7OCNC30pgc"]],
     scores: [["plaimpied", "Bourrée à 3 de Plaimpied"]],
     pdf: [["PDF original con tablatura (folkadanse)", "fd/corgeron/boplaimpied.pdf"]], kineticTodo: true },
-  { n: 6, name: "Branle simple + branle double", src: [772, 945.397551], yt: [709, 883], files: [["6-branle", "Audio"]],
+  { n: 6, name: "Branle simple + branle double", lyrTitle: "Letra del branle simple · J'ay un oyseau qui volle", lyr: "1. J'ai un oiseau qui vole, vole, vole, vole, vole,\nJ'ai un oiseau qui vole, vole, vole, volera.\n\n2. Il volera devant ma gorge…\n\n3. Il a volé devant ma gorge…\n\n4. Il volera dedans la vôtre…\n\n5. J'ai un oiseau qui vole…", src: [772, 945.397551], yt: [709, 883], files: [["6-branle", "Audio"]],
     marks: [["Branle simple rápido — anuncio del doble", 881 - 772], ["Comienzo del branle double", 892 - 772]],
     scores: [["oiseau", "Branle simple — J'ay un oyseau qui volle"]],
     big: [["img/villa/branle-double-gallica-24.jpg", "Branle double léger «J'estois bien mal'heureuse» — partitura original", "https://gallica.bnf.fr/ark:/12148/bpt6k8711391r/f24.item"], ["img/villa/branle-double-gallica-25.jpg", "Las coplas (página siguiente)", "https://gallica.bnf.fr/ark:/12148/bpt6k8711391r/f25.item"]],
@@ -252,6 +269,7 @@ function build(d) {
   card.append(secS);
 
   /* diagramas, dibujos y notas */
+  if (d.lyr) { var secL = el("div", "va-sec"); secL.append(el("h3", "", esc(d.lyrTitle || "Letra"))); var lp = el("p", "va-lyr"); lp.textContent = d.lyr; secL.append(lp); card.append(secL); }
   var secD = el("div", "va-sec"); secD.append(el("h3", "", "Diagrama, dibujos y notas"));
   if (d.kin) { var kr = el("div", "va-row"); d.kin.forEach(function (k) { kr.append(el("a", "btn btn--line", esc(k[0]) + " →")); kr.lastChild.href = k[1]; }); secD.append(kr); }
   else secD.append(el("p", "va-help", d.kineticTodo ? "Diagrama cinético: a completar." : "Diagrama cinético: todavía no está en el sitio."));
@@ -269,12 +287,53 @@ function build(d) {
   return { card: card, draw: draw, playFrom0: function (variant, cb) { if (d.files.length > 1) setVariant(variant); tA.onclick(); A = B = null; loop.checked = false; ui(); ensure(function () { audio.currentTime = 0; onEndCb = cb; start(); card.scrollIntoView({ behavior: "smooth", block: "start" }); }); }, stop: function () { onEndCb = null; audio.pause(); } };
 }
 
+
+/* ---- línea de tiempo: todas las músicas seguidas ---- */
+(function () {
+  var tl = new Audio(); tl.preload = "none"; tl.preservesPitch = true;
+  var ver = "larga", sel = null, drag = null;
+  var cv = document.getElementById("tlWave"), $ = function (i) { return document.getElementById(i); };
+  function segs() { var t = 0; return DANCES.map(function (d) { var f = d.files.length > 1 ? (ver === "larga" ? d.files[0][0] : d.files[1][0]) : d.files[0][0]; var len = (WAVES[f] || {}).d || 0; var r = { n: d.n, name: d.name, a: t, b: t + len }; t += len; return r; }); }
+  function key() { return "villa-adelina-completo-" + ver; }
+  function setVer(v) { ver = v; var was = !tl.paused; tl.pause(); tl.src = "audio/villa-adelina/" + key() + ".mp3"; sel = null; [].forEach.call($("tlVer").children, function (b) { b.classList.toggle("is-on", b.dataset.v === v); }); songs(); draw(); if (was) go(); }
+  [].forEach.call($("tlVer").children, function (b) { b.onclick = function () { setVer(b.dataset.v); }; });
+  function songs() { var box = $("tlSongs"); box.innerHTML = ""; segs().forEach(function (s) { var b = el("button", "", s.n + ". " + esc(s.name) + " <small>" + fmt(s.a) + "</small>"); b.onclick = function () { sel = { a: s.a, b: s.b }; ensure(function () { tl.currentTime = s.a; draw(); go(); }); }; box.append(b); }); }
+  function ensure(fn) { if (tl.readyState >= 1) fn(); else { tl.preload = "metadata"; tl.addEventListener("loadedmetadata", fn, { once: true }); tl.load(); } }
+  var me = { stop: function () { if (!tl.paused) tl.pause(); } }; SOURCES.push(me);
+  function go() { stopOthers(me); if (sel && (tl.currentTime < sel.a || tl.currentTime >= sel.b)) tl.currentTime = sel.a; tl.playbackRate = $("tlSp").value / 100; tl.play(); }
+  $("tlPlay").onclick = function () { if (tl.paused) ensure(go); else tl.pause(); };
+  tl.onplay = function () { $("tlPlay").textContent = "❚❚ Pausa"; tick(); }; tl.onpause = function () { $("tlPlay").textContent = "▶ Escuchar"; draw(); };
+  $("tlStop").onclick = function () { tl.pause(); ensure(function () { tl.currentTime = sel ? sel.a : 0; draw(); }); };
+  $("tlClear").onclick = function () { sel = null; draw(); };
+  function sp(v) { v = Math.max(50, Math.min(150, Math.round(v / 5) * 5)); $("tlSp").value = v; $("tlSpV").textContent = v + "%"; tl.playbackRate = v / 100; }
+  $("tlSp").oninput = function () { sp(+this.value); }; $("tlSlow").onclick = function () { sp(+$("tlSp").value - 5); }; $("tlFast").onclick = function () { sp(+$("tlSp").value + 5); };
+  $("tlVo").oninput = function () { tl.volume = this.value / 100; $("tlVoV").textContent = this.value + "%"; };
+  function dur() { return tl.duration || (WAVES[key()] || {}).d || 0; }
+  function tAt(ev) { var r = cv.getBoundingClientRect(); return Math.max(0, Math.min(1, (ev.clientX - r.left) / r.width)) * dur(); }
+  cv.addEventListener("pointerdown", function (ev) { ev.preventDefault(); cv.setPointerCapture(ev.pointerId); var t = tAt(ev); if ($("tlSel").checked) { drag = t; sel = { a: t, b: t }; } else ensure(function () { tl.currentTime = t; }); draw(); });
+  cv.addEventListener("pointermove", function (ev) { if (drag === null) return; var t = tAt(ev); sel = { a: Math.min(t, drag), b: Math.max(t, drag) }; draw(); });
+  cv.addEventListener("pointerup", function () { if (drag !== null && sel && sel.b - sel.a < 0.5) sel = null; drag = null; if (sel) ensure(function () { tl.currentTime = sel.a; draw(); }); draw(); });
+  tl.onended = function () { if (sel && $("tlLoop").checked) { tl.currentTime = sel.a; tl.play(); } };
+  var COL = ["#efe2c4", "#e3ecf7", "#f6e0e2", "#e2f0e4", "#efe6f6", "#f7ecdc"];
+  function draw() {
+    var ctx = cv.getContext("2d"), w = cv.width, h = cv.height, D = dur(), W0 = WAVES[key()] || { p: [] }, pk = W0.p;
+    ctx.clearRect(0, 0, w, h); if (!D) return;
+    segs().forEach(function (s, i) { var x0 = s.a / D * w, x1 = s.b / D * w; ctx.fillStyle = COL[i % 6]; ctx.fillRect(x0, 0, x1 - x0, h); ctx.fillStyle = "#18233A"; ctx.font = "bold 22px Arial"; ctx.fillText(s.n + ". " + s.name, x0 + 8, 26, x1 - x0 - 12); ctx.fillStyle = "rgba(24,35,58,.5)"; ctx.fillRect(x0, 0, 2, h); });
+    if (sel) { ctx.fillStyle = "rgba(200,30,45,.22)"; ctx.fillRect(sel.a / D * w, 34, (sel.b - sel.a) / D * w, h - 34); }
+    var pos = tl.currentTime / D, bw = w / pk.length;
+    pk.forEach(function (v, i) { ctx.fillStyle = (i + .5) / pk.length < pos ? "#c81e2d" : "#18233A"; var hh = Math.max(2, v * (h - 50)); ctx.fillRect(i * bw, 34 + (h - 34 - hh) / 2, Math.max(1, bw - .3), hh); });
+    ctx.fillStyle = "#c81e2d"; ctx.fillRect(pos * w - 2, 0, 4, h);
+    $("tlTime").textContent = fmt(tl.currentTime) + " / " + fmt(D);
+    $("tlInfo").textContent = sel ? "Selección " + fmt(sel.a) + " → " + fmt(sel.b) : "";
+  }
+  function tick() { if (sel && $("tlLoop").checked && tl.currentTime >= sel.b) tl.currentTime = sel.a; draw(); if (!tl.paused) requestAnimationFrame(tick); }
+  window.TL = { setVer: setVer, draw: function () { songs(); draw(); } };
+  setVer("larga");
+})();
 DANCES.forEach(function (d) { var c = build(d); cards.push(c); document.getElementById("list").append(c.card); });
-fetch("data/villa-adelina-ondas.json").then(function (r) { return r.json(); }).then(function (w) { WAVES = w; cards.forEach(function (c) { c.draw(); }); });
+fetch("data/villa-adelina-ondas.json").then(function (r) { return r.json(); }).then(function (w) { WAVES = w; cards.forEach(function (c) { c.draw(); }); TL.draw(); });
 
 function playAll(variant) { var i = 0; (function next() { if (i >= cards.length) return; var c = cards[i++]; c.playFrom0(variant, next); })(); }
-document.getElementById("allLong").onclick = function () { playAll(0); };
-document.getElementById("allShort").onclick = function () { playAll(1); };
 document.getElementById("stopAll").onclick = function () { cards.forEach(function (c) { c.stop(); }); SOURCES.forEach(function (s) { s.stop(); }); };
 
 /* modo edición, export / import */
