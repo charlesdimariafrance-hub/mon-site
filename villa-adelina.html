@@ -46,6 +46,7 @@ body.editing .va-edit{display:block}
 .va-edit textarea{width:100%;min-height:80px;font:inherit;padding:8px}
 .va-edit input[type=text],.va-edit input[type=number]{font:inherit;padding:6px;margin:2px 4px 2px 0}
 .va-notes-view{white-space:pre-wrap}
+.va-big{margin:10px 0}.va-big img{width:100%;max-width:900px;display:block;border:1px solid rgba(24,35,58,.15);background:#fff}.va-big figcaption{font-size:.88rem;opacity:.8;margin-top:4px}
 </style>
 </head>
 <body>
@@ -63,7 +64,7 @@ body.editing .va-edit{display:block}
 <section class="pg-sec pg-sec--one"><div class="wrap">
 <div class="va-top">
   <button type="button" id="allLong">▶ Todo seguido (versión larga · 14:52)</button>
-  <button type="button" id="allShort">▶ Todo seguido (versión corta · 13:28)</button>
+  <button type="button" id="allShort">▶ Todo seguido (versión corta · 13:38)</button>
   <button type="button" id="stopAll">■ Parar</button>
   <button type="button" id="editBtn">✎ Modo edición</button>
 </div>
@@ -87,29 +88,33 @@ var DANCES = [
   { n: 1, name: "Lo Cruzado", src: [0, 120], yt: [0, 126], files: [["1-lo-cruzado", "Audio"]],
     scores: [["crouzado", "Lo Crouzado"]],
     pdf: [["Fuente: Cabrettes et Cabrettaïres", "https://www.cabrettesetcabrettaires.com"]],
-    imgs: ["img/lector/d1-1.jpg", "img/lector/d1-2.jpg"],
-    videos: [["Lo crouzado · Tonin Troupel (música)", "jXbRiDwvXeM"], ["Lo Crouzado · Jean Ségurel (música)", "p3WJ3aqLlxo"], ["Bourrée 3T Lo crouzado, explicación · Le Grand Bal", "1X5mF48aFKs"], ["Bourrée 3T Lo crouzado completa · Le Grand Bal", "vqLY0Pjm1Ss"]] },
+    videos: [["Jean Bernard Loubeyre · Au bon temps, Aurillac 2019 · la volante", "petpQwMaeq8"], ["Lo crouzado · Tonin Troupel (música)", "jXbRiDwvXeM"], ["Lo Crouzado · Jean Ségurel (música)", "p3WJ3aqLlxo"], ["Bourrée 3T Lo crouzado, explicación · Le Grand Bal", "1X5mF48aFKs"], ["Bourrée 3T Lo crouzado completa · Le Grand Bal", "vqLY0Pjm1Ss"]] },
   { n: 2, name: "Le Congo", src: [120, 256], yt: [126, 264], files: [["2-le-congo", "Audio"]],
-    scores: [], kinetic: ["Diagrama cinético del Congo de Captieux", "coreografias/congo/"],
+    scores: [["blaireau", "Rondeau du Blaireau (la música del Congo)"]],
+    pdf: [["Partitura, MIDI y MP3 originales (Atelier Musique Trad)", "https://atelier.les-aspes.fr/Rondeau_du_Blaireau/"]],
+    kinetic: ["Diagrama cinético del Congo de Captieux", "coreografias/congo/"],
     imgs: ["img/lector/d2-1.jpg", "img/lector/d2-2.jpg"],
     videos: [["Congo de Captieux · Michael Shade", "ZHovppdfZBk"], ["Suite de congos · Le Bal Brotto Lopez", "9aC_wmqfHpw"]] },
   { n: 3, name: "Gavotte Pourlet", src: [256, 412], yt: [264, 409], ytNote: "Fin del video: 6:49 según el export (dicho en voz: 6:59, a confirmar).", files: [["3-gavotte-pourlet", "Audio"]],
-    scores: [["pourlet", "Gavotte Pourlet — BORRADOR a verificar"]],
+    scores: [],
+    big: [["https://www.celticscores.com/file/339_Gavotenn_bro_pourlet_1_2.jpg", "Gavotenn bro Pourlet — página 1/2 (Ar Soner, arreglo A. Le Meut / J.-Y. Herledan)"], ["https://www.celticscores.com/file/340_Gavotenn_bro_pourlet_2_2.jpg", "Gavotenn bro Pourlet — página 2/2"]],
     pdf: [["Partitura original (Breizh Partitions)", "https://www.celticscores.com/sheet-music/175_Gavotenn_bro_pourlet"]],
-    imgs: ["img/lector/d4-1.jpg"],
-    videos: [["Gavotte bro Pourlet · Bagad Brieg", "kMQkshBFkkw"], ["Gavotte Pourlet, Tradi'Deiz 2018 · Bleunioù Sivi (baile)", "LeHd4aQxCVY"]] },
-  { n: 4, name: "Bourrée des Grandes Poteries", src: [412, 580], yt: [409, 587], files: [["4-grandes-poteries", "Audio"]],
+    imgs: ["img/lector/d4-1.jpg", "img/villa/gavotte-pasos-1.jpg", "img/villa/gavotte-pasos-2.jpg"],
+    videos: [["Gavotte Pourlet, Moréac · Tradi'Deiz 2023", "f1mKLurPRcQ"], ["Gavotte bro Pourlet · Bagad Brieg", "kMQkshBFkkw"], ["Gavotte Pourlet, Tradi'Deiz 2018 · Bleunioù Sivi (baile)", "LeHd4aQxCVY"]] },
+  { n: 4, name: "Bourrée des Grandes Poteries", src: [412, 580], yt: [452, 587], ytNote: "La parte larga empieza en 7:32 del video; la parte corta está en el video «Poteries court».", files: [["4-grandes-poteries", "Audio"]],
     marks: [["Fin de la sección corta", 444 - 412]],
     scores: [["poteries", "Bourrée des Grandes Poteries"]],
     pdf: [["PDF original con tablatura (folkadanse)", "fd/corgeron/bogrande.pdf"]],
-    videos: [["Les grandes poteries · Icoranda", "3bhI3WbpeQ8"], ["Bourrée des grandes poteries · Sonneurs de la Vallée Noire", "-VnW_zRrmdw"]] },
-  { n: 5, name: "Bourrée de Plaimpied", src: [580, 719], yt: [587, 709], files: [["5-plaimpied-larga", "Versión larga (fundido 714–719 s)"], ["5-plaimpied-corta", "Versión corta (termina en 635 s)"]],
-    note: "Versión corta: el largo del fundido final no estaba definido; puse 1,5 s.",
+    videos: [["Poteries — parte corta (video)", "CpuybMtXCqM"], ["Les grandes poteries · Icoranda", "3bhI3WbpeQ8"], ["Bourrée des grandes poteries · Sonneurs de la Vallée Noire", "-VnW_zRrmdw"]] },
+  { n: 5, name: "Bourrée de Plaimpied", src: [580, 719], yt: [587, 709], files: [["5-plaimpied-larga", "Versión larga (fundido 714–719 s)"], ["5-plaimpied-corta", "Versión corta (fundido hasta 645 s)"]],
+    videos: [["La bourrée, c'est quoi ?", "TPeX24mJRoA"], ["Bourrée de Sarzay (la Limousine)", "EfvB8oKsMkY"], ["Stage de bourrées con Yvon Guilcher — B jeunes", "I7OCNC30pgc"]],
     scores: [["plaimpied", "Bourrée à 3 de Plaimpied"]],
     pdf: [["PDF original con tablatura (folkadanse)", "fd/corgeron/boplaimpied.pdf"]], kineticTodo: true },
   { n: 6, name: "Branle simple + branle double", src: [772, 945.397551], yt: [709, 883], files: [["6-branle", "Audio"]],
     marks: [["Branle simple rápido — anuncio del doble", 881 - 772], ["Comienzo del branle double", 892 - 772]],
-    scores: [["oiseau", "Branle simple — J'ay un oyseau qui volle"], ["estois", "Branle double léger — J'estois bien mal'heureuse"]], kineticTodo: true }
+    scores: [["oiseau", "Branle simple — J'ay un oyseau qui volle"]],
+    big: [["img/villa/branle-double-gallica-24.jpg", "Branle double léger «J'estois bien mal'heureuse» — partitura original", "https://gallica.bnf.fr/ark:/12148/bpt6k8711391r/f24.item"], ["img/villa/branle-double-gallica-25.jpg", "Las coplas (página siguiente)", "https://gallica.bnf.fr/ark:/12148/bpt6k8711391r/f25.item"]],
+    imgs: ["img/villa/branle-simple-doble.jpg"], kineticTodo: true }
 ];
 var WAVES = {};
 var KEY = "villa-adelina-v1";
@@ -234,7 +239,8 @@ function build(d) {
         ctl.addEventListener("click", function (e) { if (e.target.closest(".abcjs-midi-start")) stopOthers(msrc); }, true);
         var a = el("a", "", "⬇ Descargar el MIDI"); a.href = ABCJS.synth.getMidiFile(TUNES[s[0]], { midiOutputType: "encoded" })[0]; a.download = d.n + "-" + s[0] + ".mid"; dl.append(a);
       }); };
-  } else secS.append(el("p", "va-help", "Partitura: todavía no la tenemos."));
+  } else if (!d.big) secS.append(el("p", "va-help", "Partitura: todavía no la tenemos."));
+  (d.big || []).forEach(function (b) { var f = el("figure", "va-big"); f.innerHTML = '<a href="' + esc(b[2] || b[0]) + '" target="_blank" rel="noopener"><img src="' + esc(b[0]) + '" alt="' + esc(b[1]) + '" loading="lazy"></a><figcaption>' + esc(b[1]) + (b[2] ? ' · <a href="' + esc(b[2]) + '" target="_blank" rel="noopener">ver en Gallica (BnF)</a>' : "") + "</figcaption>"; secS.append(f); });
   if (d.pdf) { var ul = el("ul", "va-links"); d.pdf.forEach(function (p) { ul.append(el("li", "", '<a href="' + esc(p[1]) + '" target="_blank" rel="noopener">' + esc(p[0]) + "</a>")); }); secS.append(ul); }
   card.append(secS);
 
