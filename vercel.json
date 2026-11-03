@@ -15,5 +15,22 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/villa-adelina.html,",
+      "destination": "/villa-adelina.html",
+      "permanent": false
+    },
+    {
+      "source": "/villa-adelina.html.",
+      "destination": "/villa-adelina.html",
+      "permanent": false
+    },
+    {
+      "source": "/villa-adelina",
+      "destination": "/villa-adelina.html",
+      "permanent": false
+    }
   ]
 }
