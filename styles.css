@@ -572,3 +572,4 @@ html, body { overflow-x: clip; max-width: 100%; }
 .rsv-links a { color: var(--sky); }
 
 .dm__pop a { color: inherit; text-decoration: underline; font-weight: 700; }
+.dm__x { position: absolute; top: 8px; right: 10px; background: none; border: 0; font-size: 1.4rem; cursor: pointer; color: inherit; padding: 4px 8px; }

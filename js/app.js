@@ -201,8 +201,9 @@
       el.classList.add("is-on");
       var col = Array.prototype.indexOf.call(damero.children, el) % nCols();
       dmPop.className = "dm__pop " + e.estado + " " + (col < nCols() / 2 ? "right" : "left");
-      dmPop.innerHTML = '<span class="est">' + EST[e.estado] + '</span><div class="fecha">' + esc(e.dia) + " " + MES[e.mes] + "<small>" + esc(e.sem) + "</small></div><h3>" + esc(e.titulo) + "</h3><dl><dt>Hora</dt><dd>" + esc(e.hora) + "</dd><dt>Lugar</dt><dd>" + esc(e.lugar) + "</dd></dl>" + (e.nota ? '<p class="nota">' + esc(e.nota) + "</p>" : "") + (e.links ? e.links.map(function (l) { return '<p class="nota"><a href="' + esc(l[1]) + '"' + (/^http/.test(l[1]) ? ' target="_blank" rel="noopener"' : "") + ">" + esc(l[0]) + " →</a></p>"; }).join("") : "");
+      dmPop.innerHTML = '<button type="button" class="dm__x" aria-label="Cerrar">✕</button><span class="est">' + EST[e.estado] + '</span><div class="fecha">' + esc(e.dia) + " " + MES[e.mes] + "<small>" + esc(e.sem) + "</small></div><h3>" + esc(e.titulo) + "</h3><dl><dt>Hora</dt><dd>" + esc(e.hora) + "</dd><dt>Lugar</dt><dd>" + esc(e.lugar) + "</dd></dl>" + (e.nota ? '<p class="nota">' + esc(e.nota) + "</p>" : "") + (e.links ? e.links.map(function (l) { return '<p class="nota"><a href="' + esc(l[1]) + '"' + (/^http/.test(l[1]) ? ' target="_blank" rel="noopener"' : "") + ">" + esc(l[0]) + " →</a></p>"; }).join("") : "");
       dmPop.hidden = false;
+      dmPop.querySelector(".dm__x").onclick = function (ev) { ev.stopPropagation(); hide(); };
     };
     var hide = function () { dmPop.hidden = true; cur = -1; damero.querySelectorAll(".casilla.is-on").forEach(function (c) { c.classList.remove("is-on"); }); };
     var paint = function () {
