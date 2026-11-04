@@ -188,6 +188,7 @@
       { dia: "12", mes: "Nov", sem: "Jueves", corto: "Llega Isabelle", titulo: "Llegada de Isabelle, acordeonista", hora: "Por definir", lugar: "Buenos Aires", estado: "seguro" },
       { dia: "14", mes: "Nov", sem: "Sábado", corto: "Escuela en La Paternal", titulo: "Baile en una escuela pública", hora: "16:30 a 18:00", lugar: "Escuela pública, La Paternal", estado: "seguro" },
       { dia: "14", mes: "Nov", sem: "Sábado", corto: "Comunidad eslovena", titulo: "Encuentro con la comunidad eslovena", hora: "Desde las 20:00", lugar: "Vicente López · probablemente el Hogar Esloveno de Carapachay (a confirmar)", estado: "seguro", nota: "Invitación recibida.", links: [["Hogar Esloveno de Carapachay en Google Maps", "https://www.google.com/maps/search/?api=1&query=Hogar+Esloveno+Carapachay"]] },
+      { dia: "14", mes: "Nov", sem: "Sábado", corto: "Noche de los Museos", titulo: "La Noche de los Museos", hora: "23:00", lugar: "El Templete, Comuna 4 · Parque Patricios", estado: "seguro", links: [["Ver en Google Maps", "https://www.google.com/maps/search/?api=1&query=El+Templete+Parque+Patricios+Buenos+Aires"]] },
       { dia: "15", mes: "Nov", sem: "Domingo", corto: "Música con Isabelle", titulo: "Encuentro musical con Isabelle", hora: "Por definir", lugar: "Lugar por definir", estado: "incierto", nota: "Posible." },
       { dia: "6", mes: "Dic", sem: "Domingo", corto: "Brunch & Bal", titulo: "Brunch & Bal", hora: "10:00 a 14:00", lugar: "Área Mística, Nueva York 4677, Villa Devoto", estado: "seguro", nota: "Entrada $25.000. Menú: pomelo, granola con yogur y frutas, tostada con huevo, café, té o chocolatada. Sorteo: 2 clases de francés y 1 clase de danza francesa.", links: [["Ver en Google Maps", "https://www.google.com/maps/search/?api=1&query=Nueva+York+4677%2C+Villa+Devoto%2C+Buenos+Aires"], ["Reservar mi lugar", "#brunch"]] },
       { dia: "?", mes: "Dic", sem: "Fecha por definir", corto: "Película Le Grand Bal", titulo: "Encuentro organizado por Laura — proyección de la película «Le Grand Bal»", hora: "Por definir", lugar: "Por definir", estado: "incierto" }
@@ -224,8 +225,9 @@
         damero.appendChild(el);
       }
     };
-    damero.addEventListener("mouseleave", function () { if (window.matchMedia("(hover: hover)").matches) hide(); });
-    document.addEventListener("click", function (ev) { if (!damero.contains(ev.target)) hide(); });
+    var wrapDm = damero.parentNode;
+    wrapDm.addEventListener("mouseleave", function () { if (window.matchMedia("(hover: hover)").matches) hide(); });
+    document.addEventListener("click", function (ev) { if (!wrapDm.contains(ev.target)) hide(); });
     document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") hide(); });
     var lastC = 0; var re = function () { if (nCols() !== lastC) { lastC = nCols(); paint(); hide(); } };
     window.addEventListener("resize", re); re();
