@@ -90,8 +90,8 @@
       }).join("") + "</select></div>";
   };
   var domingos = function (p) {
-    return '<div class="rsv-full"><label for="' + p + '-fecha">Domingo <span class="rsv-hint">· fecha a confirmar, elegí la que te gustaría</span></label><select id="' + p + '-fecha" name="fecha">' +
-      proximos(0).map(function (s) { return '<option value="' + s + '">' + legible(s) + "</option>"; }).join("") + "</select></div>";
+    return '<div class="rsv-full"><label for="' + p + '-fecha">Domingo</label><select id="' + p + '-fecha" name="fecha">' +
+      ["2026-12-06"].map(function (s) { return '<option value="' + s + '">' + legible(s) + "</option>"; }).join("") + "</select></div>";
   };
   var alias = function (a, texto) {
     return '<div class="rsv-pay"><p>' + texto + '</p><div class="rsv-alias"><code>' + a + '</code><button type="button" data-copiar="' + a + '">Copiar alias</button>' +
@@ -120,7 +120,7 @@
         alias(ALIAS_CLASES, "Podés pagar la clase por transferencia:");
     },
     brunch: function () {
-      return "<h3>Brunch &amp; Bal</h3><p class=\"rsv-where\">Domingo 10:00 a 14:00 · fecha a confirmar · Área Mística · Nueva York 4677, Villa Devoto</p>" +
+      return "<h3>Brunch &amp; Bal</h3><p class=\"rsv-where\">Domingo 6 de diciembre · 10:00 a 14:00 · Área Mística · Nueva York 4677, Villa Devoto</p>" +
         '<form novalidate data-tipo="brunch">' + modos("Es mi primera vez", "Ya tienen mis datos") +
         '<div class="rsv-fields" data-si="nuevo">' + datosBrunch("b") + "</div>" +
         '<div class="rsv-fields" data-si="ya" hidden>' + buscador("b", "No te encontramos. Elegí «Es mi primera vez».") + "</div>" +
@@ -235,7 +235,7 @@
       enviar.disabled = true; enviar.textContent = "Enviando…";
       envio.then(function () {
         var cuando = tipo === "brunch"
-          ? "el " + legible(fecha) + ". Te confirmamos la fecha por WhatsApp o email."
+          ? "el " + legible(fecha) + ", de 10:00 a 14:00."
           : "el " + legible(fecha) + (tipo === "prueba" && valor("nivel") === "intermedios" ? " a las 16:00." : " a las 14:30.");
         form.outerHTML = '<div class="rsv-ok" role="status"><strong>¡Listo, ' + esc(nombreOk) + "!</strong> Quedaste en la lista. Te esperamos " + cuando + "</div>";
       }).catch(function (err) {
