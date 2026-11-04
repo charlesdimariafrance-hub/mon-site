@@ -183,15 +183,13 @@
   var damero = document.getElementById("damero"), dmPop = document.getElementById("dmPop");
   if (damero && dmPop) {
     var EV = [
-      { dia: "8", mes: "Nov", sem: "Domingo", corto: "Golf de Villa Adelina", titulo: "Fiesta en el parque del Golf de Villa Adelina — stand, animaciones y baile", hora: "10:00 a 19:00 · bailamos hacia las 16:30", lugar: "Parque público del Golf de Villa Adelina, Luis María Drago 299", estado: "seguro", link: ["Ensayá con Lecture Villa Adelina", "villa-adelina.html"] },
+      { dia: "8", mes: "Nov", sem: "Domingo", corto: "Golf de Villa Adelina", titulo: "Fiesta en el parque del Golf de Villa Adelina — stand, animaciones y baile", hora: "10:00 a 19:00 · bailamos hacia las 16:30", lugar: "Parque público del Golf de Villa Adelina, Luis María Drago 299", estado: "seguro", links: [["Ver en Google Maps", "https://www.google.com/maps/search/?api=1&query=Luis+Mar%C3%ADa+Drago+299%2C+Villa+Adelina%2C+Buenos+Aires"], ["Ensayá con Lecture Villa Adelina", "villa-adelina.html"]] },
       { dia: "8–9", mes: "Nov", sem: "Domingo y lunes", corto: "Rosario", titulo: "Posible viaje a Rosario", hora: "Por definir", lugar: "Rosario", estado: "incierto", nota: "Posibilidad." },
       { dia: "12", mes: "Nov", sem: "Jueves", corto: "Llega Isabelle", titulo: "Llegada de Isabelle, acordeonista", hora: "Por definir", lugar: "Buenos Aires", estado: "seguro" },
-      { dia: "13", mes: "Nov", sem: "Viernes", corto: "Vinos y Quesos", titulo: "Noche de Vinos y Quesos", hora: "Desde las 18:00", lugar: "Liceo Jean Mermoz, Ramsay 2131", estado: "seguro" },
       { dia: "14", mes: "Nov", sem: "Sábado", corto: "Escuela en La Paternal", titulo: "Baile en una escuela pública", hora: "16:30 a 18:00", lugar: "Escuela pública, La Paternal", estado: "seguro" },
-      { dia: "14", mes: "Nov", sem: "Sábado", corto: "Comunidad eslovena", titulo: "Encuentro con la comunidad eslovena", hora: "Desde las 20:00", lugar: "Vicente López", estado: "seguro", nota: "Invitación recibida." },
+      { dia: "14", mes: "Nov", sem: "Sábado", corto: "Comunidad eslovena", titulo: "Encuentro con la comunidad eslovena", hora: "Desde las 20:00", lugar: "Vicente López · probablemente el Hogar Esloveno de Carapachay (a confirmar)", estado: "seguro", nota: "Invitación recibida.", links: [["Hogar Esloveno de Carapachay en Google Maps", "https://www.google.com/maps/search/?api=1&query=Hogar+Esloveno+Carapachay"]] },
       { dia: "15", mes: "Nov", sem: "Domingo", corto: "Música con Isabelle", titulo: "Encuentro musical con Isabelle", hora: "Por definir", lugar: "Lugar por definir", estado: "incierto", nota: "Posible." },
-      { dia: "4–6", mes: "Dic", sem: "Viernes a domingo", corto: "Viaje a Pigüé", titulo: "Viaje y presentaciones en Pigüé", hora: "Salida el viernes por la noche", lugar: "Pigüé", estado: "incierto" },
-      { dia: "6", mes: "Dic", sem: "Domingo", corto: "Brunch & Bal", titulo: "Brunch & Bal", hora: "10:00 a 14:00", lugar: "Área Mística, Nueva York 4677, Villa Devoto", estado: "seguro", nota: "Entrada $25.000.", link: ["Reservar mi lugar", "#brunch"] },
+      { dia: "6", mes: "Dic", sem: "Domingo", corto: "Brunch & Bal", titulo: "Brunch & Bal", hora: "10:00 a 14:00", lugar: "Área Mística, Nueva York 4677, Villa Devoto", estado: "seguro", nota: "Entrada $25.000.", links: [["Ver en Google Maps", "https://www.google.com/maps/search/?api=1&query=Nueva+York+4677%2C+Villa+Devoto%2C+Buenos+Aires"], ["Reservar mi lugar", "#brunch"]] },
       { dia: "?", mes: "Dic", sem: "Fecha por definir", corto: "Película Le Grand Bal", titulo: "Encuentro organizado por Laura — proyección de la película «Le Grand Bal»", hora: "Por definir", lugar: "Por definir", estado: "incierto" }
     ];
     var EST = { seguro: "Confirmado", incierto: "Por confirmar" }, MES = { Oct: "Octubre", Nov: "Noviembre", Dic: "Diciembre" };
@@ -202,7 +200,7 @@
       el.classList.add("is-on");
       var col = Array.prototype.indexOf.call(damero.children, el) % nCols();
       dmPop.className = "dm__pop " + e.estado + " " + (col < nCols() / 2 ? "right" : "left");
-      dmPop.innerHTML = '<span class="est">' + EST[e.estado] + '</span><div class="fecha">' + esc(e.dia) + " " + MES[e.mes] + "<small>" + esc(e.sem) + "</small></div><h3>" + esc(e.titulo) + "</h3><dl><dt>Hora</dt><dd>" + esc(e.hora) + "</dd><dt>Lugar</dt><dd>" + esc(e.lugar) + "</dd></dl>" + (e.nota ? '<p class="nota">' + esc(e.nota) + "</p>" : "") + (e.link ? '<p class="nota"><a href="' + esc(e.link[1]) + '">' + esc(e.link[0]) + " →</a></p>" : "");
+      dmPop.innerHTML = '<span class="est">' + EST[e.estado] + '</span><div class="fecha">' + esc(e.dia) + " " + MES[e.mes] + "<small>" + esc(e.sem) + "</small></div><h3>" + esc(e.titulo) + "</h3><dl><dt>Hora</dt><dd>" + esc(e.hora) + "</dd><dt>Lugar</dt><dd>" + esc(e.lugar) + "</dd></dl>" + (e.nota ? '<p class="nota">' + esc(e.nota) + "</p>" : "") + (e.links ? e.links.map(function (l) { return '<p class="nota"><a href="' + esc(l[1]) + '"' + (/^http/.test(l[1]) ? ' target="_blank" rel="noopener"' : "") + ">" + esc(l[0]) + " →</a></p>"; }).join("") : "");
       dmPop.hidden = false;
     };
     var hide = function () { dmPop.hidden = true; cur = -1; damero.querySelectorAll(".casilla.is-on").forEach(function (c) { c.classList.remove("is-on"); }); };
