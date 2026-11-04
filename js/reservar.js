@@ -120,7 +120,7 @@
         alias(ALIAS_CLASES, "Podés pagar la clase por transferencia:");
     },
     brunch: function () {
-      return "<h3>Brunch &amp; Bal</h3><p class=\"rsv-where\">Domingo 6 de diciembre · 10:00 a 14:00 · Área Mística · Nueva York 4677, Villa Devoto</p>" +
+      return "<h3>Brunch &amp; Bal</h3><p class=\"rsv-where\">Domingo 6 de diciembre · 10:00 a 14:00 · Área Mística · Nueva York 4677, Villa Devoto</p><p class=\"rsv-where\"><strong>🎁 Sorteo:</strong> 2 clases de francés y 1 clase de danza francesa.</p>" +
         '<form novalidate data-tipo="brunch">' + modos("Es mi primera vez", "Ya tienen mis datos") +
         '<div class="rsv-fields" data-si="nuevo">' + datosBrunch("b") + "</div>" +
         '<div class="rsv-fields" data-si="ya" hidden>' + buscador("b", "No te encontramos. Elegí «Es mi primera vez».") + "</div>" +
