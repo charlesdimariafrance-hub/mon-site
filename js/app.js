@@ -205,7 +205,8 @@
       dmPop.hidden = false;
       dmPop.querySelector(".dm__x").onclick = function (ev) { ev.stopPropagation(); hide(); };
     };
-    var hide = function () { dmPop.hidden = true; cur = -1; damero.querySelectorAll(".casilla.is-on").forEach(function (c) { c.classList.remove("is-on"); }); };
+    var pinned = false;
+    var hide = function () { pinned = false; dmPop.classList.remove("pinned"); dmPop.hidden = true; cur = -1; damero.querySelectorAll(".casilla.is-on").forEach(function (c) { c.classList.remove("is-on"); }); };
     var paint = function () {
       var c = nCols(); damero.style.setProperty("--cols", c); damero.innerHTML = "";
       var total = Math.ceil(EV.length / c) * c;
@@ -218,16 +219,17 @@
           el.setAttribute("aria-label", e.dia + " de " + MES[e.mes] + ": " + e.titulo + ". " + EST[e.estado] + ". Hora: " + e.hora + ". Lugar: " + e.lugar);
           el.innerHTML = '<span class="punto"></span><div><div class="mes">' + e.mes + '</div><div class="dia">' + esc(e.dia) + '</div><div class="dsem">' + esc(e.sem) + '</div></div><div class="titulo">' + esc(e.corto) + "</div>";
           (function (i, el) {
-            el.addEventListener("mouseenter", function () { showDm(i, el); });
+            el.addEventListener("mouseenter", function () { if (!pinned) showDm(i, el); });
             el.addEventListener("focus", function () { showDm(i, el); });
-            el.addEventListener("click", function (ev) { ev.stopPropagation(); showDm(i, el); });
+            el.addEventListener("click", function (ev) { ev.stopPropagation(); pinned = true; showDm(i, el); dmPop.classList.add("pinned"); });
           })(i, el);
         } else { el.className = "casilla vacia " + color; el.innerHTML = "<span>On danse!</span>"; }
         damero.appendChild(el);
       }
     };
     var wrapDm = damero.parentNode;
-    wrapDm.addEventListener("mouseleave", function () { if (window.matchMedia("(hover: hover)").matches) hide(); });
+    wrapDm.addEventListener("mouseleave", function () { if (!pinned && window.matchMedia("(hover: hover)").matches) hide(); });
+    dmPop.addEventListener("mouseenter", function () { pinned = true; dmPop.classList.add("pinned"); });
     document.addEventListener("click", function (ev) { if (!wrapDm.contains(ev.target)) hide(); });
     document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") hide(); });
     var lastC = 0; var re = function () { if (nCols() !== lastC) { lastC = nCols(); paint(); hide(); } };
