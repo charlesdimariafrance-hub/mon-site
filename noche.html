@@ -83,6 +83,9 @@ a{color:inherit}
 .cupo__num span{font-size:.45em;color:var(--muted)}
 .bar{background:var(--paper);border:1px solid var(--line);height:14px;margin:18px 0 10px;max-width:640px}
 .fill{background:var(--red);height:100%;width:0;transition:width .8s}
+.cupo__dos{display:flex;flex-wrap:wrap;gap:12px 48px;align-items:baseline}
+.cupo__num--res{color:var(--muted)}
+.cupo__nota{font-size:.92rem;color:var(--muted);margin:0 0 1rem}
 .cupo__estado{font-weight:500;color:var(--ink);margin:0 0 .4rem}
 
 /* formulario */
@@ -187,9 +190,13 @@ a{color:inherit}
   <div class="wrap">
    <p class="kicker">Cupo mínimo</p>
    <h2 class="h2">La noche se hace si llegamos a <span id="minimoTxt"></span> personas.</h2>
-   <p class="cupo__num" aria-live="polite"><span id="inscriptosTxt"></span> <span>inscriptos</span></p>
+   <div class="cupo__dos" aria-live="polite">
+    <p class="cupo__num"><span id="pagadosTxt">–</span> <span>pagados</span></p>
+    <p class="cupo__num cupo__num--res"><span id="reservadosTxt">–</span> <span>reservados</span></p>
+   </div>
    <div class="bar" role="progressbar" aria-valuemin="0" id="bar"><div class="fill" id="fill"></div></div>
    <p class="cupo__estado" id="contador"></p>
+   <p class="cupo__nota">Para llegar al mínimo cuentan los lugares <b>pagados</b>. Los <b>reservados</b> son todos los que completaron el formulario. No hay máximo: después de 30, seguimos sumando.</p>
    <p class="lede">Confirmamos el <b id="fechaLimite1"></b>. Si no llegamos al mínimo, la noche se cancela y te devolvemos el 100 % de lo que pagaste.</p>
   </div>
  </section>
@@ -269,13 +276,16 @@ a{color:inherit}
 </footer>
 
 <script>
- const inscriptos = 0;  // ← actualizar a mano
- const minimo = 30;     // ← cupo mínimo
+ const minimo = 30;     // ← cupo mínimo (no hay máximo)
  const alias = 'CHEONDAN';                    // ← alias para transferir
  const titular = 'Charles Di Maria';           // ← nombre que aparece al transferir
  const fechaLimite = 'jueves 19 de noviembre'; // ← día en que se confirma o cancela
  const precio = 8000;     // ← por transferencia
  const precioMP = 8500;   // ← con Mercado Pago
+ // Contadores automáticos (Supabase, el mismo sistema que las reservas del sitio)
+ const SB = 'https://bizuvwzgtmoosadxouqk.supabase.co', SB_KEY = 'sb_publishable_jksOvhfLGclbESfh1GSmLg_SupXXqXH';
+ const rpc = (fn, args) => fetch(SB + '/rest/v1/rpc/' + fn, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: SB_KEY }, body: JSON.stringify(args || {}) })
+  .then(r => r.ok ? r.json() : Promise.reject(new Error(r.status)));
 
  const $ = id => document.getElementById(id);
  $('alias').textContent = alias;
@@ -283,15 +293,20 @@ a{color:inherit}
  $('fechaLimite1').textContent = fechaLimite;
  $('fechaLimite2').textContent = fechaLimite;
  $('minimoTxt').textContent = minimo;
- $('inscriptosTxt').textContent = inscriptos;
- const pct = Math.min(100, inscriptos / minimo * 100);
  $('bar').setAttribute('aria-valuemax', minimo);
- $('bar').setAttribute('aria-valuenow', inscriptos);
- $('fill').style.width = pct + '%';
- const falta = minimo - inscriptos;
- $('contador').textContent =
-  inscriptos >= minimo ? '¡Llegamos al mínimo: la noche está confirmada!'
-  : 'Faltan ' + falta + (falta === 1 ? ' persona' : ' personas') + ' para confirmar la noche.';
+ const pintar = (pagados, reservados) => {
+  $('pagadosTxt').textContent = pagados;
+  $('reservadosTxt').textContent = reservados;
+  $('bar').setAttribute('aria-valuenow', pagados);
+  $('fill').style.width = Math.min(100, pagados / minimo * 100) + '%';
+  const falta = minimo - pagados;
+  $('contador').textContent = pagados >= minimo
+   ? '¡Llegamos al mínimo: la noche está confirmada! Todavía podés sumarte.'
+   : 'Faltan ' + falta + (falta === 1 ? ' lugar pagado' : ' lugares pagados') + ' para confirmar la noche.';
+ };
+ const actualizar = () => rpc('noche_contadores').then(d => { const f = Array.isArray(d) ? d[0] : d; pintar(+f.pagados || 0, +f.reservados || 0); })
+  .catch(() => { $('contador').textContent = 'Faltan lugares pagados para llegar a ' + minimo + '.'; });
+ actualizar();
 
  $('copiar').addEventListener('click', () => {
   const ok = () => { $('copiar').textContent = '¡Alias copiado!'; setTimeout(() => $('copiar').textContent = 'Copiar alias', 2000); };
@@ -302,14 +317,18 @@ a{color:inherit}
  $('form').addEventListener('submit', e => {
   e.preventDefault();
   const n = Math.max(1, parseInt($('plazas').value, 10) || 1);
+  const nombre = $('nombre').value.trim(), tel = $('tel').value.trim();
   const msg = 'Hola! Quiero reservar ' + n + (n === 1 ? ' lugar' : ' lugares') +
    ' para la Noche de Danzas Francesas (sábado 21/11, 20 h) en Casa Inima. Nombre: ' +
-   $('nombre').value.trim() + ' – Tel: ' + $('tel').value.trim() +
+   nombre + ' – Tel: ' + tel +
    '. Total: $' + (n * precio).toLocaleString('es-AR') + ' por transferencia al alias ' + alias +
    ', o $' + (n * precioMP).toLocaleString('es-AR') + ' con Mercado Pago.';
   const url = 'https://wa.me/5491127723816?text=' + encodeURIComponent(msg);
-  // Si el navegador bloquea la ventana nueva (frecuente en celulares), abrir en la misma pestaña
-  if (!window.open(url, '_blank', 'noopener')) location.href = url;
+  // Primero se guarda la reserva (cuenta en «reservados»), después se abre WhatsApp
+  const btn = e.submitter || $('form').querySelector('button'); btn.disabled = true; btn.textContent = 'Guardando tu reserva…';
+  let ido = false; const ir = () => { if (!ido) { ido = true; location.href = url; } };
+  setTimeout(ir, 4000);
+  rpc('noche_reservar', { p_nombre: nombre, p_tel: tel, p_lugares: n }).catch(() => {}).finally(ir);
  });
 </script>
 </body>

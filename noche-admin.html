@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Che, on danse! · Noche de Danzas Francesas · pagos</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body { background: #FAF9F7; }
+main { max-width: 960px; margin: 0 auto; padding: 40px var(--gutter) 80px; }
+h1 { font: 400 clamp(1.9rem, 5vw, 2.6rem)/1.1 var(--serif); color: var(--ink); margin: 0 0 6px; }
+.sub { color: var(--muted); margin: 0 0 24px; }
+.card { background: var(--paper); border: 1px solid var(--line); padding: clamp(16px, 3vw, 28px); }
+label { display: block; font-weight: 600; font-size: .92rem; color: var(--ink); margin-bottom: 5px; }
+input, select { width: 100%; font: inherit; font-size: 16px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 2px; background: var(--paper); color: var(--text); }
+.login { max-width: 380px; display: grid; gap: 14px; }
+.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin-bottom: 18px; }
+.row > div { flex: 1 1 260px; }
+.who { font-size: .88rem; color: var(--muted); margin: 0 0 16px; }
+.who button { font: inherit; color: var(--red); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+.count { font-weight: 600; margin: 4px 0 12px; }
+.err { color: var(--red); font-weight: 500; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; min-width: 780px; font-size: .95rem; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+th { background: var(--mist); color: var(--ink); font-weight: 600; }
+td.small { font-size: .82rem; color: var(--muted); }
+td.missing { color: var(--red); font-weight: 600; }
+tr.incompleta td { color: var(--red); background: #FDF1F1; }
+.note { font-size: .85rem; color: var(--muted); margin: 14px 0 0; }
+[hidden] { display: none !important; }
+.cnt { display: flex; gap: 28px; flex-wrap: wrap; margin: 0 0 16px; }
+.cnt b { display: block; font: 400 2.4rem/1 var(--serif); color: var(--ink); }
+.cnt span { color: var(--muted); font-size: .9rem; }
+td .btn { padding: 8px 12px; font-size: .88rem; margin: 2px 4px 2px 0; }
+tr.ok td { background: #EEF7F0; }
+table { min-width: 640px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Noche de Danzas Francesas</h1>
+  <p class="sub">Sábado 21 de noviembre · Casa Inima. Marcá «Pagó» cuando recibís la transferencia o el pago de Mercado Pago: el contador del sitio se actualiza solo.</p>
+  <div class="card">
+    <form class="login" id="login" hidden>
+      <div><label for="email">Email</label><input id="email" type="email" autocomplete="username" value="cheondanse@gmail.com" required></div>
+      <div><label for="pass">Contraseña</label><input id="pass" type="password" autocomplete="current-password" required></div>
+      <button class="btn btn--red" type="submit">Entrar</button>
+      <p class="err" id="loginErr" hidden></p>
+    </form>
+    <div id="panel" hidden>
+      <p class="who">Conectado como <span id="whoEmail"></span> · <button type="button" id="logout">salir</button> · <button type="button" id="reload">actualizar</button></p>
+      <div class="cnt"><div><b id="cPag">0</b><span>lugares pagados (mínimo 30)</span></div><div><b id="cRes">0</b><span>lugares reservados</span></div></div>
+      <p class="err" id="listErr" hidden></p>
+      <div class="scroll"><table><thead><tr><th>Nombre</th><th>Teléfono</th><th>Lugares</th><th>Estado</th><th></th></tr></thead><tbody id="tbody"></tbody></table></div>
+      <p class="note">Solo vos ves esta lista. En la página pública solo aparecen los dos números.</p>
+    </div>
+  </div>
+</main>
+<script>
+(function () {
+  "use strict";
+  var SUPABASE_URL = "https://bizuvwzgtmoosadxouqk.supabase.co";
+  var API_KEY = "sb_publishable_jksOvhfLGclbESfh1GSmLg_SupXXqXH";
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+  var sesion = null;
+  try { sesion = JSON.parse(sessionStorage.getItem("cod-admin")); } catch (e) {}
+  var guardar = function (s) { sesion = s; try { s ? sessionStorage.setItem("cod-admin", JSON.stringify(s)) : sessionStorage.removeItem("cod-admin"); } catch (e) {} };
+  var pedir = function (path, body, token) {
+    var h = { "Content-Type": "application/json", apikey: API_KEY };
+    if (token) h.Authorization = "Bearer " + token;
+    return fetch(SUPABASE_URL + path, { method: "POST", headers: h, body: JSON.stringify(body) }).then(function (r) {
+      return r.json().catch(function () { return null; }).then(function (data) {
+        if (r.status === 401 || (data && /jwt/i.test(data.message || ""))) { guardar(null); mostrar(); throw new Error("La sesión venció. Volvé a entrar."); }
+        if (!r.ok) throw new Error((data && (data.message || data.error_description || data.msg)) || "Error " + r.status);
+        return data;
+      });
+    });
+  };
+  var rpc = function (fn, args) { return pedir("/rest/v1/rpc/" + fn, args || {}, sesion && sesion.token); };
+  var mostrar = function () { $("login").hidden = !!sesion; $("panel").hidden = !sesion; if (sesion) { $("whoEmail").textContent = sesion.email; cargar(); } };
+  $("login").addEventListener("submit", function (e) {
+    e.preventDefault(); $("loginErr").hidden = true;
+    pedir("/auth/v1/token?grant_type=password", { email: $("email").value.trim(), password: $("pass").value }).then(function (d) {
+      guardar({ token: d.access_token, email: d.user && d.user.email }); $("pass").value = ""; mostrar();
+    }).catch(function (err) { $("loginErr").textContent = /invalid/i.test(err.message) ? "Email o contraseña incorrectos." : err.message; $("loginErr").hidden = false; });
+  });
+  $("logout").addEventListener("click", function () { guardar(null); mostrar(); });
+  $("reload").addEventListener("click", function () { cargar(); });
+  var cargar = function () {
+    $("listErr").hidden = true;
+    rpc("admin_noche_lista").then(function (filas) {
+      var pag = 0, res = 0;
+      $("tbody").innerHTML = (filas || []).map(function (f) {
+        res += f.lugares; if (f.pagado) pag += f.lugares;
+        var tel = String(f.tel || "").replace(/\D/g, "");
+        var wa = tel ? '<a href="https://wa.me/' + (tel.length <= 11 ? "549" + tel.replace(/^0/, "").replace(/^15/, "") : tel) + '" target="_blank" rel="noopener">' + esc(f.tel) + "</a>" : esc(f.tel);
+        var estado = f.pagado ? "✅ Pagó" + (f.medio === "mercadopago" ? " (Mercado Pago)" : " (transferencia)") : "⏳ Reservó";
+        var acc = f.pagado
+          ? '<button class="btn btn--line" data-id="' + f.id + '" data-a="nopago">Deshacer</button>'
+          : '<button class="btn btn--red" data-id="' + f.id + '" data-a="transferencia">Pagó · transferencia</button><button class="btn btn--line" data-id="' + f.id + '" data-a="mercadopago">Pagó · Mercado Pago</button>';
+        acc += '<button class="btn btn--line" data-id="' + f.id + '" data-a="borrar">Borrar</button>';
+        return '<tr class="' + (f.pagado ? "ok" : "") + '"><td>' + esc(f.nombre) + "</td><td>" + wa + "</td><td>" + f.lugares + "</td><td>" + estado + "</td><td>" + acc + "</td></tr>";
+      }).join("") || '<tr><td colspan="5">Todavía no hay reservas.</td></tr>';
+      $("cPag").textContent = pag; $("cRes").textContent = res;
+    }).catch(function (err) {
+      $("listErr").textContent = /could not find|does not exist|schema cache/i.test(err.message) ? "Falta crear la tabla en Supabase: pegá supabase/05_noche.sql en el SQL Editor (ver GUIDE.md)." : err.message;
+      $("listErr").hidden = false;
+    });
+  };
+  $("tbody").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-id]"); if (!b) return;
+    var id = +b.dataset.id, a = b.dataset.a, p;
+    if (a === "borrar") { if (!confirm("¿Borrar esta reserva?")) return; p = rpc("admin_noche_borrar", { p_id: id }); }
+    else p = rpc("admin_noche_pago", { p_id: id, p_pagado: a !== "nopago", p_medio: a === "nopago" ? null : a });
+    b.disabled = true;
+    p.then(cargar).catch(function (err) { alert(err.message); b.disabled = false; });
+  });
+  mostrar();
+})();
+</script>
+</body>
+</html>

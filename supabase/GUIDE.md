@@ -76,3 +76,18 @@ Une fois le site publié (après votre validation) :
   (et ne reçoit que le prénom, plus l'apellido en cas de doublon), inscrire quelqu'un, réserver une date.
 - Les DNI, dates de naissance et contacts ne sont visibles que dans Supabase et sur `admin.html` après connexion.
 - Pour annuler une réservation : **Table Editor** → **reservas** → sélectionnez la ligne → **Delete**.
+
+## Noche de Danzas Francesas (contadores «reservados» y «pagados»)
+
+À faire une seule fois, comme les étapes 1 à 3.
+
+1. **SQL Editor** → **+ New query**.
+2. Ouvrez `supabase/05_noche.sql`. Il a 3 blocs (« Paso 5 · Bloque A », « B », « C ») :
+   collez et exécutez **un bloc à la fois**, dans l'ordre, avec **Run**.
+3. Message attendu : « Success. No rows returned ».
+
+Ensuite :
+- La page `noche.html` affiche toute seule les lugares **reservados** (chaque formulaire envoyé)
+  et **pagados** (ceux que vous marquez).
+- Sur `noche-admin.html` (même mot de passe que `admin.html`), appuyez sur
+  « Pagó · transferencia » ou « Pagó · Mercado Pago » quand le paiement arrive.
