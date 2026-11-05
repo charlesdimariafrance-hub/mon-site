@@ -31,6 +31,16 @@
       "source": "/villa-adelina",
       "destination": "/villa-adelina.html",
       "permanent": false
+    },
+    {
+      "source": "/online",
+      "destination": "/online.html",
+      "permanent": false
+    },
+    {
+      "source": "/noche",
+      "destination": "/noche.html",
+      "permanent": false
     }
   ]
 }
