@@ -265,7 +265,10 @@ function build(d) {
       }); };
   } else if (!d.big) secS.append(el("p", "va-help", "Partitura: todavía no la tenemos."));
   if (d.big) { var dlb = el("p", "va-help"); d.big.forEach(function (b, i) { var a = el("a", "", "⬇ Descargar página " + (i + 1)); a.href = b[0]; a.download = ""; a.target = "_blank"; dlb.append(a, document.createTextNode("  ")); }); secS.append(dlb); }
-  (d.big || []).forEach(function (b) { var f = el("figure", "va-big"); f.innerHTML = '<a href="' + esc(b[2] || b[0]) + '" target="_blank" rel="noopener"><img src="' + esc(b[0]) + '" alt="' + esc(b[1]) + '" loading="lazy"></a><figcaption>' + esc(b[1]) + (b[2] ? ' · <a href="' + esc(b[2]) + '" target="_blank" rel="noopener">ver en Gallica (BnF)</a>' : "") + "</figcaption>"; secS.append(f); });
+  var bigBox = secS;
+  if (d.big) { var bb = el("button", "", d.scores.length ? "Abrir la partitura original" : "Abrir la partitura"); var bw = el("div", "va-row"); bw.append(bb); secS.append(bw); bigBox = el("div"); bigBox.hidden = true; secS.append(bigBox);
+    bb.onclick = function () { bigBox.hidden = !bigBox.hidden; bb.classList.toggle("is-on", !bigBox.hidden); bb.textContent = (bigBox.hidden ? "Abrir" : "Cerrar") + (d.scores.length ? " la partitura original" : " la partitura"); }; }
+  (d.big || []).forEach(function (b) { var f = el("figure", "va-big"); f.innerHTML = '<a href="' + esc(b[2] || b[0]) + '" target="_blank" rel="noopener"><img src="' + esc(b[0]) + '" alt="' + esc(b[1]) + '" loading="lazy"></a><figcaption>' + esc(b[1]) + (b[2] ? ' · <a href="' + esc(b[2]) + '" target="_blank" rel="noopener">ver en Gallica (BnF)</a>' : "") + "</figcaption>"; bigBox.append(f); });
   if (d.pdf) { var ul = el("ul", "va-links"); d.pdf.forEach(function (p) { ul.append(el("li", "", '<a href="' + esc(p[1]) + '" target="_blank" rel="noopener">' + esc(p[0]) + "</a>")); }); secS.append(ul); }
   card.append(secS);
 
