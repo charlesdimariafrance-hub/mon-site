@@ -91,3 +91,11 @@ Ensuite :
   et **pagados** (ceux que vous marquez).
 - Sur `noche-admin.html` (même mot de passe que `admin.html`), appuyez sur
   « Pagó · transferencia » ou « Pagó · Mercado Pago » quand le paiement arrive.
+
+## Clases online de los lunes (grilla con contadores)
+
+Comme pour la Noche : **SQL Editor** → **+ New query**, puis collez et exécutez
+**un bloc à la fois** de `supabase/06_online.sql` (« Paso 6 · Bloque A », « B », « C »).
+
+- Page publique : `online.html` (grille des lundis, compteur par horaire, minimum 10).
+- Page de Charles : `online-admin.html` (même mot de passe), boutons « Pagó · transferencia / Mercado Pago / Revolut ».

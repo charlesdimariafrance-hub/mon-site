@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clases online los lunes · Che, on danse!</title>
+<meta name="description" content="Clases online de danzas tradicionales francesas, los lunes por Zoom: para alumnos y para profes. Elegí tus lunes y tu horario.">
+<meta name="theme-color" content="#18233A">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="paginas.css">
+<style>
+.on-two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:760px){.on-two{grid-template-columns:1fr}}
+.on-card{background:var(--paper);border:1px solid var(--line);padding:clamp(18px,3vw,30px)}
+.on-card h3{font:400 1.7rem/1.1 var(--serif);color:var(--ink);margin:0 0 .5rem}
+.on-tag{font:italic 400 1rem var(--serif);color:var(--red);margin:0 0 .4rem}
+.on-prices{width:100%;border-collapse:collapse;font-size:1rem;margin:1rem 0}
+.on-prices th,.on-prices td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left}
+.on-prices th{background:var(--mist);color:var(--ink);font-weight:600}
+.on-prices td b{color:var(--ink)}
+.grid-wrap{overflow-x:auto;margin:1rem 0;border:1px solid var(--line);background:var(--paper)}
+.gl{border-collapse:collapse;min-width:640px;width:100%;font-size:.92rem}
+.gl th,.gl td{border:1px solid var(--line);text-align:center;padding:0}
+.gl th{background:var(--ink);color:var(--paper);font-weight:500;padding:8px 6px;white-space:nowrap}
+.gl th.h{background:var(--mist);color:var(--ink)}
+.gl button{width:100%;min-height:52px;border:0;background:var(--paper);font:inherit;cursor:pointer;color:var(--ink);padding:4px}
+.gl button small{display:block;font-size:.75rem;color:var(--muted)}
+.gl button.ok{background:#E7F4EA}
+.gl button.on{background:var(--red);color:#fff}.gl button.on small{color:#fde}
+.on-legend{font-size:.88rem;color:var(--muted);margin:.4rem 0}
+.on-form{display:grid;grid-template-columns:1fr 1fr;gap:12px 18px;margin-top:1rem}
+@media(max-width:640px){.on-form{grid-template-columns:1fr}}
+.on-form label{display:block;font-weight:600;font-size:.92rem;color:var(--ink);margin-bottom:5px}
+.on-form input,.on-form select{width:100%;font:inherit;font-size:16px;padding:12px 14px;border:1px solid var(--line);border-radius:2px;background:var(--paper)}
+.on-sum{background:var(--sky-soft,#DCEAF6);border-left:3px solid var(--ink);padding:14px 18px;margin:1rem 0}
+.on-sum p{margin:.25rem 0}
+.on-pay{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:1.2rem}
+.on-pay .on-card p{margin:.3rem 0}
+.alias{font-size:1.2rem;letter-spacing:.04em;color:var(--ink)}
+.err{color:var(--red);font-weight:600}
+</style>
+</head>
+<body>
+<div class="pg-top"><div class="wrap">
+  <a class="pg-brand" href="index.html">Che, on danse!</a>
+  <a class="pg-back" href="formacion.html">← Formación</a>
+</div></div>
+<header class="pg-hero pg-hero--plain">
+  <div class="wrap">
+    <p class="pg-kicker">Online, por Zoom · los lunes · 1 h 30</p>
+    <h1>Clases online de danzas francesas</h1>
+    <p>Dos cursos distintos: uno para alumnos a los que les cuesta aprender, y otro para profes que quieren enseñar. Elegí tus lunes y tu horario: cada horario arranca cuando llega a 10 personas.</p>
+    <p style="margin-top:1.4rem"><a class="btn btn--red" href="#elegir">Elegir mis lunes</a></p>
+  </div>
+</header>
+
+<section class="pg-sec"><div class="wrap">
+  <div class="on-two">
+    <div class="on-card">
+      <p class="on-tag">Curso 1 · para alumnos</p>
+      <h3>¿Te cuesta aprender a bailar? Aprendé a aprender.</h3>
+      <p>Para quienes sienten que los pasos no les entran. Trabajamos con el <b>diagrama cinético</b> para ver cada movimiento, la <b>notación de la danza</b> para entender y recordar, y la <b>escucha de la música</b> para bailar con ella.</p>
+    </div>
+    <div class="on-card">
+      <p class="on-tag">Curso 2 · para profes</p>
+      <h3>¿Querés armar un grupo de danzas francesas en tu ciudad?</h3>
+      <p>Dar clases regulares u organizar un bal: te doy todas las herramientas. Repertorio, diagramas cinéticos, notación, músicas y cómo guiar a un grupo.</p>
+    </div>
+  </div>
+  <p class="pg-note" style="margin-top:1.2rem">Con Charles, profesor francés nativo, diplomado en danza. Esta formación no otorga un título oficial de profesorado.</p>
+</div></section>
+
+<section class="pg-sec"><div class="wrap">
+  <h2 class="h2">Precios</h2>
+  <div class="grid-wrap" style="border:0;background:none"><table class="on-prices">
+    <thead><tr><th></th><th>1 lunes</th><th>4 lunes (recomendado)</th></tr></thead>
+    <tbody>
+      <tr><td>Transferencia (Argentina)</td><td><b>$10.000</b></td><td><b>$35.000</b></td></tr>
+      <tr><td>Mercado Pago (tarjeta)</td><td><b>$10.700</b></td><td><b>$37.500</b></td></tr>
+      <tr><td>Desde el exterior (Revolut, tarjeta)</td><td><b>USD 10</b></td><td><b>USD 35</b></td></tr>
+    </tbody>
+  </table></div>
+  <p class="pg-note">No es obligatorio tomar 4 lunes, pero lo recomendamos mucho: es lo que permite avanzar. Si elegís más de 4, cada bloque de 4 tiene el precio reducido.</p>
+</div></section>
+
+<section class="pg-sec" id="elegir"><div class="wrap">
+  <h2 class="h2">Elegí tus lunes y tu horario</h2>
+  <p>Horario de Buenos Aires. Tocá una casilla: se marcan ese lunes y los 3 siguientes en el mismo horario. Podés agregar o quitar lunes tocando otras casillas.</p>
+  <label style="display:flex;gap:8px;align-items:center;font-size:.95rem"><input type="checkbox" id="auto4" checked style="width:auto"> Marcar automáticamente 4 lunes seguidos</label>
+  <div class="grid-wrap"><table class="gl" id="grilla"></table></div>
+  <p class="on-legend">Cada casilla muestra los <b>pagados</b> sobre el mínimo de 10 (y entre paréntesis los reservados). En verde: horario confirmado.</p>
+
+  <form id="form" novalidate>
+    <div class="on-form">
+      <div><label for="nombre">Nombre y apellido</label><input id="nombre" autocomplete="name" required></div>
+      <div><label for="tel">WhatsApp (con código de país)</label><input id="tel" type="tel" autocomplete="tel" inputmode="tel" placeholder="+54 9 11 1234 5678" required></div>
+      <div><label for="perfil">Curso</label><select id="perfil"><option value="alumno">Curso 1 · para alumnos</option><option value="profe">Curso 2 · para profes</option></select></div>
+      <div><label for="pais">¿Desde dónde?</label><select id="pais"><option value="ar">Argentina (pesos)</option><option value="ex">Exterior (dólares)</option></select></div>
+    </div>
+    <div class="on-sum" id="resumen"><p>Todavía no elegiste ningún lunes.</p></div>
+    <p class="err" id="err" hidden></p>
+    <button class="btn btn--red" type="submit" id="enviar">Reservar por WhatsApp</button>
+    <p class="pg-note">Tus datos solo se usan para tu reserva. En la página solo se muestran los números.</p>
+  </form>
+</div></section>
+
+<section class="pg-sec"><div class="wrap">
+  <h2 class="h2">Cómo pagar</h2>
+  <p>Reservá con el formulario, pagá, y mandanos el comprobante por WhatsApp: te respondemos «Pago recibido» y tu lugar se suma al contador.</p>
+  <div class="on-pay">
+    <div class="on-card"><p class="on-tag">Argentina · sin comisión</p><h3>Transferencia</h3><p>Alias <b class="alias" id="alias"></b></p><p>Titular: Charles Di Maria</p><button class="btn btn--line" type="button" id="copiar">Copiar alias</button></div>
+    <div class="on-card"><p class="on-tag">Argentina · tarjeta</p><h3>Mercado Pago</h3><p>Te mandamos el enlace de pago por WhatsApp cuando reservás.</p></div>
+    <div class="on-card"><p class="on-tag">Desde el exterior</p><h3>Revolut</h3><p>Con tarjeta o con la app Revolut.</p><a class="btn btn--red" id="revolut" href="#" target="_blank" rel="noopener">Pagar con Revolut</a></div>
+  </div>
+  <p class="pg-note" style="margin-top:1.2rem">Si un horario no llega a 10 personas, te proponemos otro horario o te devolvemos el pago completo.</p>
+</div></section>
+
+<footer class="footer"><div class="wrap footer__base">© 2026 Che, on danse! · <a href="formacion.html" style="color:inherit">Formación</a> · <a href="mailto:cheondanse@gmail.com" style="color:inherit">cheondanse@gmail.com</a></div></footer>
+
+<script>
+(function () {
+  "use strict";
+  var MINIMO = 10;
+  var HORAS = ["08:00", "09:30", "11:00", "12:30", "14:00", "15:30", "17:00", "18:30", "20:00", "21:00"];
+  var SEMANAS = 8;
+  var WHATSAPP = "5491127723816";            // ← mismo número que la Noche
+  var ALIAS = "CHEONDAN";
+  var REVOLUT = "https://revolut.me/cheondanse";
+  var P = { ar: { uno: 10000, cuatro: 35000, mpUno: 10700, mpCuatro: 37500 }, ex: { uno: 10, cuatro: 35 } };
+  var SB = "https://bizuvwzgtmoosadxouqk.supabase.co", SB_KEY = "sb_publishable_jksOvhfLGclbESfh1GSmLg_SupXXqXH";
+  var rpc = function (fn, args) { return fetch(SB + "/rest/v1/rpc/" + fn, { method: "POST", headers: { "Content-Type": "application/json", apikey: SB_KEY }, body: JSON.stringify(args || {}) }).then(function (r) { return r.ok ? r.json() : Promise.reject(new Error(r.status)); }); };
+  var $ = function (id) { return document.getElementById(id); };
+  var MES = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
+  $("alias").textContent = ALIAS; $("revolut").href = REVOLUT;
+  $("copiar").onclick = function () { var b = this; var ok = function () { b.textContent = "¡Alias copiado!"; setTimeout(function () { b.textContent = "Copiar alias"; }, 2000); }; if (navigator.clipboard) navigator.clipboard.writeText(ALIAS).then(ok, function () { prompt("Copiá el alias:", ALIAS); }); else prompt("Copiá el alias:", ALIAS); };
+
+  /* Próximos lunes (hora de Buenos Aires) */
+  var hoy = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Argentina/Buenos_Aires" }).format(new Date());
+  var d = new Date(hoy + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + 1);
+  while (d.getUTCDay() !== 1) d.setUTCDate(d.getUTCDate() + 1);
+  var LUNES = []; for (var i = 0; i < SEMANAS; i++) { LUNES.push(d.toISOString().slice(0, 10)); d.setUTCDate(d.getUTCDate() + 7); }
+  var corto = function (iso) { var p = iso.split("-"); return +p[2] + " " + MES[+p[1] - 1]; };
+
+  var cont = {}, sel = {};
+  var key = function (f, h) { return f + "|" + h; };
+  var pintar = function () {
+    var html = '<thead><tr><th class="h">Horario</th>' + LUNES.map(function (f) { return "<th>Lun " + corto(f) + "</th>"; }).join("") + "</tr></thead><tbody>";
+    HORAS.forEach(function (h) {
+      html += '<tr><th class="h">' + h + "</th>" + LUNES.map(function (f) {
+        var c = cont[key(f, h)] || { r: 0, p: 0 }, k = key(f, h);
+        return '<td><button type="button" data-k="' + k + '" class="' + (sel[k] ? "on" : c.p >= MINIMO ? "ok" : "") + '" aria-pressed="' + !!sel[k] + '">' + c.p + "/" + MINIMO + "<small>(" + c.r + " res.)</small></button></td>";
+      }).join("") + "</tr>";
+    });
+    $("grilla").innerHTML = html + "</tbody>";
+    resumen();
+  };
+  $("grilla").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-k]"); if (!b) return;
+    var k = b.dataset.k, f = k.split("|")[0], h = k.split("|")[1];
+    if (sel[k]) { delete sel[k]; }
+    else if ($("auto4").checked) { var i = LUNES.indexOf(f); for (var j = i; j < Math.min(i + 4, LUNES.length); j++) sel[key(LUNES[j], h)] = true; }
+    else sel[k] = true;
+    pintar();
+  });
+  var total = function (n, uno, cuatro) { return Math.floor(n / 4) * cuatro + (n % 4) * uno; };
+  var fmt = function (v, ex) { return ex ? "USD " + v : "$" + v.toLocaleString("es-AR"); };
+  var elegidas = function () { return Object.keys(sel).sort().map(function (k) { var p = k.split("|"); return { fecha: p[0], hora: p[1] }; }); };
+  var resumen = function () {
+    var c = elegidas(), n = c.length, ex = $("pais").value === "ex";
+    if (!n) { $("resumen").innerHTML = "<p>Todavía no elegiste ningún lunes.</p>"; return; }
+    var lista = c.map(function (x) { return "lun " + corto(x.fecha) + " " + x.hora; }).join(" · ");
+    var txt = "<p><b>" + n + (n === 1 ? " lunes" : " lunes") + "</b>: " + lista + "</p>";
+    if (ex) txt += "<p>Total: <b>" + fmt(total(n, P.ex.uno, P.ex.cuatro), true) + "</b> (Revolut o tarjeta)</p>";
+    else txt += "<p>Total: <b>" + fmt(total(n, P.ar.uno, P.ar.cuatro)) + "</b> por transferencia, o <b>" + fmt(total(n, P.ar.mpUno, P.ar.mpCuatro)) + "</b> con Mercado Pago</p>";
+    if (n < 4) txt += "<p>Te recomendamos 4 lunes: es más barato y es lo que permite avanzar.</p>";
+    $("resumen").innerHTML = txt;
+  };
+  $("pais").onchange = resumen;
+
+  var cargar = function () {
+    return rpc("online_contadores").then(function (filas) { cont = {}; (filas || []).forEach(function (f) { cont[key(f.fecha, f.hora)] = { r: +f.reservados || 0, p: +f.pagados || 0 }; }); pintar(); }).catch(function () { pintar(); });
+  };
+  pintar(); cargar();
+
+  $("form").addEventListener("submit", function (e) {
+    e.preventDefault(); $("err").hidden = true;
+    var nombre = $("nombre").value.trim(), tel = $("tel").value.trim(), c = elegidas();
+    if (!nombre || !tel) { $("err").textContent = "Completá tu nombre y tu WhatsApp."; $("err").hidden = false; return; }
+    if (!c.length) { $("err").textContent = "Elegí al menos un lunes en la grilla."; $("err").hidden = false; return; }
+    var ex = $("pais").value === "ex", n = c.length, curso = $("perfil").value === "profe" ? "Curso 2 · para profes" : "Curso 1 · para alumnos";
+    var precio = ex ? fmt(total(n, P.ex.uno, P.ex.cuatro), true) + " (Revolut)" : fmt(total(n, P.ar.uno, P.ar.cuatro)) + " por transferencia al alias " + ALIAS + ", o " + fmt(total(n, P.ar.mpUno, P.ar.mpCuatro)) + " con Mercado Pago";
+    var msg = "Hola! Quiero reservar las clases online de los lunes (" + curso + "). Nombre: " + nombre + " – WhatsApp: " + tel + ". Lunes elegidos (hora de Buenos Aires): " +
+      c.map(function (x) { return corto(x.fecha) + " " + x.hora; }).join(", ") + ". Total: " + precio + ".";
+    var url = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg);
+    var btn = $("enviar"); btn.disabled = true; btn.textContent = "Guardando tu reserva…";
+    var ido = false, ir = function () { if (!ido) { ido = true; location.href = url; } };
+    setTimeout(ir, 4000);
+    rpc("online_reservar", { p_nombre: nombre, p_tel: tel, p_perfil: $("perfil").value, p_celdas: c }).catch(function () {}).then(ir);
+  });
+})();
+</script>
+</body>
+</html>
