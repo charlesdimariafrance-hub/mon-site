@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Noche de Danzas Francesas · Che, on danse!</title>
+<meta name="description" content="Bal folk: valses, polkas, mazurkas y rondas francesas. Sábado 21 de noviembre, 20 h, Casa Inima (Boulogne Sur Mer), con acordeón en vivo. Sin experiencia previa.">
+<meta property="og:title" content="Noche de Danzas Francesas · Sábado 21/11, 20 h">
+<meta property="og:description" content="Bal folk con acordeón en vivo en Casa Inima, Boulogne Sur Mer. $8.000 · sin experiencia previa · enseñamos cada danza.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#18233A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+ --ink:#18233A;--ink-2:#26344F;--paper:#FFFFFF;--mist:#EDF1F6;--line:#D5DCE6;
+ --red:#A8262F;--red-dark:#8A1E26;--sky:#8DBBE3;--sky-soft:#DCEAF6;--text:#22304A;--muted:#5A6880;
+ --serif:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+ --sans:"Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+ --wrap:1200px;--gutter:clamp(16px,4vw,40px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--paper);color:var(--text);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gutter)}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:16px;top:16px;z-index:100;background:var(--paper);padding:8px 12px}
+.h2{font:400 clamp(2rem,4.2vw,3.25rem)/1.08 var(--serif);color:var(--ink);margin:0 0 .5em;letter-spacing:-.01em;max-width:22ch}
+.lede{font-size:1.12rem;color:var(--muted);max-width:62ch;margin:0 0 2rem}
+.kicker{font:italic 400 1.15rem var(--serif);color:var(--red);margin:0 0 .6rem}
+.btn{display:inline-block;padding:.85em 1.5em;font:500 .98rem/1 var(--sans);text-decoration:none;border-radius:2px;border:1px solid transparent;transition:background .2s,color .2s,border-color .2s;cursor:pointer}
+.btn--red{background:var(--red);color:var(--paper)}
+.btn--red:hover{background:var(--red-dark)}
+.btn--ghost{border-color:rgba(255,255,255,.7);color:var(--paper);background:transparent}
+.btn--ghost:hover{background:var(--paper);color:var(--ink)}
+
+/* barra superior */
+.utility{background:var(--ink);color:#C9D3E2;font-size:.85rem}
+.utility__row{display:flex;justify-content:space-between;gap:16px;padding-top:8px;padding-bottom:8px;flex-wrap:wrap}
+.utility a{text-decoration:none}
+.utility a:hover{color:var(--paper);text-decoration:underline}
+.utility__left,.utility__right{display:flex;gap:20px;flex-wrap:wrap}
+
+/* encabezado */
+.header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.header__row{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.brand{font:italic 400 1.6rem/1 var(--serif);color:var(--ink);text-decoration:none;letter-spacing:-.01em;white-space:nowrap}
+.nav{display:flex;align-items:center;gap:26px}
+.nav a{text-decoration:none;font-size:.95rem;color:var(--ink)}
+.nav a:not(.btn):hover{color:var(--red)}
+.nav .btn{color:var(--paper);padding:.7em 1.2em}
+@media(max-width:760px){.nav a:not(.btn){display:none}.brand{font-size:1.35rem}}
+
+/* portada */
+.hero{position:relative;min-height:min(80vh,680px);display:flex;align-items:flex-end;overflow:hidden;background:var(--ink);color:var(--paper)}
+.hero__shade{position:absolute;inset:0;background:
+ radial-gradient(ellipse at 85% 15%,rgba(168,38,47,.45),transparent 55%),
+ radial-gradient(ellipse at 10% 0%,rgba(141,187,227,.25),transparent 50%),
+ linear-gradient(180deg,rgba(24,35,58,.25) 0%,rgba(24,35,58,.55) 45%,rgba(24,35,58,.92) 100%)}
+.hero__content{position:relative;padding-top:110px;padding-bottom:clamp(48px,8vw,96px);width:100%}
+.hero__kicker{font:italic 400 1.15rem var(--serif);color:var(--sky);margin:0 0 .6rem}
+.hero__title{font:400 clamp(3rem,9vw,7.2rem)/.98 var(--serif);margin:0 0 1.4rem;letter-spacing:-.02em}
+.hero__lead{font-size:clamp(1.05rem,1.6vw,1.25rem);max-width:44ch;margin:0 0 2rem;color:#E6ECF4}
+.hero__actions{display:flex;flex-wrap:wrap;gap:12px}
+.hero__facts{display:flex;flex-wrap:wrap;gap:8px 28px;margin:0 0 2rem;padding:0;list-style:none;color:#E6ECF4;font-size:.98rem}
+.hero__facts b{color:var(--paper);font-weight:500}
+
+/* secciones */
+.section{padding:clamp(64px,9vw,120px) 0 clamp(40px,6vw,72px)}
+.section--mist{background:var(--mist)}
+.grid{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(32px,6vw,88px);align-items:start}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+.datos{margin:0;border-top:1px solid var(--line)}
+.datos div{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.datos dt{font:italic 400 1.05rem var(--serif);color:var(--muted)}
+.datos dd{margin:0;color:var(--ink)}
+.datos small{color:var(--muted);display:block}
+
+/* cupo */
+.cupo__num{font:400 clamp(3rem,7vw,5rem)/1 var(--serif);color:var(--ink);margin:0}
+.cupo__num span{font-size:.45em;color:var(--muted)}
+.bar{background:var(--paper);border:1px solid var(--line);height:14px;margin:18px 0 10px;max-width:640px}
+.fill{background:var(--red);height:100%;width:0;transition:width .8s}
+.cupo__estado{font-weight:500;color:var(--ink);margin:0 0 .4rem}
+
+/* formulario */
+.form{background:var(--paper);border:1px solid var(--line);padding:clamp(20px,3vw,32px)}
+.form label{display:block;font-size:.88rem;font-weight:500;color:var(--ink);margin:14px 0 6px}
+.form label:first-child{margin-top:0}
+.form input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:2px;font:400 1rem var(--sans);color:var(--text);background:var(--paper)}
+.form input:focus{outline:2px solid var(--sky);border-color:var(--ink)}
+.form .btn{margin-top:22px;width:100%;text-align:center;font-size:1.02rem}
+.form__nota{font-size:.85rem;color:var(--muted);margin:12px 0 0}
+
+/* pasos de pago */
+.pasos{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px 22px;counter-reset:p}
+.pasos li{counter-increment:p;border-top:2px solid var(--ink);padding-top:14px}
+.pasos li::before{content:counter(p);display:block;font:400 2.4rem/1 var(--serif);color:var(--red);margin-bottom:10px}
+.pasos b{color:var(--ink);font-weight:600}
+.opciones{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:40px}
+.opcion{background:var(--paper);border:1px solid var(--line);padding:24px}
+.opcion p{margin:0 0 14px}
+.opcion__tag{font:italic 400 1rem var(--serif);color:var(--red)}
+.opcion__titulo{font:400 1.7rem/1.1 var(--serif);color:var(--ink);margin:0 0 10px}
+.alias{font-size:1.25rem;letter-spacing:.04em;color:var(--ink)}
+.btn--line{border-color:var(--ink);color:var(--ink);background:transparent}
+.btn--line:hover{background:var(--ink);color:var(--paper)}
+.aviso{margin-top:36px;padding:18px 20px;background:var(--sky-soft);border-left:3px solid var(--ink);max-width:760px}
+
+/* pie */
+.footer{background:#111A2C;color:#AEB9CB;padding:56px 0 24px;font-size:.95rem}
+.footer__grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
+@media(max-width:760px){.footer__grid{grid-template-columns:1fr}}
+.footer a{display:block;text-decoration:none;padding:4px 0}
+.footer a:hover{color:var(--paper);text-decoration:underline}
+.footer__brand{font:italic 400 1.6rem/1 var(--serif);color:var(--paper);margin:0 0 .6rem}
+.footer__head{color:var(--paper);font-weight:500;margin:0 0 8px}
+.footer__note{margin:0}
+.footer__base{border-top:1px solid rgba(255,255,255,.12);margin-top:40px;padding-top:20px;font-size:.85rem}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Ir al contenido</a>
+
+<div class="utility">
+ <div class="wrap utility__row">
+  <nav class="utility__left" aria-label="Accesos rápidos">
+   <a href="https://cheondanse.com/#clases">Clases</a>
+   <a href="https://cheondanse.com/#agenda">Agenda</a>
+  </nav>
+  <div class="utility__right">
+   <a href="https://www.instagram.com/che.on.danse/" target="_blank" rel="noopener">Instagram</a>
+   <a href="mailto:cheondanse@gmail.com">cheondanse@gmail.com</a>
+  </div>
+ </div>
+</div>
+
+<header class="header">
+ <div class="wrap header__row">
+  <a class="brand" href="https://cheondanse.com" aria-label="Che, on danse! Inicio">Che, on danse!</a>
+  <nav class="nav" aria-label="Principal">
+   <a href="#detalles">La noche</a>
+   <a href="#cupo">Cupo</a>
+   <a href="#pago">Cómo pagar</a>
+   <a class="btn btn--red" href="#reservar">Reservar</a>
+  </nav>
+ </div>
+</header>
+
+<main id="main">
+ <section class="hero" aria-label="Presentación">
+  <div class="hero__shade"></div>
+  <div class="wrap hero__content">
+   <p class="hero__kicker">Bal folk · música en vivo</p>
+   <h1 class="hero__title">Noche de<br>Danzas Francesas.</h1>
+   <p class="hero__lead">Valses, polkas, mazurkas y danzas en ronda, con acordeón en vivo. Sin experiencia previa: enseñamos cada danza.</p>
+   <ul class="hero__facts">
+    <li><b>Sábado 21 de noviembre</b> · 20 h</li>
+    <li><b>Casa Inima</b> · Boulogne Sur Mer</li>
+    <li><b>$8.000</b> por persona</li>
+   </ul>
+   <div class="hero__actions">
+    <a class="btn btn--red" href="#reservar">Reservar mi lugar</a>
+    <a class="btn btn--ghost" href="#pago">Cómo pagar</a>
+   </div>
+  </div>
+ </section>
+
+ <section class="section" id="detalles">
+  <div class="wrap grid">
+   <div>
+    <h2 class="h2">Una noche para bailar, aunque nunca hayas bailado.</h2>
+    <p class="lede">Bailamos como en los <em>bals folk</em> de Francia: en ronda, en pareja o en grupo, con música en vivo. No hace falta venir acompañado/a ni saber los pasos. Antes de cada danza la enseñamos, y después la bailamos todos juntos.</p>
+   </div>
+   <dl class="datos">
+    <div><dt>Cuándo</dt><dd>Sábado 21 de noviembre, 20 h</dd></div>
+    <div><dt>Música</dt><dd>En vivo, con acordeonista</dd></div>
+    <div><dt>Dónde</dt><dd>Casa Inima, Boulogne Sur Mer<small>A 10 minutos de la Feria de las Naciones</small></dd></div>
+    <div><dt>Precio</dt><dd>$8.000 por transferencia<small>$8.500 con Mercado Pago (tarjeta)</small></dd></div>
+   </dl>
+  </div>
+ </section>
+
+ <section class="section section--mist" id="cupo">
+  <div class="wrap">
+   <p class="kicker">Cupo mínimo</p>
+   <h2 class="h2">La noche se hace si llegamos a <span id="minimoTxt"></span> personas.</h2>
+   <p class="cupo__num" aria-live="polite"><span id="inscriptosTxt"></span> <span>inscriptos</span></p>
+   <div class="bar" role="progressbar" aria-valuemin="0" id="bar"><div class="fill" id="fill"></div></div>
+   <p class="cupo__estado" id="contador"></p>
+   <p class="lede">Confirmamos el <b id="fechaLimite1"></b>. Si no llegamos al mínimo, la noche se cancela y te devolvemos el 100 % de lo que pagaste.</p>
+  </div>
+ </section>
+
+ <section class="section" id="reservar">
+  <div class="wrap grid">
+   <div>
+    <p class="kicker">Reservar</p>
+    <h2 class="h2">Reservá tu lugar.</h2>
+    <p class="lede">Completá tus datos y tocá el botón: se abre WhatsApp con tu mensaje listo para enviarnos. Después pagás por transferencia (sin comisión) o con Mercado Pago.</p>
+   </div>
+   <form class="form" id="form">
+    <label for="nombre">Nombre y apellido</label>
+    <input id="nombre" autocomplete="name" required>
+    <label for="tel">Teléfono / WhatsApp</label>
+    <input id="tel" type="tel" autocomplete="tel" inputmode="tel" required>
+    <label for="plazas">Cantidad de lugares</label>
+    <input id="plazas" type="number" min="1" max="20" value="1" required>
+    <button class="btn btn--red" type="submit">Reservar por WhatsApp</button>
+    <p class="form__nota">Tus datos solo se usan para tu reserva.</p>
+   </form>
+  </div>
+ </section>
+
+ <section class="section section--mist" id="pago">
+  <div class="wrap">
+   <p class="kicker">Cómo pagar</p>
+   <h2 class="h2">Cuatro pasos, y tu lugar está asegurado.</h2>
+   <ol class="pasos">
+    <li><b>Reservá</b> con el formulario: te abre WhatsApp con tu mensaje listo.</li>
+    <li><b>Pagá tu lugar:</b> $8.000 por transferencia o $8.500 con Mercado Pago (ver abajo).</li>
+    <li><b>Mandanos el comprobante</b> por el mismo chat de WhatsApp.</li>
+    <li>Te respondemos <b>“Pago recibido”</b>: esa es tu confirmación, y sumamos tu lugar al contador.</li>
+   </ol>
+   <div class="opciones">
+    <div class="opcion">
+     <p class="opcion__tag">Opción 1 · sin comisión</p>
+     <h3 class="opcion__titulo">Transferencia</h3>
+     <p><b>$8.000</b> por lugar</p>
+     <p>Alias <b class="alias" id="alias"></b><br>Titular: <span id="titular"></span></p>
+     <button class="btn btn--line" type="button" id="copiar">Copiar alias</button>
+    </div>
+    <div class="opcion">
+     <p class="opcion__tag">Opción 2 · tarjeta o dinero en cuenta</p>
+     <h3 class="opcion__titulo">Mercado Pago</h3>
+     <p><b>$8.500</b> por lugar (incluye la comisión de Mercado Pago)</p>
+     <p>Crédito, débito o saldo de Mercado Pago. Un pago por cada lugar.</p>
+     <a class="btn btn--red" href="https://mpago.la/1cTAuUA" target="_blank" rel="noopener">Pagar con Mercado Pago</a>
+    </div>
+   </div>
+   <p class="aviso">Confirmamos si la noche se hace el <b id="fechaLimite2"></b>. Si no llegamos al cupo mínimo, te devolvemos la transferencia completa a la misma cuenta.</p>
+  </div>
+ </section>
+</main>
+
+<footer class="footer">
+ <div class="wrap">
+  <div class="footer__grid">
+   <div>
+    <p class="footer__brand">Che, on danse!</p>
+    <p class="footer__note">Danzas tradicionales francesas en Buenos Aires.</p>
+   </div>
+   <div>
+    <p class="footer__head">Che, on danse!</p>
+    <a href="https://cheondanse.com">cheondanse.com</a>
+    <a href="https://cheondanse.com/#clases">Clases de los sábados</a>
+    <a href="https://cheondanse.com/#agenda">Agenda</a>
+   </div>
+   <div>
+    <p class="footer__head">Contacto</p>
+    <a href="https://www.instagram.com/che.on.danse/" target="_blank" rel="noopener">@che.on.danse</a>
+    <a href="mailto:cheondanse@gmail.com">cheondanse@gmail.com</a>
+   </div>
+  </div>
+  <div class="footer__base">© 2026 Che, on danse! · Noche de Danzas Francesas en Casa Inima</div>
+ </div>
+</footer>
+
+<script>
+ const inscriptos = 0;  // ← actualizar a mano
+ const minimo = 30;     // ← cupo mínimo
+ const alias = 'CHEONDAN';                    // ← alias para transferir
+ const titular = 'Charles Di Maria';           // ← nombre que aparece al transferir
+ const fechaLimite = 'jueves 19 de noviembre'; // ← día en que se confirma o cancela
+ const precio = 8000;     // ← por transferencia
+ const precioMP = 8500;   // ← con Mercado Pago
+
+ const $ = id => document.getElementById(id);
+ $('alias').textContent = alias;
+ $('titular').textContent = titular;
+ $('fechaLimite1').textContent = fechaLimite;
+ $('fechaLimite2').textContent = fechaLimite;
+ $('minimoTxt').textContent = minimo;
+ $('inscriptosTxt').textContent = inscriptos;
+ const pct = Math.min(100, inscriptos / minimo * 100);
+ $('bar').setAttribute('aria-valuemax', minimo);
+ $('bar').setAttribute('aria-valuenow', inscriptos);
+ $('fill').style.width = pct + '%';
+ const falta = minimo - inscriptos;
+ $('contador').textContent =
+  inscriptos >= minimo ? '¡Llegamos al mínimo: la noche está confirmada!'
+  : 'Faltan ' + falta + (falta === 1 ? ' persona' : ' personas') + ' para confirmar la noche.';
+
+ $('copiar').addEventListener('click', () => {
+  const ok = () => { $('copiar').textContent = '¡Alias copiado!'; setTimeout(() => $('copiar').textContent = 'Copiar alias', 2000); };
+  if (navigator.clipboard) navigator.clipboard.writeText(alias).then(ok, () => prompt('Copiá el alias:', alias));
+  else prompt('Copiá el alias:', alias);
+ });
+
+ $('form').addEventListener('submit', e => {
+  e.preventDefault();
+  const n = Math.max(1, parseInt($('plazas').value, 10) || 1);
+  const msg = 'Hola! Quiero reservar ' + n + (n === 1 ? ' lugar' : ' lugares') +
+   ' para la Noche de Danzas Francesas (sábado 21/11, 20 h) en Casa Inima. Nombre: ' +
+   $('nombre').value.trim() + ' – Tel: ' + $('tel').value.trim() +
+   '. Total: $' + (n * precio).toLocaleString('es-AR') + ' por transferencia al alias ' + alias +
+   ', o $' + (n * precioMP).toLocaleString('es-AR') + ' con Mercado Pago.';
+  const url = 'https://wa.me/5491127723816?text=' + encodeURIComponent(msg);
+  // Si el navegador bloquea la ventana nueva (frecuente en celulares), abrir en la misma pestaña
+  if (!window.open(url, '_blank', 'noopener')) location.href = url;
+ });
+</script>
+</body>
+</html>
