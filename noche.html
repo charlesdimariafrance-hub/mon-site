@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Noche de Danzas Francesas · Che, on danse!</title>
-<meta name="description" content="Bal folk: valses, polkas, mazurkas y rondas francesas. Sábado 21 de noviembre, 20 h, Casa Inima (Boulogne Sur Mer), con acordeón en vivo. Sin experiencia previa.">
-<meta property="og:title" content="Noche de Danzas Francesas · Sábado 21/11, 20 h">
-<meta property="og:description" content="Bal folk con acordeón en vivo en Casa Inima, Boulogne Sur Mer. $8.000 · sin experiencia previa · enseñamos cada danza.">
+<meta name="description" content="Bal folk: valses, polkas, mazurkas y rondas francesas. Viernes 20 de noviembre, 20 h, con acordeón en vivo. Vos elegís el lugar: Casa Ínima, Espacio Hamsa o Wellness Camp. Sin experiencia previa.">
+<meta property="og:title" content="Noche de Danzas Francesas · Viernes 20/11, 20 h">
+<meta property="og:description" content="Bal folk con acordeón en vivo. Votá el lugar: Casa Ínima, Espacio Hamsa o Wellness Camp. $8.000 · sin experiencia previa · enseñamos cada danza.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#18233A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,6 +59,14 @@ a{color:inherit}
  radial-gradient(ellipse at 85% 15%,rgba(168,38,47,.45),transparent 55%),
  radial-gradient(ellipse at 10% 0%,rgba(141,187,227,.25),transparent 50%),
  linear-gradient(180deg,rgba(24,35,58,.25) 0%,rgba(24,35,58,.55) 45%,rgba(24,35,58,.92) 100%)}
+.hero__media{position:absolute;inset:0}
+.hero__layer{position:absolute;inset:0;overflow:hidden;opacity:0;transition:opacity 1.2s ease}
+.hero__layer.is-on{opacity:1}
+.hero__media img{width:100%;height:100%;object-fit:cover}
+.hero__layer--video img{transform:scale(1.35)}
+.hero__media iframe{position:absolute;top:50%;left:50%;width:177.78vh;height:56.25vw;min-width:100%;min-height:100%;transform:translate(-50%,-50%) scale(1.15);border:0;pointer-events:none}
+.hero__lugar{position:absolute;right:var(--gutter);top:24px;margin:0;font:italic 400 1.05rem var(--serif);color:var(--paper);background:rgba(24,35,58,.55);padding:6px 12px;border-left:2px solid var(--red)}
+.hero__toggle{position:absolute;right:var(--gutter);bottom:20px;z-index:2;background:rgba(24,35,58,.6);color:var(--paper);border:1px solid rgba(255,255,255,.5);font:500 .85rem var(--sans);padding:8px 12px;border-radius:2px;cursor:pointer}
 .hero__content{position:relative;padding-top:110px;padding-bottom:clamp(48px,8vw,96px);width:100%}
 .hero__kicker{font:italic 400 1.15rem var(--serif);color:var(--sky);margin:0 0 .6rem}
 .hero__title{font:400 clamp(3rem,9vw,7.2rem)/.98 var(--serif);margin:0 0 1.4rem;letter-spacing:-.02em}
@@ -83,17 +91,36 @@ a{color:inherit}
 .cupo__num span{font-size:.45em;color:var(--muted)}
 .bar{background:var(--paper);border:1px solid var(--line);height:14px;margin:18px 0 10px;max-width:640px}
 .fill{background:var(--red);height:100%;width:0;transition:width .8s}
-.cupo__dos{display:flex;flex-wrap:wrap;gap:12px 48px;align-items:baseline}
-.cupo__num--res{color:var(--muted)}
-.cupo__nota{font-size:.92rem;color:var(--muted);margin:0 0 1rem}
 .cupo__estado{font-weight:500;color:var(--ink);margin:0 0 .4rem}
+
+/* lugares */
+.lugares{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;margin-top:8px}
+.lugar{background:var(--paper);border:1px solid var(--line);display:flex;flex-direction:column;min-width:0}
+.lugar--lider{border-color:var(--red);box-shadow:0 0 0 1px var(--red)}
+.fotos{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:4px;background:var(--ink)}
+.fotos img{flex:0 0 100%;width:100%;aspect-ratio:4/3;object-fit:cover;scroll-snap-align:start;display:block}
+.fotos--vacio{aspect-ratio:4/3;align-items:center;justify-content:center;color:var(--sky);font:italic 400 1.4rem var(--serif);background:radial-gradient(ellipse at 80% 10%,rgba(168,38,47,.5),transparent 60%),var(--ink)}
+.fotos__pista{font-size:.8rem;color:var(--muted);margin:6px 20px 0}
+.lugar__cuerpo{padding:18px 20px 22px;display:flex;flex-direction:column;flex:1}
+.lugar__nombre{font:400 1.7rem/1.1 var(--serif);color:var(--ink);margin:0 0 4px}
+.lugar__horario{margin:0 0 6px;font-size:.92rem;color:var(--red);font-weight:500;letter-spacing:.01em}
+.lugar__dir{margin:0;color:var(--text)}
+.lugar__mapa{display:block;width:100%;height:200px;border:1px solid var(--line);background:var(--mist);margin:12px 0 4px}
+.lugar__links{display:flex;flex-wrap:wrap;gap:6px 16px;margin:8px 0 16px;font-size:.92rem}
+.lugar__links a{color:var(--red)}
+.lugar .bar{margin:auto 0 8px;max-width:none}
+.lugar__cuenta{margin:0;font-size:.95rem;color:var(--ink)}
+.lugar__cuenta b{font:400 1.6rem var(--serif)}
+.lugar__estado{margin:4px 0 0;font-size:.88rem;color:var(--muted)}
+.lugar--lider .lugar__estado{color:var(--red);font-weight:500}
+.regla{margin:0 0 28px;padding:16px 20px;background:var(--paper);border-left:3px solid var(--red);max-width:760px}
 
 /* formulario */
 .form{background:var(--paper);border:1px solid var(--line);padding:clamp(20px,3vw,32px)}
 .form label{display:block;font-size:.88rem;font-weight:500;color:var(--ink);margin:14px 0 6px}
 .form label:first-child{margin-top:0}
-.form input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:2px;font:400 1rem var(--sans);color:var(--text);background:var(--paper)}
-.form input:focus{outline:2px solid var(--sky);border-color:var(--ink)}
+.form input,.form select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:2px;font:400 1rem var(--sans);color:var(--text);background:var(--paper)}
+.form input:focus,.form select:focus{outline:2px solid var(--sky);border-color:var(--ink)}
 .form .btn{margin-top:22px;width:100%;text-align:center;font-size:1.02rem}
 .form__nota{font-size:.85rem;color:var(--muted);margin:12px 0 0}
 
@@ -145,7 +172,7 @@ a{color:inherit}
   <a class="brand" href="https://cheondanse.com" aria-label="Che, on danse! Inicio">Che, on danse!</a>
   <nav class="nav" aria-label="Principal">
    <a href="#detalles">La noche</a>
-   <a href="#cupo">Cupo</a>
+   <a href="#lugares">Lugares</a>
    <a href="#pago">Cómo pagar</a>
    <a class="btn btn--red" href="#reservar">Reservar</a>
   </nav>
@@ -154,14 +181,15 @@ a{color:inherit}
 
 <main id="main">
  <section class="hero" aria-label="Presentación">
+  <div class="hero__media" id="heroMedia" aria-hidden="true"></div>
   <div class="hero__shade"></div>
   <div class="wrap hero__content">
    <p class="hero__kicker">Bal folk · música en vivo</p>
    <h1 class="hero__title">Noche de<br>Danzas Francesas.</h1>
    <p class="hero__lead">Valses, polkas, mazurkas y danzas en ronda, con acordeón en vivo. Sin experiencia previa: enseñamos cada danza.</p>
    <ul class="hero__facts">
-    <li><b>Sábado 21 de noviembre</b> · 20 h</li>
-    <li><b>Casa Inima</b> · Boulogne Sur Mer</li>
+    <li><b>Viernes 20 de noviembre</b> · 20 h</li>
+    <li><b>3 lugares posibles</b> · vos votás</li>
     <li><b>$8.000</b> por persona</li>
    </ul>
    <div class="hero__actions">
@@ -169,6 +197,7 @@ a{color:inherit}
     <a class="btn btn--ghost" href="#pago">Cómo pagar</a>
    </div>
   </div>
+  <button class="hero__toggle" id="heroToggle" type="button" hidden>Pausar video</button>
  </section>
 
  <section class="section" id="detalles">
@@ -178,26 +207,21 @@ a{color:inherit}
     <p class="lede">Bailamos como en los <em>bals folk</em> de Francia: en ronda, en pareja o en grupo, con música en vivo. No hace falta venir acompañado/a ni saber los pasos. Antes de cada danza la enseñamos, y después la bailamos todos juntos.</p>
    </div>
    <dl class="datos">
-    <div><dt>Cuándo</dt><dd>Sábado 21 de noviembre, 20 h</dd></div>
+    <div><dt>Cuándo</dt><dd>Viernes 20 de noviembre, 20 h</dd></div>
     <div><dt>Música</dt><dd>En vivo, con acordeonista</dd></div>
-    <div><dt>Dónde</dt><dd>Casa Inima, Boulogne Sur Mer<small>A 10 minutos de la Feria de las Naciones</small></dd></div>
+    <div><dt>Dónde</dt><dd>Casa Ínima, Espacio Hamsa o Wellness Camp<small>Se elige por votación: <a href="#lugares">ver los lugares</a></small></dd></div>
     <div><dt>Precio</dt><dd>$8.000 por transferencia<small>$8.500 con Mercado Pago (tarjeta)</small></dd></div>
    </dl>
   </div>
  </section>
 
- <section class="section section--mist" id="cupo">
+ <section class="section section--mist" id="lugares">
   <div class="wrap">
-   <p class="kicker">Cupo mínimo</p>
-   <h2 class="h2">La noche se hace si llegamos a <span id="minimoTxt"></span> personas.</h2>
-   <div class="cupo__dos" aria-live="polite">
-    <p class="cupo__num"><span id="pagadosTxt">–</span> <span>pagados</span></p>
-    <p class="cupo__num cupo__num--res"><span id="reservadosTxt">–</span> <span>reservados</span></p>
-   </div>
-   <div class="bar" role="progressbar" aria-valuemin="0" id="bar"><div class="fill" id="fill"></div></div>
-   <p class="cupo__estado" id="contador"></p>
-   <p class="cupo__nota">Para llegar al mínimo cuentan los lugares <b>pagados</b>. Los <b>reservados</b> son todos los que completaron el formulario. No hay máximo: después de 30, seguimos sumando.</p>
-   <p class="lede">Confirmamos el <b id="fechaLimite1"></b>. Si no llegamos al mínimo, la noche se cancela y te devolvemos el 100 % de lo que pagaste.</p>
+   <p class="kicker">Tres lugares, un voto</p>
+   <h2 class="h2">Vos elegís dónde bailamos.</h2>
+   <p class="regla">Cada lugar suma sus votos más los «Me da igual». El que llegue más alto se elige, si alcanza <span class="minimoTxt"></span> personas. Si votaste por otro lugar, te devolvemos el 100 %.</p>
+   <div class="lugares" id="lugaresLista"></div>
+   <p class="lede" style="margin-top:28px">Confirmamos el <b id="fechaLimite1"></b>. Si ningún lugar llega a <span class="minimoTxt"></span>, la noche se cancela y te devolvemos el 100 % de lo que pagaste.</p>
   </div>
  </section>
 
@@ -213,6 +237,14 @@ a{color:inherit}
     <input id="nombre" autocomplete="name" required>
     <label for="tel">Teléfono / WhatsApp</label>
     <input id="tel" type="tel" autocomplete="tel" inputmode="tel" required>
+    <label for="lugar">Lugar preferido</label>
+    <select id="lugar" required>
+     <option value="" disabled selected>Elegí una opción</option>
+     <option>Casa Ínima</option>
+     <option>Espacio Hamsa</option>
+     <option>Wellness Camp</option>
+     <option>Me da igual</option>
+    </select>
     <label for="plazas">Cantidad de lugares</label>
     <input id="plazas" type="number" min="1" max="20" value="1" required>
     <button class="btn btn--red" type="submit">Reservar por WhatsApp</button>
@@ -247,7 +279,7 @@ a{color:inherit}
      <a class="btn btn--red" href="https://mpago.la/1cTAuUA" target="_blank" rel="noopener">Pagar con Mercado Pago</a>
     </div>
    </div>
-   <p class="aviso">Confirmamos si la noche se hace el <b id="fechaLimite2"></b>. Si no llegamos al cupo mínimo, te devolvemos la transferencia completa a la misma cuenta.</p>
+   <p class="aviso">Confirmamos el lugar el <b id="fechaLimite2"></b>. Si ningún lugar llega al cupo mínimo, o si votaste por un lugar que no fue elegido, te devolvemos el 100 % a la misma cuenta.</p>
   </div>
  </section>
 </main>
@@ -271,42 +303,177 @@ a{color:inherit}
     <a href="mailto:cheondanse@gmail.com">cheondanse@gmail.com</a>
    </div>
   </div>
-  <div class="footer__base">© 2026 Che, on danse! · Noche de Danzas Francesas en Casa Inima</div>
+  <div class="footer__base">© 2026 Che, on danse! · Noche de Danzas Francesas</div>
  </div>
 </footer>
 
 <script>
- const minimo = 30;     // ← cupo mínimo (no hay máximo)
+ // ← actualizar a mano: lugares pagados según la respuesta «Lugar preferido»
+ const votos = { inima: 0, hamsa: 0, wellness: 0, igual: 0 };
+ const minimo = 30;     // ← cupo mínimo por lugar
+
+ // ← fotos: poner 2 o 3 archivos por lugar en la carpeta «fotos» (los que falten se ocultan solos)
+ const lugares = [
+  { id: 'inima', nombre: 'Casa Ínima', dir: 'Bogado 571, San Isidro',
+    fotos: ['fotos/casa-inima-1.jpg', 'fotos/casa-inima-2.jpg', 'fotos/casa-inima-3.jpg'],
+    links: [['Instagram @casainima', 'https://www.instagram.com/casainima/']] },
+  { id: 'hamsa', nombre: 'Espacio Hamsa', dir: 'Hidalgo 1470, CABA',
+    fotos: ['fotos/espacio-hamsa-1.jpg', 'fotos/espacio-hamsa-2.jpg', 'fotos/espacio-hamsa-3.jpg'],
+    links: [] },
+  { id: 'wellness', nombre: 'Wellness Camp', dir: 'Defensa 682, San Telmo',
+    fotos: ['fotos/wellness-camp-1.jpg', 'fotos/wellness-camp-2.jpg', 'fotos/wellness-camp-3.jpg'],
+    links: [['Instagram @wellnesscamp.centro', 'https://www.instagram.com/wellnesscamp.centro/'],
+            ['Facebook wellnesscamp', 'https://www.facebook.com/wellnesscamp']] },
+ ];
  const alias = 'CHEONDAN';                    // ← alias para transferir
  const titular = 'Charles Di Maria';           // ← nombre que aparece al transferir
  const fechaLimite = 'jueves 19 de noviembre'; // ← día en que se confirma o cancela
  const precio = 8000;     // ← por transferencia
  const precioMP = 8500;   // ← con Mercado Pago
- // Contadores automáticos (Supabase, el mismo sistema que las reservas del sitio)
- const SB = 'https://bizuvwzgtmoosadxouqk.supabase.co', SB_KEY = 'sb_publishable_jksOvhfLGclbESfh1GSmLg_SupXXqXH';
- const rpc = (fn, args) => fetch(SB + '/rest/v1/rpc/' + fn, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: SB_KEY }, body: JSON.stringify(args || {}) })
-  .then(r => r.ok ? r.json() : Promise.reject(new Error(r.status)));
+
+ const horario = 'Viernes 20 de noviembre · 20 h';  // ← fecha y hora de la noche
+
+ // ← portada: videos de danza (YouTube) intercalados con la primera foto de cada lugar
+ const HERO = [
+  { video: '_xuatd1_CVQ', start: 0, img: 'hqdefault' },   // bal en el Berry
+  { lugar: 0 },
+  { video: '6uVbDwjf-AI', start: 60, img: 'hq1' },        // parejas al aire libre, Le Son Continu 2022
+  { lugar: 1 },
+  { video: 'I2II5rx77Xg', start: 393, img: 'hq2' },       // danza en grupo al sol, Le Son Continu 2025
+  { lugar: 2 },
+  { video: 'bihxTG0Pyhk', start: 40, img: 'hq1' },        // Le Son Continu 2018
+ ];
+ const HERO_SECONDS = 5;
 
  const $ = id => document.getElementById(id);
  $('alias').textContent = alias;
  $('titular').textContent = titular;
  $('fechaLimite1').textContent = fechaLimite;
  $('fechaLimite2').textContent = fechaLimite;
- $('minimoTxt').textContent = minimo;
- $('bar').setAttribute('aria-valuemax', minimo);
- const pintar = (pagados, reservados) => {
-  $('pagadosTxt').textContent = pagados;
-  $('reservadosTxt').textContent = reservados;
-  $('bar').setAttribute('aria-valuenow', pagados);
-  $('fill').style.width = Math.min(100, pagados / minimo * 100) + '%';
-  const falta = minimo - pagados;
-  $('contador').textContent = pagados >= minimo
-   ? '¡Llegamos al mínimo: la noche está confirmada! Todavía podés sumarte.'
-   : 'Faltan ' + falta + (falta === 1 ? ' lugar pagado' : ' lugares pagados') + ' para confirmar la noche.';
- };
- const actualizar = () => rpc('noche_contadores').then(d => { const f = Array.isArray(d) ? d[0] : d; pintar(+f.pagados || 0, +f.reservados || 0); })
-  .catch(() => { $('contador').textContent = 'Faltan lugares pagados para llegar a ' + minimo + '.'; });
- actualizar();
+ document.querySelectorAll('.minimoTxt').forEach(e => e.textContent = minimo);
+
+ const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+ const totales = lugares.map(l => (votos[l.id] || 0) + (votos.igual || 0));
+ const max = Math.max(...totales);
+ lugares.forEach((l, i) => {
+  const total = totales[i];
+  const lider = total > 0 && total === max;
+  const card = el('article', 'lugar' + (lider ? ' lugar--lider' : ''));
+
+  const fotos = el('div', 'fotos');
+  const pista = el('p', 'fotos__pista', 'Deslizá para ver más fotos →');
+  pista.hidden = true;
+  let cargadas = 0, pendientes = l.fotos.length;
+  const vacio = () => { fotos.classList.add('fotos--vacio'); fotos.textContent = l.nombre; };
+  l.fotos.forEach(src => {
+   const img = new Image();
+   img.alt = l.nombre; img.src = src;
+   img.onload = () => { if (++cargadas >= 2) pista.hidden = false; };
+   img.onerror = () => { img.remove(); if (--pendientes === 0) vacio(); };
+   fotos.append(img);
+  });
+  if (!l.fotos.length) vacio();
+  card.append(fotos, pista);
+
+  const cuerpo = el('div', 'lugar__cuerpo');
+  cuerpo.append(el('h3', 'lugar__nombre', l.nombre), el('p', 'lugar__horario', horario), el('p', 'lugar__dir', l.dir));
+  const links = el('p', 'lugar__links');
+  const enlace = (t, h) => { const a = el('a', null, t); a.href = h; a.target = '_blank'; a.rel = 'noopener'; links.append(a); };
+  enlace('Ver en el mapa', 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(l.dir + ', Buenos Aires'));
+  l.links.forEach(([t, h]) => enlace(t, h));
+  cuerpo.append(links);
+  const mapa = document.createElement('iframe');
+  mapa.className = 'lugar__mapa';
+  mapa.loading = 'lazy';
+  mapa.title = 'Mapa: ' + l.nombre + ', ' + l.dir;
+  mapa.referrerPolicy = 'no-referrer-when-downgrade';
+  mapa.src = 'https://maps.google.com/maps?q=' + encodeURIComponent(l.dir + ', Buenos Aires, Argentina') + '&z=15&output=embed';
+  cuerpo.insertBefore(mapa, links);
+
+  const bar = el('div', 'bar');
+  bar.setAttribute('role', 'progressbar');
+  bar.setAttribute('aria-label', 'Personas para ' + l.nombre);
+  bar.setAttribute('aria-valuemin', 0);
+  bar.setAttribute('aria-valuemax', minimo);
+  bar.setAttribute('aria-valuenow', Math.min(total, minimo));
+  const fill = el('div', 'fill');
+  bar.append(fill);
+  setTimeout(() => fill.style.width = Math.min(100, total / minimo * 100) + '%', 60);
+  const cuenta = el('p', 'lugar__cuenta');
+  cuenta.append(el('b', null, total), document.createTextNode(' / ' + minimo + ' · ' + (votos[l.id] || 0) + ' votos + ' + (votos.igual || 0) + ' «Me da igual»'));
+  const falta = minimo - total;
+  const estado = el('p', 'lugar__estado',
+   total >= minimo && lider ? '¡Llegó a ' + minimo + ' y va primero!'
+   : total >= minimo ? 'Llegó a ' + minimo + ', pero otro lugar va primero.'
+   : 'Faltan ' + falta + (falta === 1 ? ' persona' : ' personas') + (lider ? ' · va primero' : ''));
+  cuerpo.append(bar, cuenta, estado);
+  card.append(cuerpo);
+  $('lugaresLista').append(card);
+ });
+
+ /* Portada: fundido entre videos de danza y fotos de los lugares */
+ (() => {
+  const media = $('heroMedia'), toggle = $('heroToggle');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const saveData = navigator.connection && navigator.connection.saveData;
+  const conVideo = !reduce && !saveData && innerWidth >= 900;
+  const capas = [], frames = [];
+  let actual = 0, timer = null, playing = true;
+
+  HERO.forEach(h => {
+   const capa = el('div', 'hero__layer');
+   const img = new Image();
+   img.alt = '';
+   if (h.video) {
+    capa.classList.add('hero__layer--video');
+    img.src = 'https://i.ytimg.com/vi/' + h.video + '/' + h.img + '.jpg';
+    capa.append(img);
+    capa.dataset.video = h.video;
+    capa.dataset.start = h.start;
+   } else {
+    const l = lugares[h.lugar];
+    if (!l || !l.fotos.length) return;
+    img.onerror = () => {               // foto todavía no subida: se saca de la rotación
+     const i = capas.indexOf(capa);
+     if (i < 0) return;
+     const eraVisible = i === actual;
+     capas.splice(i, 1); capa.remove();
+     if (i < actual) actual--;
+     if (actual >= capas.length) actual = 0;
+     if (eraVisible) capas[actual].classList.add('is-on');
+    };
+    img.src = l.fotos[0];
+    capa.append(img, el('p', 'hero__lugar', l.nombre + ' · ' + l.dir.split(', ').pop()));
+   }
+   media.append(capa);
+   capas.push(capa);
+  });
+  capas[0].classList.add('is-on');
+
+  const mostrar = i => { capas[actual].classList.remove('is-on'); actual = i; capas[actual].classList.add('is-on'); };
+  const arrancar = () => { if (!reduce) timer = setInterval(() => mostrar((actual + 1) % capas.length), HERO_SECONDS * 1000); };
+  arrancar();
+
+  const enviar = (f, func) => { try { f.contentWindow.postMessage(JSON.stringify({ event: 'command', func, args: [] }), '*'); } catch (e) {} };
+  if (conVideo) addEventListener('load', () => setTimeout(() => {
+   capas.filter(c => c.dataset.video).forEach(c => {
+    const id = c.dataset.video;
+    const f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&mute=1&controls=0&loop=1&playlist=' + id +
+     '&start=' + c.dataset.start + '&playsinline=1&rel=0&disablekb=1&modestbranding=1&iv_load_policy=3&enablejsapi=1';
+    f.title = 'Video de baile'; f.allow = 'autoplay; encrypted-media'; f.tabIndex = -1;
+    c.append(f); frames.push(f);
+   });
+  }, 600));
+
+  toggle.hidden = reduce;
+  toggle.addEventListener('click', () => {
+   playing = !playing;
+   if (playing) { arrancar(); frames.forEach(f => enviar(f, 'playVideo')); }
+   else { clearInterval(timer); frames.forEach(f => enviar(f, 'pauseVideo')); }
+   toggle.textContent = playing ? 'Pausar video' : 'Reproducir video';
+  });
+ })();
 
  $('copiar').addEventListener('click', () => {
   const ok = () => { $('copiar').textContent = '¡Alias copiado!'; setTimeout(() => $('copiar').textContent = 'Copiar alias', 2000); };
@@ -317,18 +484,15 @@ a{color:inherit}
  $('form').addEventListener('submit', e => {
   e.preventDefault();
   const n = Math.max(1, parseInt($('plazas').value, 10) || 1);
-  const nombre = $('nombre').value.trim(), tel = $('tel').value.trim();
+  const lugar = $('lugar').value;
   const msg = 'Hola! Quiero reservar ' + n + (n === 1 ? ' lugar' : ' lugares') +
-   ' para la Noche de Danzas Francesas (sábado 21/11, 20 h) en Casa Inima. Nombre: ' +
-   nombre + ' – Tel: ' + tel +
+   ' para la Noche de Danzas Francesas (viernes 20/11, 20 h). Lugar preferido: ' + lugar + '. Nombre: ' +
+   $('nombre').value.trim() + ' – Tel: ' + $('tel').value.trim() +
    '. Total: $' + (n * precio).toLocaleString('es-AR') + ' por transferencia al alias ' + alias +
    ', o $' + (n * precioMP).toLocaleString('es-AR') + ' con Mercado Pago.';
   const url = 'https://wa.me/5491127723816?text=' + encodeURIComponent(msg);
-  // Primero se guarda la reserva (cuenta en «reservados»), después se abre WhatsApp
-  const btn = e.submitter || $('form').querySelector('button'); btn.disabled = true; btn.textContent = 'Guardando tu reserva…';
-  let ido = false; const ir = () => { if (!ido) { ido = true; location.href = url; } };
-  setTimeout(ir, 4000);
-  rpc('noche_reservar', { p_nombre: nombre, p_tel: tel, p_lugares: n }).catch(() => {}).finally(ir);
+  // Si el navegador bloquea la ventana nueva (frecuente en celulares), abrir en la misma pestaña
+  if (!window.open(url, '_blank', 'noopener')) location.href = url;
  });
 </script>
 </body>
