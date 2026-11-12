@@ -101,7 +101,7 @@
     return '<div class="rsv-seg" role="group"><button type="button" aria-pressed="true" data-modo="nuevo">' + a + '</button><button type="button" aria-pressed="false" data-modo="ya">' + b + "</button></div>";
   };
   var final = function (boton) {
-    return '<div class="rsv-wa" data-wa hidden>Ya son más de las 13:30: igual podés inscribirte, pero avisanos también por WhatsApp que venís hoy, así te sumamos a la lista del seguro.<br><a href="' + WHATSAPP + '" target="_blank" rel="noopener">Escribir por WhatsApp</a></div>' +
+    return '<div class="rsv-wa" data-wa hidden>Ya son más de las 13:30: igual podés inscribirte. Si podés, avisanos también por WhatsApp que venís hoy.<br><a href="' + WHATSAPP + '" target="_blank" rel="noopener">Escribir por WhatsApp</a></div>' +
       '<input class="rsv-trap" name="web" tabindex="-1" autocomplete="off" aria-hidden="true">' +
       '<div class="rsv-actions"><button class="btn btn--red" type="submit">' + boton + '</button></div><p class="rsv-error" role="alert" hidden></p>';
   };
