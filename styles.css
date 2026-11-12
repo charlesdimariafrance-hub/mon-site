@@ -573,3 +573,9 @@ html, body { overflow-x: clip; max-width: 100%; }
 
 .dm__pop a { color: inherit; text-decoration: underline; font-weight: 700; }
 .dm__x { position: absolute; top: 8px; right: 10px; background: none; border: 0; font-size: 1.4rem; cursor: pointer; color: inherit; padding: 4px 8px; }
+
+/* Fotos del Grand Bal en la sección de clases */
+.fotos-fr{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:2rem}
+.fotos-fr img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block;border-radius:4px}
+.fotos-fr__cr{grid-column:1/-1;font-size:.85rem;opacity:.75;margin:0}
+@media (max-width:700px){.fotos-fr{grid-template-columns:repeat(2,1fr)}}

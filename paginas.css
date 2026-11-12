@@ -64,3 +64,9 @@
 .pg-hero--film .wrap { z-index: 2; }
 @media (max-width: 759px) { .film__cap { right: auto; left: 50%; transform: translateX(-50%); top: 24px; white-space: nowrap; } }
 @media (prefers-reduced-motion: reduce) { .film__slide.on img, .film__slide.on video, .film__grain { animation: none; } }
+
+/* Galería de fotos (Gennetines) */
+.gal{columns:3 260px;column-gap:12px;margin-top:1.6rem}
+.gal a{display:block;break-inside:avoid;margin-bottom:12px}
+.gal img{width:100%;height:auto;display:block;border-radius:4px}
+.gal__cr{font-size:.85rem;opacity:.75;margin-top:.6rem}
