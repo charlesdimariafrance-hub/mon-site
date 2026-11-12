@@ -49,8 +49,6 @@ begin
     p_cantidad := least(greatest(coalesce(p_cantidad, 1), 1), 20);
   else
     if extract(isodow from p_fecha) <> 6 then raise exception 'Las clases son los sábados.'; end if;
-    -- El sábado después de las 13 h la lista del seguro ya está cerrada.
-    if p_fecha = hoy and extract(hour from ahora) >= 13 then raise exception 'CERRADO_HOY'; end if;
     if p.dni is null or p.fecha_nacimiento is null then
       raise exception 'Para el seguro necesitamos tu DNI: usá «Primera clase gratis».';
     end if;

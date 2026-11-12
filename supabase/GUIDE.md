@@ -99,3 +99,8 @@ Comme pour la Noche : **SQL Editor** → **+ New query**, puis collez et exécut
 
 - Page publique : `online.html` (grille des lundis, compteur par horaire, minimum 10).
 - Page de Charles : `online-admin.html` (même mot de passe), boutons « Pagó · transferencia / Mercado Pago / Revolut ».
+
+
+## Paso 7 · La inscripción del sábado ya no se cierra a las 13 h
+Copiá todo el archivo `07_sin_cierre.sql` (un solo bloque) en el SQL Editor y tocá **Run**. Tiene que decir «Success».
+Después de esto, la gente puede inscribirse a cualquier hora; el sitio solo muestra un aviso después de las 13:30.

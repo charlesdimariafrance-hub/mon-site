@@ -8,7 +8,7 @@
   var API_KEY = "sb_publishable_jksOvhfLGclbESfh1GSmLg_SupXXqXH";
   var WHATSAPP = "https://wa.me/5491127723816";
   var ALIAS_CLASES = "CHEONDANSE", ALIAS_BRUNCH = "LEPETITBAL";
-  var HORA_CIERRE = 13;   // el sábado, después de esta hora se reserva por WhatsApp
+  var AVISO_MIN = 13 * 60 + 30;   // el sábado, desde las 13:30 se muestra un aviso (la inscripción sigue abierta)
   var SEMANAS = 8;        // cantidad de sábados / domingos en la lista
 
   var root = document.getElementById("elegir");
@@ -23,7 +23,7 @@
     var p = {};
     new Intl.DateTimeFormat("en-CA", { timeZone: "America/Argentina/Buenos_Aires", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", hourCycle: "h23" })
       .formatToParts(new Date()).forEach(function (x) { p[x.type] = x.value; });
-    return { iso: p.year + "-" + p.month + "-" + p.day, hora: +p.hour };
+    return { iso: p.year + "-" + p.month + "-" + p.day, hora: +p.hour, min: +p.hour * 60 + +p.minute };
   };
   var aFecha = function (iso) { var d = iso.split("-"); return new Date(Date.UTC(+d[0], d[1] - 1, +d[2])); };
   var aIso = function (d) { return d.toISOString().slice(0, 10); };
@@ -34,7 +34,7 @@
     for (var i = 0; i < SEMANAS; i++) { out.push(aIso(d)); d.setUTCDate(d.getUTCDate() + 7); }
     return out;
   };
-  var cerradoHoy = function (iso) { var a = ahoraBA(); return iso === a.iso && a.hora >= HORA_CIERRE; };
+  var tardeHoy = function (iso) { var a = ahoraBA(); return iso === a.iso && a.min >= AVISO_MIN; };
 
   /* Supabase */
   var rpc = function (fn, args) {
@@ -83,10 +83,10 @@
       '<option value="intermedios">Intermedios · ' + intermedios + '</option></select></div>';
   };
   var sabados = function (p) {
-    var a = ahoraBA(), lista = proximos(6), elegido = lista.filter(function (s) { return !cerradoHoy(s); })[0];
+    var a = ahoraBA(), lista = proximos(6), elegido = lista[0];
     return '<div class="rsv-full"><label for="' + p + '-fecha">Sábado</label><select id="' + p + '-fecha" name="fecha" data-sabado>' +
       lista.map(function (s) {
-        return '<option value="' + s + '"' + (s === elegido ? " selected" : "") + ">" + legible(s) + (cerradoHoy(s) ? " (hoy: WhatsApp)" : s === a.iso ? " (hoy)" : "") + "</option>";
+        return '<option value="' + s + '"' + (s === elegido ? " selected" : "") + ">" + legible(s) + (s === a.iso ? " (hoy)" : "") + "</option>";
       }).join("") + "</select></div>";
   };
   var domingos = function (p) {
@@ -101,7 +101,7 @@
     return '<div class="rsv-seg" role="group"><button type="button" aria-pressed="true" data-modo="nuevo">' + a + '</button><button type="button" aria-pressed="false" data-modo="ya">' + b + "</button></div>";
   };
   var final = function (boton) {
-    return '<div class="rsv-wa" data-wa hidden>Ya cerramos la lista de hoy para el seguro. Para venir hoy, avisanos por WhatsApp:<br><a href="' + WHATSAPP + '" target="_blank" rel="noopener">Escribir por WhatsApp</a></div>' +
+    return '<div class="rsv-wa" data-wa hidden>Ya son más de las 13:30: igual podés inscribirte, pero avisanos también por WhatsApp que venís hoy, así te sumamos a la lista del seguro.<br><a href="' + WHATSAPP + '" target="_blank" rel="noopener">Escribir por WhatsApp</a></div>' +
       '<input class="rsv-trap" name="web" tabindex="-1" autocomplete="off" aria-hidden="true">' +
       '<div class="rsv-actions"><button class="btn btn--red" type="submit">' + boton + '</button></div><p class="rsv-error" role="alert" hidden></p>';
   };
@@ -159,12 +159,10 @@
       });
     });
 
-    /* Sábado de hoy después de las 13 h: WhatsApp en lugar del botón */
+    /* Sábado de hoy después de las 13:30: solo un aviso, la inscripción sigue abierta */
     var sab = form.querySelector("[data-sabado]");
     var revisarHora = function () {
-      var tarde = sab && cerradoHoy(sab.value);
-      form.querySelector("[data-wa]").hidden = !tarde;
-      enviar.parentNode.hidden = !!tarde;
+      form.querySelector("[data-wa]").hidden = !(sab && tardeHoy(sab.value));
     };
     if (sab) { sab.addEventListener("change", revisarHora); revisarHora(); }
 
@@ -207,7 +205,6 @@
       var visibles = function (sel) { return Array.prototype.filter.call(form.querySelectorAll(sel), function (x) { return !x.closest("[hidden]"); }); };
       var valor = function (name) { var x = visibles("[name=" + name + "]")[0]; return x ? x.value.trim() : ""; };
       var fecha = valor("fecha");
-      if (sab && cerradoHoy(fecha)) { revisarHora(); return; }
 
       var faltan = visibles("input[required], select[required]").filter(function (x) { return !x.value.trim(); });
       visibles("input[required]").forEach(function (x) { x.setAttribute("aria-invalid", !x.value.trim()); });
@@ -240,7 +237,7 @@
         form.outerHTML = '<div class="rsv-ok" role="status"><strong>¡Listo, ' + esc(nombreOk) + "!</strong> Quedaste en la lista. Te esperamos " + cuando + "</div>";
       }).catch(function (err) {
         enviar.disabled = false; enviar.textContent = enviar.dataset.texto;
-        if (err.message === "CERRADO_HOY") { form.querySelector("[data-wa]").hidden = false; enviar.parentNode.hidden = true; return; }
+        if (err.message === "CERRADO_HOY") { mostrarError("Hoy ya no pudimos sumarte en línea: avisanos por WhatsApp que venís."); form.querySelector("[data-wa]").hidden = false; return; }
         mostrarError(err.message);
       });
     });
