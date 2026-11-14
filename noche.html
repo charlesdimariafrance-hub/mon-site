@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Noche de Danzas Francesas · Che, on danse!</title>
-<meta name="description" content="Bal folk: valses, polkas, mazurkas y rondas francesas. Viernes 20 de noviembre, 20 h, con acordeón en vivo. Vos elegís el lugar: Casa Ínima, Espacio Hamsa o Wellness Camp. Sin experiencia previa.">
+<meta name="description" content="Bal folk: valses, polkas, mazurkas y rondas francesas. Viernes 20 de noviembre, 20 h, con acordeón en vivo. En Espacio Hamsa, Hidalgo 1470, CABA. Sin experiencia previa.">
 <meta property="og:title" content="Noche de Danzas Francesas · Viernes 20/11, 20 h">
-<meta property="og:description" content="Bal folk con acordeón en vivo. Votá el lugar: Casa Ínima, Espacio Hamsa o Wellness Camp. $8.000 · sin experiencia previa · enseñamos cada danza.">
+<meta property="og:description" content="Bal folk con acordeón en vivo en Espacio Hamsa, Hidalgo 1470, CABA. $8.000 · sin experiencia previa · enseñamos cada danza.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#18233A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -94,7 +94,7 @@ a{color:inherit}
 .cupo__estado{font-weight:500;color:var(--ink);margin:0 0 .4rem}
 
 /* lugares */
-.lugares{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;margin-top:8px}
+.lugares{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;margin-top:8px;max-width:560px}
 .lugar{background:var(--paper);border:1px solid var(--line);display:flex;flex-direction:column;min-width:0}
 .lugar--lider{border-color:var(--red);box-shadow:0 0 0 1px var(--red)}
 .fotos{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:4px;background:var(--ink)}
@@ -172,7 +172,7 @@ a{color:inherit}
   <a class="brand" href="https://cheondanse.com" aria-label="Che, on danse! Inicio">Che, on danse!</a>
   <nav class="nav" aria-label="Principal">
    <a href="#detalles">La noche</a>
-   <a href="#lugares">Lugares</a>
+   <a href="#lugares">Lugar</a>
    <a href="#pago">Cómo pagar</a>
    <a class="btn btn--red" href="#reservar">Reservar</a>
   </nav>
@@ -189,7 +189,7 @@ a{color:inherit}
    <p class="hero__lead">Valses, polkas, mazurkas y danzas en ronda, con acordeón en vivo. Sin experiencia previa: enseñamos cada danza.</p>
    <ul class="hero__facts">
     <li><b>Viernes 20 de noviembre</b> · 20 h</li>
-    <li><b>3 lugares posibles</b> · vos votás</li>
+    <li><b>Espacio Hamsa</b> · Hidalgo 1470, CABA</li>
     <li><b>$8.000</b> por persona</li>
    </ul>
    <div class="hero__actions">
@@ -209,19 +209,17 @@ a{color:inherit}
    <dl class="datos">
     <div><dt>Cuándo</dt><dd>Viernes 20 de noviembre, 20 h</dd></div>
     <div><dt>Música</dt><dd>En vivo, con acordeonista</dd></div>
-    <div><dt>Dónde</dt><dd>Casa Ínima, Espacio Hamsa o Wellness Camp<small>Se elige por votación: <a href="#lugares">ver los lugares</a></small></dd></div>
-    <div><dt>Precio</dt><dd>$8.000 por transferencia<small>$8.500 con Mercado Pago (tarjeta)</small></dd></div>
+    <div><dt>Dónde</dt><dd>Espacio Hamsa<small>Hidalgo 1470, CABA · <a href="#lugares">ver el lugar</a></small></dd></div>
+    <div><dt>Precio</dt><dd>$8.000 por transferencia<small>$8.500 con Mercado Pago (tarjeta)</small><small>El viernes 20 de noviembre, reservá por WhatsApp y pagá $10.000 por persona en la entrada a partir de las 20 h.</small></dd></div>
    </dl>
   </div>
  </section>
 
  <section class="section section--mist" id="lugares">
   <div class="wrap">
-   <p class="kicker">Tres lugares, un voto</p>
-   <h2 class="h2">Vos elegís dónde bailamos.</h2>
-   <p class="regla">Cada lugar suma sus votos más los «Me da igual». El que llegue más alto se elige, si alcanza <span class="minimoTxt"></span> personas. Si votaste por otro lugar, te devolvemos el 100 %.</p>
+   <p class="kicker">El lugar</p>
+   <h2 class="h2">Bailamos en Espacio Hamsa.</h2>
    <div class="lugares" id="lugaresLista"></div>
-   <p class="lede" style="margin-top:28px">Confirmamos el <b id="fechaLimite1"></b>. Si ningún lugar llega a <span class="minimoTxt"></span>, la noche se cancela y te devolvemos el 100 % de lo que pagaste.</p>
   </div>
  </section>
 
@@ -237,14 +235,6 @@ a{color:inherit}
     <input id="nombre" autocomplete="name" required>
     <label for="tel">Teléfono / WhatsApp</label>
     <input id="tel" type="tel" autocomplete="tel" inputmode="tel" required>
-    <label for="lugar">Lugar preferido</label>
-    <select id="lugar" required>
-     <option value="" disabled selected>Elegí una opción</option>
-     <option>Casa Ínima</option>
-     <option>Espacio Hamsa</option>
-     <option>Wellness Camp</option>
-     <option>Me da igual</option>
-    </select>
     <label for="plazas">Cantidad de lugares</label>
     <input id="plazas" type="number" min="1" max="20" value="1" required>
     <button class="btn btn--red" type="submit">Reservar por WhatsApp</button>
@@ -261,7 +251,7 @@ a{color:inherit}
     <li><b>Reservá</b> con el formulario: te abre WhatsApp con tu mensaje listo.</li>
     <li><b>Pagá tu lugar:</b> $8.000 por transferencia o $8.500 con Mercado Pago (ver abajo).</li>
     <li><b>Mandanos el comprobante</b> por el mismo chat de WhatsApp.</li>
-    <li>Te respondemos <b>“Pago recibido”</b>: esa es tu confirmación, y sumamos tu lugar al contador.</li>
+    <li>Te respondemos <b>“Pago recibido”</b>: esa es tu confirmación.</li>
    </ol>
    <div class="opciones">
     <div class="opcion">
@@ -279,7 +269,7 @@ a{color:inherit}
      <a class="btn btn--red" href="https://mpago.la/1cTAuUA" target="_blank" rel="noopener">Pagar con Mercado Pago</a>
     </div>
    </div>
-   <p class="aviso">Confirmamos el lugar el <b id="fechaLimite2"></b>. Si ningún lugar llega al cupo mínimo, o si votaste por un lugar que no fue elegido, te devolvemos el 100 % a la misma cuenta.</p>
+   <p class="aviso">El viernes 20 de noviembre, reservá por WhatsApp y pagá $10.000 por persona en la entrada a partir de las 20 h.</p>
   </div>
  </section>
 </main>
@@ -308,26 +298,14 @@ a{color:inherit}
 </footer>
 
 <script>
- // ← actualizar a mano: lugares pagados según la respuesta «Lugar preferido»
- const votos = { inima: 0, hamsa: 0, wellness: 0, igual: 0 };
- const minimo = 30;     // ← cupo mínimo por lugar
-
- // ← fotos: poner 2 o 3 archivos por lugar en la carpeta «fotos» (los que falten se ocultan solos)
+ // ← fotos: poner 2 o 3 archivos en la carpeta «fotos» (los que falten se ocultan solos)
  const lugares = [
-  { id: 'inima', nombre: 'Casa Ínima', dir: 'Bogado 571, San Isidro',
-    fotos: ['fotos/casa-inima-1.jpg', 'fotos/casa-inima-2.jpg', 'fotos/casa-inima-3.jpg'],
-    links: [['Instagram @casainima', 'https://www.instagram.com/casainima/']] },
   { id: 'hamsa', nombre: 'Espacio Hamsa', dir: 'Hidalgo 1470, CABA',
     fotos: ['fotos/espacio-hamsa-1.jpg', 'fotos/espacio-hamsa-2.jpg', 'fotos/espacio-hamsa-3.jpg'],
     links: [['Ver el espacio', 'https://www.escuelatantrica.org/event-details/deseo-pasion-y-espiritu-modulo-8']] },
-  { id: 'wellness', nombre: 'Wellness Camp', dir: 'Defensa 682, San Telmo',
-    fotos: ['fotos/wellness-camp-1.jpg', 'fotos/wellness-camp-2.jpg', 'fotos/wellness-camp-3.jpg'],
-    links: [['Instagram @wellnesscamp.centro', 'https://www.instagram.com/wellnesscamp.centro/'],
-            ['Facebook wellnesscamp', 'https://www.facebook.com/wellnesscamp']] },
  ];
  const alias = 'CHEONDAN';                    // ← alias para transferir
  const titular = 'Charles Di Maria';           // ← nombre que aparece al transferir
- const fechaLimite = 'jueves 19 de noviembre'; // ← día en que se confirma o cancela
  const precio = 8000;     // ← por transferencia
  const precioMP = 8500;   // ← con Mercado Pago
 
@@ -338,9 +316,7 @@ a{color:inherit}
   { video: '_xuatd1_CVQ', start: 0, img: 'hqdefault' },   // bal en el Berry
   { lugar: 0 },
   { video: '6uVbDwjf-AI', start: 60, img: 'hq1' },        // parejas al aire libre, Le Son Continu 2022
-  { lugar: 1 },
   { video: 'I2II5rx77Xg', start: 393, img: 'hq2' },       // danza en grupo al sol, Le Son Continu 2025
-  { lugar: 2 },
   { video: 'bihxTG0Pyhk', start: 40, img: 'hq1' },        // Le Son Continu 2018
  ];
  const HERO_SECONDS = 5;
@@ -348,17 +324,10 @@ a{color:inherit}
  const $ = id => document.getElementById(id);
  $('alias').textContent = alias;
  $('titular').textContent = titular;
- $('fechaLimite1').textContent = fechaLimite;
- $('fechaLimite2').textContent = fechaLimite;
- document.querySelectorAll('.minimoTxt').forEach(e => e.textContent = minimo);
 
  const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
- const totales = lugares.map(l => (votos[l.id] || 0) + (votos.igual || 0));
- const max = Math.max(...totales);
- lugares.forEach((l, i) => {
-  const total = totales[i];
-  const lider = total > 0 && total === max;
-  const card = el('article', 'lugar' + (lider ? ' lugar--lider' : ''));
+ lugares.forEach(l => {
+  const card = el('article', 'lugar');
 
   const fotos = el('div', 'fotos');
   const pista = el('p', 'fotos__pista', 'Deslizá para ver más fotos →');
@@ -390,23 +359,6 @@ a{color:inherit}
   mapa.src = 'https://maps.google.com/maps?q=' + encodeURIComponent(l.dir + ', Buenos Aires, Argentina') + '&z=15&output=embed';
   cuerpo.insertBefore(mapa, links);
 
-  const bar = el('div', 'bar');
-  bar.setAttribute('role', 'progressbar');
-  bar.setAttribute('aria-label', 'Personas para ' + l.nombre);
-  bar.setAttribute('aria-valuemin', 0);
-  bar.setAttribute('aria-valuemax', minimo);
-  bar.setAttribute('aria-valuenow', Math.min(total, minimo));
-  const fill = el('div', 'fill');
-  bar.append(fill);
-  setTimeout(() => fill.style.width = Math.min(100, total / minimo * 100) + '%', 60);
-  const cuenta = el('p', 'lugar__cuenta');
-  cuenta.append(el('b', null, total), document.createTextNode(' / ' + minimo + ' · ' + (votos[l.id] || 0) + ' votos + ' + (votos.igual || 0) + ' «Me da igual»'));
-  const falta = minimo - total;
-  const estado = el('p', 'lugar__estado',
-   total >= minimo && lider ? '¡Llegó a ' + minimo + ' y va primero!'
-   : total >= minimo ? 'Llegó a ' + minimo + ', pero otro lugar va primero.'
-   : 'Faltan ' + falta + (falta === 1 ? ' persona' : ' personas') + (lider ? ' · va primero' : ''));
-  cuerpo.append(bar, cuenta, estado);
   card.append(cuerpo);
   $('lugaresLista').append(card);
  });
@@ -484,9 +436,8 @@ a{color:inherit}
  $('form').addEventListener('submit', e => {
   e.preventDefault();
   const n = Math.max(1, parseInt($('plazas').value, 10) || 1);
-  const lugar = $('lugar').value;
   const msg = 'Hola! Quiero reservar ' + n + (n === 1 ? ' lugar' : ' lugares') +
-   ' para la Noche de Danzas Francesas (viernes 20/11, 20 h). Lugar preferido: ' + lugar + '. Nombre: ' +
+   ' para la Noche de Danzas Francesas (viernes 20/11, 20 h) en Espacio Hamsa, Hidalgo 1470, CABA. Nombre: ' +
    $('nombre').value.trim() + ' – Tel: ' + $('tel').value.trim() +
    '. Total: $' + (n * precio).toLocaleString('es-AR') + ' por transferencia al alias ' + alias +
    ', o $' + (n * precioMP).toLocaleString('es-AR') + ' con Mercado Pago.';
