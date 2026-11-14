@@ -235,7 +235,7 @@ a{color:inherit}
     <input id="nombre" autocomplete="name" required>
     <label for="tel">Teléfono / WhatsApp</label>
     <input id="tel" type="tel" autocomplete="tel" inputmode="tel" required>
-    <label for="plazas">Cantidad de lugares</label>
+    <label for="plazas">¿Cuántas personas?</label>
     <input id="plazas" type="number" min="1" max="20" value="1" required>
     <button class="btn btn--red" type="submit">Reservar por WhatsApp</button>
     <p class="form__nota">Tus datos solo se usan para tu reserva.</p>
@@ -249,7 +249,7 @@ a{color:inherit}
    <h2 class="h2">Cuatro pasos, y tu lugar está asegurado.</h2>
    <ol class="pasos">
     <li><b>Reservá</b> con el formulario: te abre WhatsApp con tu mensaje listo.</li>
-    <li><b>Pagá tu lugar:</b> $8.000 por transferencia o $8.500 con Mercado Pago (ver abajo).</li>
+    <li><b>Pagá tu entrada:</b> $8.000 por transferencia o $8.500 con Mercado Pago (ver abajo).</li>
     <li><b>Mandanos el comprobante</b> por el mismo chat de WhatsApp.</li>
     <li>Te respondemos <b>“Pago recibido”</b>: esa es tu confirmación.</li>
    </ol>
@@ -257,15 +257,15 @@ a{color:inherit}
     <div class="opcion">
      <p class="opcion__tag">Opción 1 · sin comisión</p>
      <h3 class="opcion__titulo">Transferencia</h3>
-     <p><b>$8.000</b> por lugar</p>
+     <p><b>$8.000</b> por persona</p>
      <p>Alias <b class="alias" id="alias"></b><br>Titular: <span id="titular"></span></p>
      <button class="btn btn--line" type="button" id="copiar">Copiar alias</button>
     </div>
     <div class="opcion">
      <p class="opcion__tag">Opción 2 · tarjeta o dinero en cuenta</p>
      <h3 class="opcion__titulo">Mercado Pago</h3>
-     <p><b>$8.500</b> por lugar (incluye la comisión de Mercado Pago)</p>
-     <p>Crédito, débito o saldo de Mercado Pago. Un pago por cada lugar.</p>
+     <p><b>$8.500</b> por persona (incluye la comisión de Mercado Pago)</p>
+     <p>Crédito, débito o saldo de Mercado Pago. Un pago por cada persona.</p>
      <a class="btn btn--red" href="https://mpago.la/1cTAuUA" target="_blank" rel="noopener">Pagar con Mercado Pago</a>
     </div>
    </div>
@@ -436,8 +436,8 @@ a{color:inherit}
  $('form').addEventListener('submit', e => {
   e.preventDefault();
   const n = Math.max(1, parseInt($('plazas').value, 10) || 1);
-  const msg = 'Hola! Quiero reservar ' + n + (n === 1 ? ' lugar' : ' lugares') +
-   ' para la Noche de Danzas Francesas (viernes 20/11, 20 h) en Espacio Hamsa, Hidalgo 1470, CABA. Nombre: ' +
+  const msg = 'Hola! Quiero reservar para ' + n + (n === 1 ? ' persona' : ' personas') +
+   ' la Noche de Danzas Francesas (viernes 20/11, 20 h) en Espacio Hamsa, Hidalgo 1470, CABA. Nombre: ' +
    $('nombre').value.trim() + ' – Tel: ' + $('tel').value.trim() +
    '. Total: $' + (n * precio).toLocaleString('es-AR') + ' por transferencia al alias ' + alias +
    ', o $' + (n * precioMP).toLocaleString('es-AR') + ' con Mercado Pago.';
